@@ -15,6 +15,26 @@ class ProgressReporter:
             # Progress is user-facing, but stderr keeps stdout available for protocols.
             print(f"[progress] {message}", file=sys.stderr)
 
+    def notification(
+        self, source: str, progress: float, total: float | None, message: str | None
+    ) -> None:
+        if not self.enabled:
+            return
+
+        if total:
+            status = f"{progress:g}/{total:g}"
+        else:
+            status = f"{progress:g}"
+
+        detail = f" - {message}" if message else ""
+        # These updates come from MCP notifications, not local client-side timers.
+        print(f"[mcp notification] {source}: {status}{detail}", file=sys.stderr)
+
+    def server_log(self, source: str, level: str, message: object) -> None:
+        if self.enabled:
+            # Server log notifications are protocol events sent by the MCP server.
+            print(f"[mcp log] {source} {level}: {message}", file=sys.stderr)
+
     @contextmanager
     def step(self, message: str) -> Iterator[None]:
         if not self.enabled:

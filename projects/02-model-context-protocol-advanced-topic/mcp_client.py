@@ -6,6 +6,7 @@ from typing import Optional, Any
 from contextlib import AsyncExitStack
 from mcp import ClientSession, StdioServerParameters, types
 from mcp.client.stdio import stdio_client
+from mcp.types import LoggingMessageNotificationParams
 
 from core.logging import configure_logging, get_logger
 from core.progress import ProgressReporter
@@ -50,12 +51,38 @@ class MCPClient:
             stdio_client(server_params)
         )
         _stdio, _write = stdio_transport
+        # The logging callback receives MCP notifications/message events from the server.
         self._session = await self._exit_stack.enter_async_context(
-            ClientSession(_stdio, _write)
+            ClientSession(_stdio, _write, logging_callback=self._handle_server_log)
         )
         await self._session.initialize()
         logger.info("MCP client '%s' initialized", self.name)
         self.progress.info(f"MCP server '{self.name}' connected")
+
+    async def _handle_server_log(
+        self, params: LoggingMessageNotificationParams
+    ) -> None:
+        logger.info(
+            "MCP server log from '%s' level=%s logger=%s data=%s",
+            self.name,
+            params.level,
+            params.logger,
+            params.data,
+        )
+        self.progress.server_log(self.name, params.level, params.data)
+
+    async def _handle_tool_progress(
+        self, tool_name: str, progress: float, total: float | None, message: str | None
+    ) -> None:
+        logger.info(
+            "MCP progress notification for tool '%s' on client '%s': %s/%s %s",
+            tool_name,
+            self.name,
+            progress,
+            total,
+            message,
+        )
+        self.progress.notification(f"{self.name}.{tool_name}", progress, total, message)
 
     def session(self) -> ClientSession:
         if self._session is None:
@@ -78,7 +105,15 @@ class MCPClient:
         logger.info("Calling MCP tool '%s' on client '%s'", tool_name, self.name)
         # Tool calls can take time, so show a start/end progress message around them.
         with self.progress.step(f"running tool '{tool_name}'"):
-            result = await self.session().call_tool(tool_name, tool_input)
+            # Passing progress_callback asks the SDK to attach a progressToken to
+            # this request and route notifications/progress messages back here.
+            result = await self.session().call_tool(
+                tool_name,
+                tool_input,
+                progress_callback=lambda progress, total, message: self._handle_tool_progress(
+                    tool_name, progress, total, message
+                ),
+            )
         logger.info(
             "MCP tool '%s' on client '%s' completed with isError=%s",
             tool_name,

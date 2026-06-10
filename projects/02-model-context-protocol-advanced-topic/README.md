@@ -8,6 +8,7 @@ server, but this version adds:
 
 - structured logging for MCP client, server, CLI, chat, resource, prompt, and tool flows
 - user-facing progress messages while MCP servers connect and operations run
+- MCP protocol notifications for server-sent progress and log events
 - beginner-friendly comments around the logging and progress code paths
 
 ## What This Project Demonstrates
@@ -22,6 +23,8 @@ This project shows how to:
 - keep logs on `stderr` so MCP `stdio` protocol messages are not corrupted
 - give each module a named logger with `get_logger(__name__)`
 - wrap slow MCP operations in progress steps
+- receive `notifications/progress` events from the MCP server
+- receive server log notifications through the MCP client session
 - trace MCP tools, resources, and prompts without printing full document content
 
 ## Project Structure
@@ -97,12 +100,12 @@ Example log coverage:
 - server-side document reads and edits
 - CLI resource and prompt refresh failures
 
-## Progress
+## Local Progress
 
 Progress output is handled by `core/progress.py`.
 
-Progress messages are meant for the person using the CLI. They are shorter and
-friendlier than logs:
+Local progress messages are created by the client application. They are meant
+for the person using the CLI, and they are shorter and friendlier than logs:
 
 ```text
 [progress] starting MCP chat application
@@ -117,7 +120,7 @@ Progress is enabled by default. Disable it with:
 MCP_PROGRESS=0 uv run main.py
 ```
 
-Progress currently wraps:
+Local progress currently wraps:
 
 - MCP server connection
 - tool loading
@@ -125,6 +128,42 @@ Progress currently wraps:
 - prompt fetching
 - resource reads
 - tool execution
+
+## MCP Notifications
+
+MCP notifications are protocol-level events. Unlike local progress messages,
+they are sent through MCP between the server and the client.
+
+This project implements two notification paths:
+
+- `notifications/progress`: emitted by the server during a long-running tool call
+- `notifications/message`: emitted by the server as MCP log messages
+
+The demo tool is `analyze_doc_structure` in `mcp_server.py`. It receives a
+FastMCP `Context`, then calls:
+
+```python
+await ctx.report_progress(1, 4, "counting characters")
+await ctx.log("info", "Finished document analysis")
+```
+
+The client enables progress notifications by passing `progress_callback` to
+`ClientSession.call_tool(...)` in `mcp_client.py`. The SDK attaches a progress
+token to the tool request, and the server uses that token when it sends
+`notifications/progress` events back.
+
+When notifications arrive, the CLI displays them like this:
+
+```text
+[mcp log] documents info: Starting document analysis for deposition.md
+[mcp notification] documents.analyze_doc_structure: 1/4 - counting characters
+[mcp notification] documents.analyze_doc_structure: 4/4 - analysis complete
+```
+
+This is the key difference:
+
+- local progress tells the user what the client is doing
+- MCP notifications tell the client what the server is doing
 
 ## Usage
 
@@ -146,6 +185,13 @@ Run a server-provided prompt with `/`:
 > /format deposition.md
 ```
 
+Trigger the notification demo by asking Claude to analyze a document structure,
+or by calling the `analyze_doc_structure` tool from MCP Inspector:
+
+```text
+Analyze the structure of deposition.md
+```
+
 The CLI autocomplete uses MCP resources and prompts, so startup logging/progress
 will show those discovery calls.
 
@@ -157,8 +203,9 @@ You can inspect the server directly with MCP Inspector:
 uv run mcp dev mcp_server.py
 ```
 
-Use the Inspector to call the document tools, list resources, and fetch prompts.
-Server logs will still go to `stderr`.
+Use the Inspector to call the document tools, list resources, fetch prompts, and
+try the `analyze_doc_structure` notification demo. Server logs will still go to
+`stderr`.
 
 ## Notes
 

@@ -1,4 +1,6 @@
-from mcp.server.fastmcp import FastMCP
+import asyncio
+
+from mcp.server.fastmcp import Context, FastMCP
 from mcp.server.fastmcp.prompts import base
 from pydantic import Field
 
@@ -23,6 +25,11 @@ docs = {
 }
 
 
+async def _pause_for_demo() -> None:
+    # A tiny pause makes progress notifications visible when testing locally.
+    await asyncio.sleep(0.2)
+
+
 @mcp.tool(name="read_doc_contents", description="Read the contents of a document and return it as string.")
 def read_document(doc_id: str = Field(description="The ID of the document to read.")) -> str:
     # Log the operation before doing the lookup so failures are traceable too.
@@ -43,6 +50,49 @@ def edit_document(doc_id: str = Field(description="The ID of the document to edi
     
     docs[doc_id] = docs[doc_id].replace(old_str, new_str)
     logger.info("Edited document '%s'", doc_id)
+
+
+@mcp.tool(
+    name="analyze_doc_structure",
+    description="Analyze a document and report progress through MCP notifications.",
+)
+async def analyze_doc_structure(
+    doc_id: str = Field(description="The ID of the document to analyze."),
+    ctx: Context | None = None,
+) -> str:
+    # Context gives tools access to MCP protocol features like notifications.
+    logger.info("Analyzing document structure for '%s'", doc_id)
+    if ctx is None:
+        raise RuntimeError("MCP Context is required for progress notifications.")
+
+    if doc_id not in docs:
+        logger.warning("Document '%s' was not found", doc_id)
+        raise ValueError(f"Document with ID '{doc_id}' not found.")
+
+    await ctx.log("info", f"Starting document analysis for {doc_id}")
+    await ctx.report_progress(0, 4, "starting analysis")
+    await _pause_for_demo()
+
+    content = docs[doc_id]
+    await ctx.report_progress(1, 4, "counting characters")
+    await _pause_for_demo()
+
+    words = content.split()
+    await ctx.report_progress(2, 4, "counting words")
+    await _pause_for_demo()
+
+    sentences = [part for part in content.split(".") if part.strip()]
+    await ctx.report_progress(3, 4, "counting sentences")
+    await _pause_for_demo()
+
+    await ctx.report_progress(4, 4, "analysis complete")
+    await ctx.log("info", f"Finished document analysis for {doc_id}")
+
+    return (
+        f"Analysis for {doc_id}: "
+        f"{len(content)} characters, {len(words)} words, "
+        f"{len(sentences)} sentences."
+    )
 
 @mcp.resource("docs://documents", mime_type="application/json")
 def list_docs() -> list[str]:
