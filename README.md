@@ -60,6 +60,8 @@ Each project has a detailed build guide. Tick the box when its "Definition of do
 - [ ] **01 — Customer Support Resolution Agent** · Scenario 1 · Domains 1, 2, 5
   → [`certification/projects/01-customer-support-agent.md`](certification/projects/01-customer-support-agent.md)
   *(agentic loop, deterministic gates, structured errors, hooks, escalation calibration)*
+  — split into 5 phases; in-depth Phase 1 walkthrough (with code) in
+  [`01-customer-support-agent-phase-1.md`](certification/projects/01-customer-support-agent-phase-1.md)
 - [ ] **02 — Claude Code Team Workflow** · Scenario 2 · Domains 3, 2, 5
   → [`certification/projects/02-claude-code-team-workflow.md`](certification/projects/02-claude-code-team-workflow.md)
   *(CLAUDE.md hierarchy, path rules, commands, skills, MCP config, plan mode)*
@@ -85,6 +87,17 @@ Each project has a detailed build guide. Tick the box when its "Definition of do
 | 3 — Claude Code Configuration & Workflows (20%) | 02, 05, 06 |
 | 4 — Prompt Engineering & Structured Output (20%) | 03, 05 |
 | 5 — Context Management & Reliability (15%) | 01, 03, 04, 06 |
+
+### Official Preparation Exercises (source)
+
+The Exam Guide ships **4 official Preparation Exercises** (pp. 33–36). These files record each one
+**verbatim** with a step→build mapping to the projects above. (The exam has only 4 exercises, so
+projects 05–06 are my own additions with no official source.)
+
+- [`prep-exercise-01-multi-tool-agent.md`](certification/projects/prep-exercise-01-multi-tool-agent.md) → Project 01
+- [`prep-exercise-02-claude-code-team-workflow.md`](certification/projects/prep-exercise-02-claude-code-team-workflow.md) → Project 02
+- [`prep-exercise-03-structured-data-extraction.md`](certification/projects/prep-exercise-03-structured-data-extraction.md) → Project 03
+- [`prep-exercise-04-multi-agent-research.md`](certification/projects/prep-exercise-04-multi-agent-research.md) → Project 04
 
 ---
 
@@ -117,15 +130,21 @@ certification/
   NOTES-TOPICS.md              # checklist of theory topics to write notes on
   STUDY-PLAN.md                # 60-day day-by-day tracker (driven via /today and /log)
   projects/
-    01-customer-support-agent.md
+    01-customer-support-agent.md             # phased build guide (5 phases)
+    01-customer-support-agent-phase-1.md     # in-depth Phase 1 walkthrough (code)
     02-claude-code-team-workflow.md
     03-structured-data-extraction.md
     04-multi-agent-research.md
     05-claude-code-cicd.md
     06-developer-productivity-explorer.md
+    prep-exercise-01-multi-tool-agent.md     # official Exam Guide exercises (verbatim source)
+    prep-exercise-02-claude-code-team-workflow.md
+    prep-exercise-03-structured-data-extraction.md
+    prep-exercise-04-multi-agent-research.md
 projects/
   01-introduction-to-model-context-protocol/
   02-model-context-protocol-advanced-topic/
+  cert-01-customer-support-agent/            # Project 01 implementation (in progress)
 ```
 
 More notes, projects, and exam-prep material can be added as the learning path grows.
