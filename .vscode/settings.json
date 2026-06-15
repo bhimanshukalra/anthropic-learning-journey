@@ -1,0 +1,8 @@
+{
+  // Repo root is the VS Code workspace. Point Pylance at the cert project's
+  // venv so `mcp`, `anthropic`, etc. resolve while you work on Project 01.
+  // (The other projects under projects/ have their own .venv — re-point this,
+  // or open a subfolder directly, when you switch to one of them.)
+  "python.defaultInterpreterPath": "${workspaceFolder}/projects/cert-01-customer-support-agent/.venv/bin/python",
+  "python.terminal.activateEnvironment": true
+}
