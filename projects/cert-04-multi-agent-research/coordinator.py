@@ -6,16 +6,40 @@ class Coordinator:
         self.subagents = subagents
 
     def decompose(self, query: str) -> list[dict]:
-        """Query -> [{agent, prompt}]"""
-        return [{"agent": "web_search", "prompt": f"Find sources on: {query}"}]
+        """Goals, not procedures."""
+        subdomains = ["music", "film", "writing", "visual"]
+        return [
+            {
+                "agent": "web_search",
+                "prompt": f"Goal: find dated, credible sources on {sd} for: {query}.",
+            }
+            for sd in subdomains
+        ]
 
     async def spawn(self, agent: str, prompt: str) -> dict:
         return await self.subagents[agent].run(prompt)
 
-    async def run(self, query: str) -> dict:
+    async def gather_findings(
+        self, tasks: list[dict], parallel: bool = True
+    ) -> list[dict]:
+        if parallel:
+            return await asyncio.gather(
+                *(self.spawn(t["agent"], t["prompt"]) for t in tasks)
+            )
+        out = []
+        for t in tasks:
+            out.append(await self.spawn(t["agent"], t["prompt"]))
+        return out
+
+    async def run(self, query: str, parallel: bool = True) -> dict:
         tasks = self.decompose(query)
-        # parallel = ONE step, MANY spawns, gather, don't await in a loop
-        results = await asyncio.gather(
-            *(self.spawn(t["agent"], t["prompt"]) for t in tasks)
-        )
-        return {"query": query, "results": results}
+        findings = await self.gather_findings(tasks, parallel=parallel)
+        joined = "\n".join(f"- {f['agent']: f['text']}" for f in findings)
+        synth_prompt = f"Synthsize a cited overview for: {query}\nFINDINGS:\n{joined}"
+        synthesis = await self.spawn("synthesis", synth_prompt)
+        return {
+            "query": query,
+            "findings": findings,
+            "synthesis": synthesis,
+            "synth_prompt": synth_prompt,
+        }

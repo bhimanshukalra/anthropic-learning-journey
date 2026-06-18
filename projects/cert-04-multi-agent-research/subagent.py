@@ -1,4 +1,7 @@
+import asyncio
 from dataclasses import dataclass, field
+
+STUB_LATENCY_S = 0.5
 
 
 @dataclass
@@ -9,14 +12,21 @@ class AgentDefinition:
 
 
 class Subagent:
-    def __init__(self, definition: AgentDefinition, claude=None):
+    def __init__(self, definition: AgentDefinition, claude=None, stub_responder=None):
         self.definition = definition
         self.claude = claude
+        self.stub_responder = stub_responder
 
     async def run(self, prompt: str) -> dict:
-        """Run on an explicit prompt. Stub mode returns deterministic output - zero credits"""
+        """Run on an explicit prompt."""
         if self.claude is None:
-            return {"agent": self.definition.name, "stub": True, "saw": prompt[:60]}
+            await asyncio.sleep(STUB_LATENCY_S)
+            text = (
+                self.stub_responder(prompt)
+                if self.stub_responder
+                else f"[stub: {self.definition.name}]"
+            )
+            return {"agent": self.definition.name, "text": text}
         msg = self.claude.chat(
             messages=[{"role": "user", "content": prompt}],
             system=self.definition.system,
