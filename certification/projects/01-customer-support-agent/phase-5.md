@@ -1,9 +1,9 @@
 # Project 01 · Phase 5 — Write up the answers ⭐
 
-> **Companion to:** [`01-customer-support-agent.md`](01-customer-support-agent.md) (overview) and the
-> four build-phase guides ([1](01-customer-support-agent-phase-1.md) ·
-> [2](01-customer-support-agent-phase-2.md) · [3](01-customer-support-agent-phase-3.md) ·
-> [4](01-customer-support-agent-phase-4.md)). **No code in this phase.**
+> **Companion to:** [`overview.md`](overview.md) (overview) and the
+> four build-phase guides ([1](phase-1.md) ·
+> [2](phase-2.md) · [3](phase-3.md) ·
+> [4](phase-4.md)). **No code in this phase.**
 
 This is the **actual exam payload**. Everything you built was so you can answer these four questions
 *cold*, in your own words, explaining the tradeoff — not reciting a definition. The exam is "what is
@@ -103,7 +103,7 @@ time, it belongs in a hook.
 - [ ] Write your own version of all four answers and paste them into your notes (the file in your
   `memory/` notes, or `NOTES-TOPICS.md`) — *your wording*, not this file's.
 - [ ] Tick the Phase 5 box and the remaining boxes in
-  [`01-customer-support-agent.md`](01-customer-support-agent.md).
+  [`overview.md`](overview.md).
 - [ ] (When you have credits) run the deferred **model-level** checks — Phase 2 §4c, Phase 3 §5c,
   Phase 4 §5c — to confirm the *behaviors*, not just the deterministic code.
 - [ ] Commit and run `/log`.

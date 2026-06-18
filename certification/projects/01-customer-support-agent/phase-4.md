@@ -1,9 +1,9 @@
 # Project 01 · Phase 4 — Implementation Guide: *Judgment & context* ⭐
 
-> **Companion to:** [`01-customer-support-agent.md`](01-customer-support-agent.md) (overview),
-> [`-phase-1.md`](01-customer-support-agent-phase-1.md) (runnable agent),
-> [`-phase-2.md`](01-customer-support-agent-phase-2.md) (structured errors + the gate), and
-> [`-phase-3.md`](01-customer-support-agent-phase-3.md) (hooks). This is the in-depth walkthrough for
+> **Companion to:** [`overview.md`](overview.md) (overview),
+> [`-phase-1.md`](phase-1.md) (runnable agent),
+> [`-phase-2.md`](phase-2.md) (structured errors + the gate), and
+> [`-phase-3.md`](phase-3.md) (hooks). This is the in-depth walkthrough for
 > **Phase 4 only** — build it yourself; the snippets are a reference to compare against.
 
 **Phase 4 covers build steps 6–7** (Domains **5.2** Escalation, **1.4** Decomposition/Handoff, **5.1**
@@ -270,7 +270,7 @@ With `uv run main.py`:
 
 ## 7. Close out the phase
 
-- [ ] Tick the three Phase 4 boxes in [`01-customer-support-agent.md`](01-customer-support-agent.md).
+- [ ] Tick the three Phase 4 boxes in [`overview.md`](overview.md).
 - [ ] Re-run `test_hooks.py` (handoff signature change touches the Phase 3 redirect) + add the
   §5a/§5b tests.
 - [ ] Notes one-liner: *"Escalate on request/policy-gap/no-progress only (not complexity/sentiment/
@@ -278,7 +278,7 @@ With `uv run main.py`:
   at the top so summarization can't drop the numbers."*
 - [ ] Commit (this repo commits straight to `main`):
   ```bash
-  git add projects/cert-01-customer-support-agent certification/projects/01-customer-support-agent.md
+  git add projects/cert-01-customer-support-agent certification/projects/overview.md
   git commit -m "Project 01 Phase 4: escalation calibration, structured handoff, case-facts block"
   ```
 - [ ] Run `/log`.

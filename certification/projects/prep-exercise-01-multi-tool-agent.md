@@ -2,8 +2,8 @@
 
 > **Source:** Official Claude Certified Architect – Foundations Exam Guide, *Preparation Exercises*, p. 33.
 > This file records the exercise **verbatim**. Our deeper build guide is
-> [`01-customer-support-agent.md`](01-customer-support-agent/01-customer-support-agent.md) (phased) with the Phase 1 walkthrough
-> in [`01-customer-support-agent-phase-1.md`](01-customer-support-agent/01-customer-support-agent-phase-1.md).
+> [`overview.md`](01-customer-support-agent/overview.md) (phased) with the Phase 1 walkthrough
+> in [`phase-1.md`](01-customer-support-agent/phase-1.md).
 > **Domains reinforced:** 1 (Agentic Architecture), 2 (Tool Design & MCP), 5 (Context & Reliability).
 
 ## Objective (verbatim)
@@ -27,7 +27,7 @@ patterns.
    decomposes the request, handles each concern, and synthesizes a unified response.
 
 ## How these official steps map to our build
-| Official step | Our build (`01-customer-support-agent.md`) |
+| Official step | Our build (`overview.md`) |
 |---------------|--------------------------------------------|
 | 1 — differentiate 3–4 tools, ≥2 similar | Phase 1, step 1 (`get_customer` vs `lookup_order`) |
 | 2 — `stop_reason` agentic loop | Phase 1, step 2 |

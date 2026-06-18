@@ -58,10 +58,10 @@ Don't read the files manually each day — drive the plan with two project-scope
 Each project has a detailed build guide. Tick the box when its "Definition of done" checklist passes.
 
 - [ ] **01 — Customer Support Resolution Agent** · Scenario 1 · Domains 1, 2, 5
-  → [`certification/projects/01-customer-support-agent/01-customer-support-agent.md`](certification/projects/01-customer-support-agent/01-customer-support-agent.md)
+  → [`certification/projects/01-customer-support-agent/overview.md`](certification/projects/01-customer-support-agent/overview.md)
   *(agentic loop, deterministic gates, structured errors, hooks, escalation calibration)*
   — split into 5 phases; in-depth Phase 1 walkthrough (with code) in
-  [`01-customer-support-agent-phase-1.md`](certification/projects/01-customer-support-agent/01-customer-support-agent-phase-1.md)
+  [`phase-1.md`](certification/projects/01-customer-support-agent/phase-1.md)
 - [ ] **02 — Claude Code Team Workflow** · Scenario 2 · Domains 3, 2, 5
   → [`certification/projects/02-claude-code-team-workflow.md`](certification/projects/02-claude-code-team-workflow.md)
   *(CLAUDE.md hierarchy, path rules, commands, skills, MCP config, plan mode)*
@@ -131,8 +131,8 @@ certification/
   STUDY-PLAN.md                # 60-day day-by-day tracker (driven via /today and /log)
   projects/
     01-customer-support-agent/               # Project 01 guides (overview + 5 phases + production)
-      01-customer-support-agent.md           # phased build guide (5 phases)
-      01-customer-support-agent-phase-1.md   # in-depth Phase 1 walkthrough (code)
+      overview.md           # phased build guide (5 phases)
+      phase-1.md   # in-depth Phase 1 walkthrough (code)
       ...                                    # phase-2..5 + production
     02-claude-code-team-workflow.md
     03-structured-data-extraction.md

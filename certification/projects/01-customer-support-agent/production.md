@@ -1,6 +1,6 @@
 # Project 01 · Production Readiness — from mock backend to real
 
-> **Companion to:** [`01-customer-support-agent.md`](01-customer-support-agent.md) and the five phase
+> **Companion to:** [`overview.md`](overview.md) and the five phase
 > guides. This is **beyond CCA-F exam scope** (the exam explicitly excludes hosting, infra, auth
 > protocols, rate limits, and deployment) — it's the *Architect-role* backlog for taking the agent to
 > production. We'll pick these off **one at a time**; tick the box when an item lands with tests.

@@ -1,8 +1,8 @@
 # Project 01 · Phase 3 — Implementation Guide: *Hooks* ⭐
 
-> **Companion to:** [`01-customer-support-agent.md`](01-customer-support-agent.md) (overview),
-> [`01-customer-support-agent-phase-1.md`](01-customer-support-agent-phase-1.md) (the runnable agent),
-> and [`01-customer-support-agent-phase-2.md`](01-customer-support-agent-phase-2.md) (structured
+> **Companion to:** [`overview.md`](overview.md) (overview),
+> [`phase-1.md`](phase-1.md) (the runnable agent),
+> and [`phase-2.md`](phase-2.md) (structured
 > errors + the deterministic gate). This file is the in-depth walkthrough for **Phase 3 only** —
 > build it yourself; the snippets are a reference to compare against.
 
@@ -420,13 +420,13 @@ The callback receives `(input_data, tool_use_id, context)` and returns the **sam
 
 ## 7. Close out the phase
 
-- [ ] Tick the two Phase 3 boxes in [`01-customer-support-agent.md`](01-customer-support-agent.md).
+- [ ] Tick the two Phase 3 boxes in [`overview.md`](overview.md).
 - [ ] Notes one-liner: *"PreToolUse intercepts/redirects (refund>$500 → escalate); PostToolUse
   normalizes heterogeneous output (Unix/ISO dates, status codes) before the model reads it; hooks =
   guaranteed compliance, prompts = soft preference."*
 - [ ] Commit (this repo commits straight to `main`):
   ```bash
-  git add projects/cert-01-customer-support-agent certification/projects/01-customer-support-agent.md
+  git add projects/cert-01-customer-support-agent certification/projects/overview.md
   git commit -m "Project 01 Phase 3: PreToolUse/PostToolUse hooks — refund cap + output normalization"
   ```
 - [ ] Run `/log`.

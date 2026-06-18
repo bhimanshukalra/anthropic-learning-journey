@@ -1,6 +1,6 @@
 # Project 01 · Phase 1 — Implementation Guide: *Runnable Agent*
 
-> **Companion to:** [`01-customer-support-agent.md`](01-customer-support-agent.md) (the overview).
+> **Companion to:** [`overview.md`](overview.md) (the overview).
 > **This file is the in-depth walkthrough for Phase 1 only.** Build it yourself — every snippet here
 > is a *reference* to compare against, not code to paste blindly. The learning is in typing it and
 > watching it behave.
@@ -339,12 +339,12 @@ If all three behave, Phase 1 is done.
 
 ## 7. Close out the phase
 
-- [ ] Tick the two Phase 1 boxes in [`01-customer-support-agent.md`](01-customer-support-agent.md).
+- [ ] Tick the two Phase 1 boxes in [`overview.md`](overview.md).
 - [ ] Jot a one-liner for your notes: *"misrouting → fix descriptions first (Q2); loop terminator is
   `stop_reason`, never prose (1.1)."*
 - [ ] Commit it (this repo commits straight to `main`):
   ```bash
-  git add projects/cert-01-customer-support-agent certification/projects/01-customer-support-agent.md
+  git add projects/cert-01-customer-support-agent certification/projects/overview.md
   git commit -m "Project 01 Phase 1: runnable support agent with disambiguated tools"
   ```
 - [ ] Run `/log` for the day.

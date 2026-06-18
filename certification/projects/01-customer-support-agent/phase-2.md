@@ -1,7 +1,7 @@
 # Project 01 · Phase 2 — Implementation Guide: *Reliability core* ⭐
 
-> **Companion to:** [`01-customer-support-agent.md`](01-customer-support-agent.md) (overview) and
-> [`01-customer-support-agent-phase-1.md`](01-customer-support-agent-phase-1.md) (the runnable agent
+> **Companion to:** [`overview.md`](overview.md) (overview) and
+> [`phase-1.md`](phase-1.md) (the runnable agent
 > you already built). This file is the in-depth walkthrough for **Phase 2 only** — build it yourself;
 > the snippets are a reference to compare against.
 
@@ -294,12 +294,12 @@ With `uv run main.py`:
 
 ## 5. Close out the phase
 
-- [ ] Tick the two Phase 2 boxes in [`01-customer-support-agent.md`](01-customer-support-agent.md).
+- [ ] Tick the two Phase 2 boxes in [`overview.md`](overview.md).
 - [ ] Notes one-liner: *"Gate > prompt for hard prerequisites (Q1); empty result ≠ access error;
   isRetryable drives retry-vs-explain."*
 - [ ] Commit (this repo commits straight to `main`):
   ```bash
-  git add projects/cert-01-customer-support-agent certification/projects/01-customer-support-agent.md
+  git add projects/cert-01-customer-support-agent certification/projects/overview.md
   git commit -m "Project 01 Phase 2: structured errors + deterministic verification gate"
   ```
 - [ ] Run `/log`.
