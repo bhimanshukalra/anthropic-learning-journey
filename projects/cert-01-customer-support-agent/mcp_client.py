@@ -62,11 +62,11 @@ class MCPClient:
 
     async def read_resource(self, uri: str) -> Any:
         result = await self.session().read_resource(AnyUrl(uri))
-        resource =  result.contents[0]
+        resource = result.contents[0]
         if isinstance(resource, types.TextResourceContents):
             if resource.mime_type == "application/json":
                 return json.loads(resource.text)
-            
+
             return resource.text
 
     async def cleanup(self):
@@ -90,6 +90,15 @@ async def main():
     ) as _client:
         result = await _client.list_tools()
         print(result)
+
+        r = await _client.call_tool(
+            "process_refund", {"order_id": "67890", "amount": 10}
+        )
+        #   → {"isError": true, "errorCategory": "business", "isRetryable": false, ...}
+        r = await _client.call_tool("lookup_order", {"order_id": "TIMEOUT"})
+        #   → {"isError": true, "errorCategory": "transient", "isRetryable": true, ...}
+        r = await _client.call_tool("lookup_order", {"order_id": "99999"})
+        #   → {"order": null, "found": false}    ← VALID empty, NOT an error envelope
 
 
 if __name__ == "__main__":
