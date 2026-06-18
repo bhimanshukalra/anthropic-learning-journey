@@ -2,8 +2,8 @@
 
 > **Source:** Official Claude Certified Architect – Foundations Exam Guide, *Preparation Exercises*, p. 33.
 > This file records the exercise **verbatim**. Our deeper build guide is
-> [`01-customer-support-agent.md`](01-customer-support-agent.md) (phased) with the Phase 1 walkthrough
-> in [`01-customer-support-agent-phase-1.md`](01-customer-support-agent-phase-1.md).
+> [`01-customer-support-agent.md`](01-customer-support-agent/01-customer-support-agent.md) (phased) with the Phase 1 walkthrough
+> in [`01-customer-support-agent-phase-1.md`](01-customer-support-agent/01-customer-support-agent-phase-1.md).
 > **Domains reinforced:** 1 (Agentic Architecture), 2 (Tool Design & MCP), 5 (Context & Reliability).
 
 ## Objective (verbatim)
