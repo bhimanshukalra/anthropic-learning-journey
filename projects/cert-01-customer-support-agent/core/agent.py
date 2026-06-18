@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from anthropic.types import Message
 from core.claude import Claude
@@ -6,8 +8,8 @@ from datetime import datetime, timezone
 
 SYSTEM = """You are a customer-support resolution agent. Use the tools to look up customers and orders and resolve the request. Pick the single most appropriate tool for each step.
 
-ESCLATE TO A HUMAN only when one of these is true:
-1. The customer EXPLICITLY  asks for a human - escalate immediately, do NOT investigate first.
+ESCALATE TO A HUMAN only when one of these is true:
+1. The customer EXPLICITLY asks for a human - escalate immediately, do NOT investigate first.
 2. POLICY GAP / SILENCE - the policy does not cover the situation (e.g. a competitor price-match)
 3. INABILITY TO PROGRESS — you are blocked and no tool or question can move the case forward.
 
@@ -219,13 +221,26 @@ class SupportAgent:
 
         return results
 
-    @staticmethod
-    def _is_error_envelope(text: str) -> bool:
-        """True if a tool returned the isError envelope (so the API marks the result as an error.)"""
-        try:
-            return bool(json.loads(text).get("isError"))
-        except (ValueError, AttributeError):
-            return False
+    async def _escalate_exhausted(self) -> str:
+        """Runaway guard hit: hand off to a human with a structured handoff, and leave
+        self.messages ending on an assistant turn so a reused agent stays well-formed."""
+        await self.client.call_tool(
+            "escalate_to_human",
+            {
+                "customer_id": self.verified_customer_id or "unknown",
+                "root_cause": "unresolved_after_max_steps",
+                "recommended_action": (
+                    "Agent could not resolve within the step limit; "
+                    "review the conversation and resolve manually."
+                ),
+            },
+        )
+        msg = (
+            "I'm escalating this to a human who will follow up — "
+            "I couldn't resolve it automatically."
+        )
+        self.messages.append({"role": "assistant", "content": msg})
+        return msg
 
     async def run(self, user_text: str, max_steps: int = 8) -> str:
         self.messages.append({"role": "user", "content": user_text})
@@ -236,6 +251,7 @@ class SupportAgent:
                 messages=self.messages,
                 system=SYSTEM + self._case_facts_block(),
                 tools=tools,
+                temperature=0,  # consistent tool routing / escalation decisions
             )
             self.messages.append({"role": "assistant", "content": response.content})
 
@@ -246,4 +262,4 @@ class SupportAgent:
 
             # stop_reason == "end_turn" (or any non-tool stop) -> we're done
             return self.claude.text_from_message(response)
-        return "Stopped after too many steps - please rephrase or contact support."
+        return await self._escalate_exhausted()
