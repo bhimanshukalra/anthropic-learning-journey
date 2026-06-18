@@ -34,8 +34,8 @@ class Coordinator:
     async def run(self, query: str, parallel: bool = True) -> dict:
         tasks = self.decompose(query)
         findings = await self.gather_findings(tasks, parallel=parallel)
-        joined = "\n".join(f"- {f['agent']: f['text']}" for f in findings)
-        synth_prompt = f"Synthsize a cited overview for: {query}\nFINDINGS:\n{joined}"
+        joined = "\n".join(f"- {f['agent']}: {f['text']}" for f in findings)
+        synth_prompt = f"Synthesize a cited overview for: {query}\nFINDINGS:\n{joined}"
         synthesis = await self.spawn("synthesis", synth_prompt)
         return {
             "query": query,

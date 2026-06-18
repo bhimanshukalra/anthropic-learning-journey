@@ -21,7 +21,7 @@ def build(claude=None):
     }
     stubs = {
         "web_search": lambda p: mock_sources.search(p),
-        "synthesis": lambda p: f"Overview build from {p.count("- ")} findings.",
+        "synthesis": lambda p: f"Overview built from {p.count("- ")} findings.",
     }
     subagents = {
         n: Subagent(d, claude=claude, stub_responder=stubs.get(n))
