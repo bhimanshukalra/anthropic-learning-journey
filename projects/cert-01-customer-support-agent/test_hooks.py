@@ -1,3 +1,5 @@
+import asyncio
+
 from core.agent import SupportAgent, hook_latch_verification
 
 a = SupportAgent(claude=None, client=None)
@@ -74,3 +76,31 @@ facts = a._case_facts_block()
 assert "C001" in facts and "12345" in facts and "49.99" in facts
 assert "customer_id" not in a.case_facts["order"]  # verbose field trimmed out
 print("CASE-FACTS TESTS OK")
+
+
+# --- exhaustion path: escalates via the tool AND leaves messages reuse-safe ---
+class _FakeClient:
+    def __init__(self):
+        self.calls = []
+
+    async def call_tool(self, name, args):
+        self.calls.append((name, args))
+        return None
+
+
+# verified customer → handoff carries the latched id
+ex = SupportAgent(claude=None, client=_FakeClient())
+ex.verified_customer_id = "C001"
+ex.messages.append({"role": "user", "content": [{"type": "tool_result"}]})  # loop ended on tool_results
+msg = asyncio.run(ex._escalate_exhausted())
+assert ex.client.calls[0][0] == "escalate_to_human"
+assert ex.client.calls[0][1]["customer_id"] == "C001"
+assert ex.client.calls[0][1]["root_cause"] == "unresolved_after_max_steps"
+assert ex.messages[-1]["role"] == "assistant"  # ends on assistant → reuse-safe
+assert ex.messages[-1]["content"] == msg
+
+# unverified → customer_id falls back to "unknown" (escalate_to_human requires a str)
+ex2 = SupportAgent(claude=None, client=_FakeClient())
+asyncio.run(ex2._escalate_exhausted())
+assert ex2.client.calls[0][1]["customer_id"] == "unknown"
+print("EXHAUSTION-ESCALATION TESTS OK")
