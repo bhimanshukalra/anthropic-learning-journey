@@ -63,7 +63,7 @@ Each project has a detailed build guide. Tick the box when its "Definition of do
   — split into 5 phases; in-depth Phase 1 walkthrough (with code) in
   [`phase-1.md`](certification/projects/01-customer-support-agent/phase-1.md)
 - [ ] **02 — Claude Code Team Workflow** · Scenario 2 · Domains 3, 2, 5
-  → [`certification/projects/02-claude-code-team-workflow.md`](certification/projects/02-claude-code-team-workflow.md)
+  → [`certification/projects/02-claude-code-team-workflow/overview.md`](certification/projects/02-claude-code-team-workflow/overview.md)
   *(CLAUDE.md hierarchy, path rules, commands, skills, MCP config, plan mode)*
 - [ ] **03 — Structured Data Extraction Pipeline** · Scenario 6 · Domains 4, 5
   → [`certification/projects/03-structured-data-extraction.md`](certification/projects/03-structured-data-extraction.md)
@@ -134,7 +134,8 @@ certification/
       overview.md           # phased build guide (5 phases)
       phase-1.md   # in-depth Phase 1 walkthrough (code)
       ...                                    # phase-2..5 + production
-    02-claude-code-team-workflow.md
+    02-claude-code-team-workflow/
+      overview.md
     03-structured-data-extraction.md
     04-multi-agent-research.md
     05-claude-code-cicd.md

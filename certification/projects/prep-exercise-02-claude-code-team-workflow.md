@@ -2,7 +2,7 @@
 
 > **Source:** Official Claude Certified Architect – Foundations Exam Guide, *Preparation Exercises*, p. 34.
 > This file records the exercise **verbatim**. Our deeper build guide is
-> [`02-claude-code-team-workflow.md`](02-claude-code-team-workflow.md).
+> [`overview.md`](02-claude-code-team-workflow/overview.md).
 > **Domains reinforced:** 3 (Claude Code Configuration & Workflows), 2 (Tool Design & MCP).
 
 ## Objective (verbatim)
@@ -24,7 +24,7 @@ integration for a multi-developer project.
    Observe when plan mode provides value.
 
 ## How these official steps map to our build
-| Official step | Our build (`02-claude-code-team-workflow.md`) |
+| Official step | Our build (`overview.md`) |
 |---------------|-----------------------------------------------|
 | 1 — project-level CLAUDE.md | CLAUDE.md hierarchy (user/project/directory) |
 | 2 — `.claude/rules/` glob scoping | Path-specific rule files |
