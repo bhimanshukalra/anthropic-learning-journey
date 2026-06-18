@@ -138,7 +138,7 @@ certification/
       overview.md
     03-structured-data-extraction.md
     04-multi-agent-research/
-      overview.md   phase-1.md … phase-5.md
+      overview.md   phase-0.md (setup) … phase-5.md
     05-claude-code-cicd.md
     06-developer-productivity-explorer.md
     prep-exercise-01-multi-tool-agent.md     # official Exam Guide exercises (verbatim source)

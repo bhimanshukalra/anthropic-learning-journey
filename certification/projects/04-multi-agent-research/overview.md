@@ -20,6 +20,16 @@ Build one phase at a time. Each phase ends at a **milestone** you can run and ob
 Tick the phase's Definition-of-done boxes before starting the next. Each phase has an in-depth companion
 guide.
 
+> **Starting from scratch?** Do **Phase 0** first — it sets up the project directory, what to reuse from
+> Project 01, the first file to create, and a runnable skeleton that needs **no API credits**.
+
+---
+
+### Phase 0 — Project setup (from scratch) · [`phase-0.md`](phase-0.md)
+*Outcome: the project directory + a coordinator/subagent skeleton that runs end-to-end on stubs, no credits.*
+- [ ] Project directory + env created; `core/claude.py` reused from Project 01.
+- [ ] `subagent.py` + `coordinator.py` skeleton runs on stubs with no credits.
+
 ---
 
 ### Phase 1 — Coordinator & subagents · [`phase-1.md`](phase-1.md)
