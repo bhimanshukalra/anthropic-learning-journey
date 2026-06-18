@@ -91,14 +91,29 @@ async def main():
         result = await _client.list_tools()
         print(result)
 
-        r = await _client.call_tool(
-            "process_refund", {"order_id": "67890", "amount": 10}
-        )
-        #   → {"isError": true, "errorCategory": "business", "isRetryable": false, ...}
-        r = await _client.call_tool("lookup_order", {"order_id": "TIMEOUT"})
-        #   → {"isError": true, "errorCategory": "transient", "isRetryable": true, ...}
-        r = await _client.call_tool("lookup_order", {"order_id": "99999"})
-        #   → {"order": null, "found": false}    ← VALID empty, NOT an error envelope
+        # Assert the structured-error envelopes (no model needed).
+        async def envelope(tool: str, args: dict) -> dict:
+            out = await _client.call_tool(tool, args)
+            return json.loads(out.content[0].text)
+
+        # business error: refund window closed → non-retryable, agent should EXPLAIN.
+        refund = await envelope("process_refund", {"order_id": "67890", "amount": 10})
+        assert refund.get("isError") is True, refund
+        assert refund["errorCategory"] == "business", refund
+        assert refund["isRetryable"] is False, refund
+
+        # transient error: backend timeout → retryable, agent should RETRY.
+        timeout = await envelope("lookup_order", {"order_id": "TIMEOUT"})
+        assert timeout.get("isError") is True, timeout
+        assert timeout["errorCategory"] == "transient", timeout
+        assert timeout["isRetryable"] is True, timeout
+
+        # VALID empty result: no such order is success (found:false), NOT an error.
+        missing = await envelope("lookup_order", {"order_id": "99999"})
+        assert "isError" not in missing, missing
+        assert missing == {"order": None, "found": False}, missing
+
+        print("TOOL-ERROR ENVELOPE TESTS OK")
 
 
 if __name__ == "__main__":
