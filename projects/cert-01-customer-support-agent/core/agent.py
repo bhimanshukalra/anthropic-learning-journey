@@ -2,23 +2,49 @@ import json
 from anthropic.types import Message
 from core.claude import Claude
 from mcp_client import MCPClient
+from datetime import datetime, timezone
 
 SYSTEM = """You are a customer-support resolution agent. Use the tools to look up customers and orders and answer the user. Pick the single most appropriate tool for each step."""
-
 GATED_TOOLS = {"lookup_order", "process_refund"}
+REFUND_LIMIT = 500.0
+STATUS_LABELS = {
+    0: "pending",
+    1: "processing",
+    2: "shipped",
+    3: "out_for_delivery",
+    4: "delivered",
+    5: "cancelled",
+}
 
 
-class SupportAgent:
-    def __init__(self, claude: Claude, client: MCPClient):
-        self.claude = claude
-        self.client = client
-        self.messages: list = []
-        self.verified_customer_id: str | None = None  # latched one, in code
+def _to_iso(value) -> str:
+    """Unix epoch (int/float) OR an ISO-ish string -> a single canonical ISO-8601 UTC string."""
+    if isinstance(value, (int, float)):
+        return datetime.fromtimestamp(value, tz=timezone.utc).isoformat()
+    return str(value).replace("Z", "+00:00")
 
-    def _gate(self, tool_name: str) -> dict | None:
-        """Return an error envelope if this call must be blocked, else None. Pure + testable."""
-        if tool_name in GATED_TOOLS and self.verified_customer_id is None:
-            return {
+
+def hook_normalize_order(tool_name: str, result: dict, agent: SupportAgent) -> dict:
+    """PostToolUse: rewrite an order payload into one consistent date/status shape."""
+    order = result.get("order")
+    if isinstance(order, dict):
+        if "placed_at" in order:
+            order["placed_at"] = _to_iso(order["placed_at"])
+        if isinstance(order.get("status"), int):
+            order["status"] = STATUS_LABELS.get(
+                order["status"], f"unknown({order['status']})"
+            )
+    return result
+
+
+def hook_verify_gate(
+    tool_name: str, tool_input: dict, agent: SupportAgent
+) -> dict | None:
+    """PreToolUse: block gated tools until a single customer is verified."""
+
+    if tool_name in GATED_TOOLS and agent.verified_customer_id is None:
+        return {
+            "block": {
                 "isError": True,
                 "errorCategory": "permission",
                 "isRetryable": False,
@@ -27,15 +53,49 @@ class SupportAgent:
                     "matching customer before looking up orders or issuing refunds."
                 ),
             }
-        return None
+        }
+    return None
 
-    def _latch_verification(self, tool_name: str, result_text: str) -> None:
-        """After get_customer, latch the id ONLY when exactly one customer matched."""
-        if tool_name != "get_customer":
-            return
-        data = json.loads(result_text)
-        if data.get("count") == 1:  # ambiguous (0 or >1) does NOT verify
-            self.verified_customer_id = data["matches"][0]["id"]
+
+def hook_refund_cap(tool_name: str, tool_input: dict, agent) -> dict | None:
+    """PreToolUse: a refund over $500 is never auto-issued, redirect it to a human."""
+    if (
+        tool_name == "process_refund"
+        and float(tool_input.get("amount", 0)) > REFUND_LIMIT
+    ):
+        return {
+            "redirect": (
+                "escalate_to_human",
+                {
+                    "reason": "refund_over_limit",
+                    "summary": (
+                        f"Refund of ${tool_input.get('amount')} on order "
+                        f"{tool_input.get('order_id')} exceeds the ${REFUND_LIMIT:.0f} "
+                        f"auto-approve limit; routing to a human for approval."
+                    ),
+                },
+            )
+        }
+    return None
+
+
+def hook_latch_verification(tool_name: str, result: dict, agent) -> dict:
+    """PostToolUse: latch the id when get_customer returns exactly one match."""
+    if tool_name == "get_customer" and result.get("count") == 1:
+        agent.verified_customer_id = result["matches"][0]["id"]
+    return result
+
+
+PRE_HOOKS = [hook_verify_gate, hook_refund_cap]
+POST_HOOKS = [hook_latch_verification, hook_normalize_order]
+
+
+class SupportAgent:
+    def __init__(self, claude: Claude, client: MCPClient):
+        self.claude = claude
+        self.client = client
+        self.messages: list = []
+        self.verified_customer_id: str | None = None  # latched one, in code
 
     async def _tool_schemas(self) -> list[dict]:
         tools = await self.client.list_tools()
@@ -48,6 +108,18 @@ class SupportAgent:
             for t in tools
         ]
 
+    def _run_pre_hooks(self, tool_name, tool_input):
+        for hook in PRE_HOOKS:
+            decision = hook(tool_name, tool_input, self)
+            if decision is not None:
+                return decision
+        return None
+
+    def _run_post_hooks(self, tool_name, result: dict) -> dict:
+        for hook in POST_HOOKS:
+            result = hook(tool_name, result, self)
+        return result
+
     async def _run_tools(self, response: Message) -> list[dict]:
         """Execute every tool_use block the model emitted; return tool_result blocks."""
         results = []
@@ -55,31 +127,41 @@ class SupportAgent:
             if block.type != "tool_use":
                 continue
 
-            print(f"tool_use: {block.name}({json.dumps(block.input)})")
+            name, args = block.name, block.input
+            print(f"tool_use: {name}({json.dumps(args)})")
 
-            blocked = self._gate(block.name)
-            if blocked is not None:
-                print(f"⛔ gated: {block.name} (no verified customer)")
+            decision = self._run_pre_hooks(name, args)  # PreToolUse
+            if decision and "block" in decision:
+                print(f"⛔ blocked: {name}")
                 results.append(
                     {
                         "type": "tool_result",
                         "tool_use_id": block.id,
-                        "content": json.dumps(blocked),
+                        "content": json.dumps(decision["block"]),
                         "is_error": True,
                     }
                 )
                 continue
 
-            output = await self.client.call_tool(block.name, block.input)
+            if decision and "redirect" in decision:
+                name, args = decision["redirect"]  # swap the call
+                print(f"redirected to: {name}({json.dumps(args)})")
+
+            output = await self.client.call_tool(name, args)
             text = output.content[0].text if output and output.content else "{}"
 
-            self._latch_verification(block.name, text)
+            try:
+                result = json.loads(text)
+            except (ValueError, TypeError):
+                result = {}
+
+            result = self._run_post_hooks(name, result)
             results.append(
                 {
                     "type": "tool_result",
                     "tool_use_id": block.id,
-                    "content": text,
-                    "is_error": self._is_error_envelope(text),
+                    "content": json.dumps(result),
+                    "is_error": bool(result.get("isError")),
                 }
             )
 
