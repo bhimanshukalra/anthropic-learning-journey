@@ -69,7 +69,7 @@ Each project has a detailed build guide. Tick the box when its "Definition of do
   → [`certification/projects/03-structured-data-extraction.md`](certification/projects/03-structured-data-extraction.md)
   *(tool_use schemas, tool_choice, validation/retry, batch API, human review routing)*
 - [ ] **04 — Multi-Agent Research Pipeline** · Scenario 3 · Domains 1, 2, 5
-  → [`certification/projects/04-multi-agent-research.md`](certification/projects/04-multi-agent-research.md)
+  → [`certification/projects/04-multi-agent-research/overview.md`](certification/projects/04-multi-agent-research/overview.md)
   *(coordinator/subagent, Task tool, parallel spawn, error propagation, provenance)*
 - [ ] **05 — Claude Code in CI/CD** · Scenario 5 · Domains 3, 4
   → [`certification/projects/05-claude-code-cicd.md`](certification/projects/05-claude-code-cicd.md)
@@ -137,7 +137,8 @@ certification/
     02-claude-code-team-workflow/
       overview.md
     03-structured-data-extraction.md
-    04-multi-agent-research.md
+    04-multi-agent-research/
+      overview.md   phase-1.md … phase-5.md
     05-claude-code-cicd.md
     06-developer-productivity-explorer.md
     prep-exercise-01-multi-tool-agent.md     # official Exam Guide exercises (verbatim source)

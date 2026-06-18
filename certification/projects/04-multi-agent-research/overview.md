@@ -14,9 +14,18 @@ classic failure modes the exam tests.
 A **coordinator** owns all inter-agent communication, error handling, and routing. Subagents have
 **isolated context** — they inherit nothing automatically.
 
-## Build steps
+## Build steps (phased)
 
-### 1. Spawning + explicit context passing (Domain 1.3) ⭐
+Build one phase at a time. Each phase ends at a **milestone** you can run and observe before moving on.
+Tick the phase's Definition-of-done boxes before starting the next. Each phase has an in-depth companion
+guide.
+
+---
+
+### Phase 1 — Coordinator & subagents · [`phase-1.md`](phase-1.md)
+*Steps 1–2 · Domain 1.3 · Outcome: a coordinator that spawns isolated subagents and runs them in parallel.*
+
+#### 1. Spawning + explicit context passing (Domain 1.3) ⭐
 - Coordinator spawns subagents via the **`Task` tool**; its `allowedTools` must include **`"Task"`**.
 - Pass each subagent **complete findings directly in its prompt** (e.g. web results + doc analysis
   into the synthesis prompt). Nothing is shared implicitly.
@@ -24,11 +33,21 @@ A **coordinator** owns all inter-agent communication, error handling, and routin
 - Write coordinator prompts as **goals + quality criteria**, not step-by-step procedures, so
   subagents can adapt.
 
-### 2. Parallel execution (Domain 1.3)
+#### 2. Parallel execution (Domain 1.3)
 Emit **multiple `Task` calls in a single coordinator response** to run subagents in parallel; measure
 the latency win vs sequential. (Parallel = one turn with many Task calls, not many turns.)
 
-### 3. Reproduce + fix narrow decomposition (Domain 1.2) ⭐
+**Phase 1 milestone:** the coordinator spawns subagents via `Task`, each gets its context explicitly, and parallel Task calls in one turn beat sequential on wall-clock.
+- [ ] Coordinator spawns subagents via `Task` (with `"Task"` in `allowedTools`).
+- [ ] Subagents get all needed context explicitly in their prompts.
+- [ ] Parallel Task calls in one turn; measured latency improvement.
+
+---
+
+### Phase 2 — Decomposition quality · [`phase-2.md`](phase-2.md)
+*Step 3 · Domain 1.2 · Outcome: broad coverage via correct decomposition + an iterative refinement loop.*
+
+#### 3. Reproduce + fix narrow decomposition (Domain 1.2) ⭐
 Run "impact of AI on creative industries" and watch the coordinator over-narrow (e.g. only visual
 arts). This is exam Q7: the **root cause is the coordinator's decomposition**, not the (correctly
 working) search/analysis/synthesis agents. Fix by:
@@ -36,12 +55,20 @@ working) search/analysis/synthesis agents. Fix by:
 - An **iterative refinement loop**: synthesis flags coverage gaps → coordinator re-delegates targeted
   queries → re-synthesize until coverage is sufficient.
 
-### 4. Scoped cross-role tool (Domain 2.3) ⭐
+**Phase 2 milestone:** the narrow-decomposition failure is reproduced, then fixed — the coordinator partitions broadly and refines until coverage is sufficient.
+- [ ] Narrow-decomposition failure reproduced, then fixed with broad partition + refinement loop.
+
+---
+
+### Phase 3 — Tools & error propagation · [`phase-3.md`](phase-3.md)
+*Steps 4–5 · Domains 2.3, 2.2/5.3 · Outcome: least-privilege tools and structured, recoverable failures.*
+
+#### 4. Scoped cross-role tool (Domain 2.3) ⭐
 Give the synthesis agent a **scoped `verify_fact` tool** for the 85% simple fact-checks, while complex
 verifications still route through the coordinator to the web-search agent. (Exam Q9 — least privilege:
 don't hand synthesis the full web toolset, don't batch all verifications, don't speculatively cache.)
 
-### 5. Structured error propagation (Domain 2.2 / 5.3) ⭐
+#### 5. Structured error propagation (Domain 2.2 / 5.3) ⭐
 Simulate a web-search **timeout**. The subagent must return **structured error context**: failure
 type, attempted query, partial results, suggested alternatives, retryable flag. The coordinator then
 recovers (retry/alternative/partial). Avoid all three anti-patterns:
@@ -50,7 +77,16 @@ recovers (retry/alternative/partial). Avoid all three anti-patterns:
 - killing the whole workflow on one failure.
 Subagents recover **transient** failures locally; propagate only the unrecoverable. (Exam Q8 → A.)
 
-### 6. Provenance + conflict handling (Domain 5.6) ⭐
+**Phase 3 milestone:** synthesis fact-checks with a scoped tool; a search timeout returns structured context and the coordinator proceeds with partial results + a coverage note.
+- [ ] Synthesis has a scoped `verify_fact` tool; complex cases still route via coordinator.
+- [ ] Timeout returns structured error context; coordinator proceeds with partial results + coverage note.
+
+---
+
+### Phase 4 — Provenance & context discipline · [`phase-4.md`](phase-4.md)
+*Steps 6–7 · Domains 5.6, 5.1 · Outcome: attribution survives synthesis, and handoffs stay lean.*
+
+#### 6. Provenance + conflict handling (Domain 5.6) ⭐
 - Subagent outputs are **structured claim→source mappings**: claim, evidence excerpt, source
   URL/doc name, **publication date**. Synthesis must **preserve** attribution through merging.
 - Conflicting credible statistics → **annotate both with sources**, don't pick one arbitrarily.
@@ -59,20 +95,21 @@ Subagents recover **transient** failures locally; propagate only the unrecoverab
   tables, news as prose — not one uniform format.
 - Synthesis output carries **coverage annotations** (well-supported vs gap areas).
 
-### 7. Context discipline across handoffs (Domain 5.1)
+#### 7. Context discipline across handoffs (Domain 5.1)
 Upstream agents return **structured key facts + citations**, not verbose reasoning chains, when the
 downstream agent's context budget is tight. Put key summaries at the **start** of aggregated inputs
 (lost-in-the-middle) with explicit section headers.
 
-## Definition of done (self-check)
-- [ ] Coordinator spawns subagents via `Task` (with `"Task"` in `allowedTools`).
-- [ ] Subagents get all needed context explicitly in their prompts.
-- [ ] Parallel Task calls in one turn; measured latency improvement.
-- [ ] Narrow-decomposition failure reproduced, then fixed with broad partition + refinement loop.
-- [ ] Synthesis has a scoped `verify_fact` tool; complex cases still route via coordinator.
-- [ ] Timeout returns structured error context; coordinator proceeds with partial results + coverage note.
+**Phase 4 milestone:** the final report preserves claim→source mappings, annotates conflicts with dates, separates established vs contested findings; upstream handoffs carry trimmed key facts, not reasoning dumps.
 - [ ] Final report preserves claim→source mappings, annotates conflicts with dates, separates
       established vs contested findings.
+- [ ] Upstream agents hand off structured key facts + citations; key summaries placed at the start.
+
+---
+
+### Phase 5 — Write up the answers · [`phase-5.md`](phase-5.md)
+*Outcome: the actual exam payload — answer the five "Be able to answer" questions in writing.*
+- [ ] All five questions answered in your own words (add to your notes).
 
 ## Be able to answer
 1. Why don't subagents inherit the coordinator's context, and what must you do about it?

@@ -2,7 +2,7 @@
 
 > **Source:** Official Claude Certified Architect – Foundations Exam Guide, *Preparation Exercises*, pp. 35–36.
 > This file records the exercise **verbatim**. Our deeper build guide is
-> [`04-multi-agent-research.md`](04-multi-agent-research.md).
+> [`overview.md`](04-multi-agent-research/overview.md).
 > **Domains reinforced:** 1 (Agentic Architecture), 2 (Tool Design & MCP), 5 (Context & Reliability).
 
 ## Objective (verbatim)
@@ -27,7 +27,7 @@ handling synthesis with provenance tracking.
    selecting one, and structures the report to distinguish well-established from contested findings.
 
 ## How these official steps map to our build
-| Official step | Our build (`04-multi-agent-research.md`) |
+| Official step | Our build (`overview.md`) |
 |---------------|------------------------------------------|
 | 1 — coordinator + `Task`, explicit context | Coordinator/subagent, explicit context passing |
 | 2 — parallel `Task` calls | Parallel spawn, latency measurement |
