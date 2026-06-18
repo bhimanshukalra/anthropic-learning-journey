@@ -54,3 +54,23 @@ hook_latch_verification(
 )
 assert m.verified_customer_id is None
 print("LATCH TESTS OK")
+
+a = SupportAgent(claude=None, client=None)
+a._capture_facts("get_customer", {"matches": [{"id": "C001"}], "count": 1})
+a._capture_facts(
+    "lookup_order",
+    {
+        "order": {
+            "order_id": "12345",
+            "status": "shipped",
+            "total": 49.99,
+            "placed_at": "2024-06-01T00:00:00+00:00",
+            "customer_id": "C001",
+        },
+        "found": True,
+    },
+)
+facts = a._case_facts_block()
+assert "C001" in facts and "12345" in facts and "49.99" in facts
+assert "customer_id" not in a.case_facts["order"]  # verbose field trimmed out
+print("CASE-FACTS TESTS OK")

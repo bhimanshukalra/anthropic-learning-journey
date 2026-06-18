@@ -4,7 +4,34 @@ from core.claude import Claude
 from mcp_client import MCPClient
 from datetime import datetime, timezone
 
-SYSTEM = """You are a customer-support resolution agent. Use the tools to look up customers and orders and answer the user. Pick the single most appropriate tool for each step."""
+SYSTEM = """You are a customer-support resolution agent. Use the tools to look up customers and orders and resolve the request. Pick the single most appropriate tool for each step.
+
+ESCLATE TO A HUMAN only when one of these is true:
+1. The customer EXPLICITLY  asks for a human - escalate immediately, do NOT investigate first.
+2. POLICY GAP / SILENCE - the policy does not cover the situation (e.g. a competitor price-match)
+3. INABILITY TO PROGRESS — you are blocked and no tool or question can move the case forward.
+
+Do NOT escalate because a case seems COMPLEX, because the customer sounds FRUSTRATED, or because you
+feel UNSURE — none of those mean a human is needed. Resolve what you can.
+
+If get_customer returns MORE THAN ONE match, do NOT guess — ASK the customer for another identifier
+(order number, full name) to disambiguate.
+
+When you do escalate, call escalate_to_human with a SELF-CONTAINED summary — the human cannot see this
+conversation.
+
+Examples:
+- "This is broken and I want my money back, here's a photo" → damage replacement is covered → RESOLVE
+  (process the return/refund); do NOT escalate.
+- "Just connect me to a person." → explicit request → ESCALATE immediately.
+- "Will you match Acme's lower price?" and policy only covers our own pricing → POLICY GAP → ESCALATE.
+- "I'm furious this took so long!" with an otherwise normal refund → frustration is NOT a trigger →
+  RESOLVE the refund.
+
+When a message contains MULTIPLE concerns, address EACH one (use the right tool per concern) and then
+combine the outcomes into a SINGLE clear reply. Do not drop a concern or answer only the first.
+"""
+
 GATED_TOOLS = {"lookup_order", "process_refund"}
 REFUND_LIMIT = 500.0
 STATUS_LABELS = {
@@ -67,12 +94,10 @@ def hook_refund_cap(tool_name: str, tool_input: dict, agent) -> dict | None:
             "redirect": (
                 "escalate_to_human",
                 {
-                    "reason": "refund_over_limit",
-                    "summary": (
-                        f"Refund of ${tool_input.get('amount')} on order "
-                        f"{tool_input.get('order_id')} exceeds the ${REFUND_LIMIT:.0f} "
-                        f"auto-approve limit; routing to a human for approval."
-                    ),
+                    "customer_id": agent.verified_customer_id,
+                    "root_cause": "refund_over_limit",
+                    "recommended_action": "Review and approve/deny the refund manually.",
+                    "refund_amount": float(tool_input.get("amount", 0)),
                 },
             )
         }
@@ -96,6 +121,31 @@ class SupportAgent:
         self.client = client
         self.messages: list = []
         self.verified_customer_id: str | None = None  # latched one, in code
+        self.case_facts: dict = {}  # durable numbers/IDs/dates
+
+    def _capture_facts(self, tool_name: str, result: dict) -> None:
+        """Pull the few fields worth keeping out of a (normalized) tool result."""
+        if tool_name == "get_customer" and result.get("count") == 1:
+            self.case_facts["customer_id"] = result["matches"][0]["id"]
+
+        order = result.get("order")
+        if isinstance(order, dict):
+            self.case_facts["order"] = {
+                k: order.get(k) for k in ("order_id", "status", "total", "placed_at")
+            }
+        if result.get("refunded"):
+            self.case_facts["refund"] = {
+                "order_id": result.get("order_id"),
+                "amount": result.get("amount"),
+            }
+
+    def _case_facts_block(self) -> str:
+        if not self.case_facts:
+            return ""
+        return (
+            "\n\n## CASE FACTS (authoritative - never contradict these)\n"
+            + json.dumps(self.case_facts, indent=2)
+        )
 
     async def _tool_schemas(self) -> list[dict]:
         tools = await self.client.list_tools()
@@ -156,6 +206,8 @@ class SupportAgent:
                 result = {}
 
             result = self._run_post_hooks(name, result)
+            self._capture_facts(name, result)
+
             results.append(
                 {
                     "type": "tool_result",
@@ -181,7 +233,9 @@ class SupportAgent:
 
         for _ in range(max_steps):  # runaway guard, NOT the stop condition
             response = self.claude.chat(
-                messages=self.messages, system=SYSTEM, tools=tools
+                messages=self.messages,
+                system=SYSTEM + self._case_facts_block(),
+                tools=tools,
             )
             self.messages.append({"role": "assistant", "content": response.content})
 

@@ -115,6 +115,20 @@ async def main():
 
         print("TOOL-ERROR ENVELOPE TESTS OK")
 
+        h = await envelope(
+            "escalate_to_human",
+            {
+                "customer_id": "C001",
+                "root_cause": "refund_over_limit",
+                "recommended_action": "Approve manually",
+                "refund_amount": 600,
+            },
+        )
+        assert h["escalated"] is True
+        for k in ("customer_id", "root_cause", "recommended_action", "refund_amount"):
+            assert k in h["handoff"], h
+        print("HANDOFF TESTS OK")
+
 
 if __name__ == "__main__":
     if sys.platform == "win32":

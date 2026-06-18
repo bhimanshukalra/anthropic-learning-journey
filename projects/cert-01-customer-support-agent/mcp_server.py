@@ -65,9 +65,22 @@ def process_refund(order_id: str, amount: float) -> dict:
 
 
 @mcp.tool()
-def escalate_to_human(reason: str, summary: str) -> dict:
-    """Hand the case to a human agent. Terminal action."""
-    return {"escalated": True, "reason": reason}
+def escalate_to_human(
+    customer_id: str,
+    root_cause: str,
+    recommended_action: str,
+    refund_amount: float | None = None,
+) -> dict:
+    """Hand the case to a human agent with a SELF-CONTAINED handoff (the human cannot see the chat). Provide: who(customer_id), WHY (root_cause), what to do (recommended_action), and any amount."""
+    return {
+        "escalated": True,
+        "handoff": {
+            "customer_id": customer_id,
+            "root_cause": root_cause,
+            "recommended_action": recommended_action,
+            "refund_amount": refund_amount,
+        },
+    }
 
 
 if __name__ == "__main__":
