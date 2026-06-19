@@ -32,18 +32,6 @@ class Coordinator:
     def covered(self, findings: list[dict]) -> set:
         return {f["subdomain"] for f in findings if "no sources found" not in f["text"]}
 
-    async def gather_findings(
-        self, tasks: list[dict], parallel: bool = True
-    ) -> list[dict]:
-        if parallel:
-            return await asyncio.gather(
-                *(self.spawn(t["agent"], t["prompt"]) for t in tasks)
-            )
-        out = []
-        for t in tasks:
-            out.append(await self.spawn(t["agent"], t["prompt"]))
-        return out
-
     async def run(
         self, query: str, scope: list[str], refine: bool = True, max_rounds: int = 3
     ) -> dict:
