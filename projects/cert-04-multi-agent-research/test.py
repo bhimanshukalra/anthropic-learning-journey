@@ -1,4 +1,3 @@
-# test.py
 # Checks for the whole pipeline. Each block exercises one capability and prints
 # "... TESTS OK" if its asserts pass. Run: python test.py
 

@@ -1,4 +1,3 @@
-# core/claude.py
 # A thin wrapper around the Anthropic API (reused from the customer-support project).
 # Only used in "real mode" — when a Claude instance is passed into the subagents.
 

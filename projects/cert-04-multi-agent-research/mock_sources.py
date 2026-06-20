@@ -1,4 +1,3 @@
-# mock_sources.py
 # A fake "internet" for the research agents — pure Python data, no network calls.
 # Each sub-topic maps to a list of source "records".
 

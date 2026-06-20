@@ -1,4 +1,3 @@
-# coordinator.py
 # The coordinator is the "brain" of the pipeline. Given a research query it:
 #   1. splits the query into sub-topics            -> decompose()
 #   2. runs a web_search subagent for each, at once -> research()  (parallel)

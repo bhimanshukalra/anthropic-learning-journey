@@ -1,4 +1,3 @@
-# subagent.py
 # A "subagent" is one specialized worker (e.g. web search). It runs on an explicit prompt
 # and returns a result dict. It has NO memory of the conversation — everything it needs must
 # be passed in the prompt the coordinator gives it.

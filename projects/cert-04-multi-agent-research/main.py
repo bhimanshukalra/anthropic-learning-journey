@@ -1,4 +1,3 @@
-# main.py
 # Entry point + wiring for the multi-agent research pipeline.
 #
 # THE BIG PICTURE
