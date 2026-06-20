@@ -19,8 +19,8 @@ import sys
 import os
 from pathlib import Path
 
-# ROOT points two levels up to the projects/ folder at the repo root.
-ROOT = Path(__file__).parent.parent
+# ROOT points to the cert-06 project folder where the phase-*.md files live.
+ROOT = Path(__file__).parent.parent.parent / "certification/projects/06-developer-productivity-explorer"
 # CATALOG_PATH points to catalog.json sitting alongside this file.
 CATALOG_PATH = Path(__file__).parent / "catalog.json"
 

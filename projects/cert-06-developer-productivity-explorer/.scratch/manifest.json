@@ -1,0 +1,19 @@
+{
+  "session": "project-06-exploration",
+  "last_updated": "2026-06-20",
+  "phase_completed": 2,
+  "phase_in_progress": 3,
+  "key_files": {
+    "mcp_server": "projects/cert-06-developer-productivity-explorer/server.py",
+    "catalog": "projects/cert-06-developer-productivity-explorer/catalog.json",
+    "settings": ".claude/settings.json",
+    "findings": "projects/cert-06-developer-productivity-explorer/.scratch/findings.md"
+  },
+  "decisions_made": [
+    "MCP server uses stdio JSON-RPC 2.0 pattern",
+    "catalog.json is the backing data for the project://catalog resource",
+    "Server registered at project level, not user level",
+    "phases/ subfolder restructure was explored then reverted"
+  ],
+  "resume_prompt": "We are working through Project 06 of the Claude Certified Architect cert. Phases 1 and 2 are complete. Phase 3 is in progress — covering scratchpad files, subagent delegation, /compact, and crash recovery via manifests. Load .scratch/findings.md for specific findings so far."
+}
