@@ -24,7 +24,15 @@ class Subagent:
         self.stub_responder = stub_responder  # function that produces fake output in stub mode
 
     async def run(self, prompt: str) -> dict:
-        """Run the subagent on one explicit prompt; return a result dict."""
+        """Run the subagent on one explicit prompt; return a result dict.
+
+        Output shape (the coordinator's research() then adds a "subdomain" key):
+          success: {"agent": "web_search",
+                    "records": [{"claim": ..., "source": ..., "date": ...}, ...]}
+          error:   {"agent": "web_search", "isError": True, "failureType": "transient",
+                    "attemptedQuery": ..., "isRetryable": True, ...}
+          plain:   {"agent": <name>, "text": "..."}   # real-model mode returns free text
+        """
         # --- Stub mode: use the fake responder. ---
         if self.claude is None:
             await asyncio.sleep(STUB_LATENCY_S)  # pretend the work took real time
