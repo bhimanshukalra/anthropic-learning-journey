@@ -1,0 +1,74 @@
+{
+  "project": "06-developer-productivity-explorer",
+  "description": "Codebase exploration agent — cert project covering tool selection, MCP, context management, session management.",
+  "phases": [
+    {
+      "id": "phase-1",
+      "file": "phase-1.md",
+      "title": "Built-in tools & MCP augmentation",
+      "domains": ["2.5 built-in tools", "2.4 MCP"],
+      "steps": [1, 2],
+      "milestone": "Pick the right tool deliberately; MCP resource removes exploratory calls.",
+      "definition_of_done": [
+        "State Grep/Glob/Read/Write/Edit and why for any task",
+        "Edit→Read+Write fallback when no unique anchor",
+        "Incremental understanding via Grep→Read",
+        "MCP resource exposes catalog without exploratory calls"
+      ]
+    },
+    {
+      "id": "phase-2",
+      "file": "phase-2.md",
+      "title": "Exploration workflow",
+      "domains": ["3.4 plan mode & Explore subagent"],
+      "steps": [3],
+      "milestone": "Architectural task in plan mode; Explore subagent keeps main context clean.",
+      "definition_of_done": [
+        "Plan mode for architectural task; direct execution for implementation",
+        "Explore subagent returns summary; main context stays clean"
+      ]
+    },
+    {
+      "id": "phase-3",
+      "file": "phase-3.md",
+      "title": "Long-session context",
+      "domains": ["5.4 large-codebase context"],
+      "steps": [4],
+      "milestone": "Long session stays coherent via scratchpad + delegation + /compact; crash recovery works.",
+      "definition_of_done": [
+        "Scratchpad + subagent delegation + /compact keep session coherent",
+        "Crash recovery via manifest works on resume"
+      ]
+    },
+    {
+      "id": "phase-4",
+      "file": "phase-4.md",
+      "title": "Sessions & iterative refinement",
+      "domains": ["1.7 session management", "3.5 iterative refinement"],
+      "steps": [5, 6],
+      "milestone": "Resume named session, fork for two approaches, interview pattern before implementing.",
+      "definition_of_done": [
+        "--resume and fork_session used correctly; resume vs fresh decision made",
+        "Interview pattern used before implementing in unfamiliar area"
+      ]
+    },
+    {
+      "id": "phase-5",
+      "file": "phase-5.md",
+      "title": "Write up the answers",
+      "domains": [],
+      "steps": [],
+      "milestone": "Five exam questions answered in own words.",
+      "definition_of_done": [
+        "All five questions answered in own words"
+      ]
+    }
+  ],
+  "exam_questions": [
+    "Grep vs Glob — when each, with an example?",
+    "Edit failed on non-unique match — what is the reliable fallback?",
+    "Long session cites 'typical patterns' — what is happening and which techniques fix it?",
+    "When do you resume a session vs start fresh with a summary?",
+    "What is fork_session for, and how does it differ from --resume?"
+  ]
+}

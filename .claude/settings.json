@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "dev-productivity-explorer": {
+      "command": "python3",
+      "args": [
+        "projects/cert-06-developer-productivity-explorer/server.py"
+      ]
+    }
+  }
+}
