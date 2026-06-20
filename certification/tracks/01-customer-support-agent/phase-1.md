@@ -10,8 +10,8 @@
 calls it, and replies — with the loop terminating purely on `stop_reason == "end_turn"`.
 
 **Phase 1 Definition of done**
-- [ ] Two deliberately-similar tools (`get_customer`, `lookup_order`) reliably selected via descriptions alone — no routing layer.
-- [ ] Loop driven purely by `stop_reason`; no NL-parsing / iteration-cap / text-content stop.
+- [x] Two deliberately-similar tools (`get_customer`, `lookup_order`) reliably selected via descriptions alone — no routing layer.
+- [x] Loop driven purely by `stop_reason`; no NL-parsing / iteration-cap / text-content stop.
 
 What Phase 1 deliberately leaves out (don't build these yet): structured error categories, the
 verification gate, hooks, escalation calibration. Those are Phases 2–4. Resist the urge to add them
@@ -339,15 +339,15 @@ If all three behave, Phase 1 is done.
 
 ## 7. Close out the phase
 
-- [ ] Tick the two Phase 1 boxes in [`overview.md`](overview.md).
-- [ ] Jot a one-liner for your notes: *"misrouting → fix descriptions first (Q2); loop terminator is
+- [x] Tick the two Phase 1 boxes in [`overview.md`](overview.md).
+- [x] Jot a one-liner for your notes: *"misrouting → fix descriptions first (Q2); loop terminator is
   `stop_reason`, never prose (1.1)."*
-- [ ] Commit it (this repo commits straight to `main`):
+- [x] Commit it (this repo commits straight to `main`):
   ```bash
   git add projects/cert-01-customer-support-agent certification/projects/overview.md
   git commit -m "Project 01 Phase 1: runnable support agent with disambiguated tools"
   ```
-- [ ] Run `/log` for the day.
+- [x] Run `/log` for the day.
 
 ### What Phase 2 will add (preview)
 You'll make the tools return the structured `isError` envelope (transient vs business vs validation

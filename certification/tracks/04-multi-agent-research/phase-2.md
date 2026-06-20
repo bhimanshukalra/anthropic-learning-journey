@@ -13,8 +13,8 @@ subagent succeeded; with the refinement loop on, the coordinator re-delegates th
 is complete.
 
 **Phase 2 Definition of done**
-- [ ] Narrow-decomposition failure reproduced (non-empty `gaps`, all subagents "succeeded").
-- [ ] Fixed with broad partition + a refinement loop (`gaps` empties; you can show the rounds).
+- [x] Narrow-decomposition failure reproduced (non-empty `gaps`, all subagents "succeeded").
+- [x] Fixed with broad partition + a refinement loop (`gaps` empties; you can show the rounds).
 
 ---
 
@@ -162,10 +162,10 @@ whole Q7 story, no model needed.
 
 ## 4. Close out the phase
 
-- [ ] Tick the Phase 2 box in [`overview.md`](overview.md); `PHASE-2 TESTS OK`.
-- [ ] Notes one-liner: *"Reports miss sub-topics but subagents succeeded → root cause = decompose() too
+- [x] Tick the Phase 2 box in [`overview.md`](overview.md); `PHASE-2 TESTS OK`.
+- [x] Notes one-liner: *"Reports miss sub-topics but subagents succeeded → root cause = decompose() too
   narrow (Q7); fix = broad scope partition + coverage-gap refinement loop."*
-- [ ] Commit; run `/log`.
+- [x] Commit; run `/log`.
 
 ### What Phase 3 will add (preview)
 A scoped `verify_fact` tool for synthesis (least privilege, Q9) and **structured error propagation** —

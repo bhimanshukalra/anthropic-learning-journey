@@ -12,9 +12,9 @@ resolved**, and handoffs stay **lean** — all credit-free.
 conflicting stats in a **contested** section showing **both** sources, and the rest in **established**.
 
 **Phase 4 Definition of done**
-- [ ] Findings are structured claim→source→date records; synthesis preserves the mapping.
-- [ ] Conflicting stats land in `contested` with **both** sources + dates (not arbitrarily picked).
-- [ ] Report separates established vs contested; handoffs carry facts+citations, not reasoning.
+- [x] Findings are structured claim→source→date records; synthesis preserves the mapping.
+- [x] Conflicting stats land in `contested` with **both** sources + dates (not arbitrarily picked).
+- [x] Report separates established vs contested; handoffs carry facts+citations, not reasoning.
 
 ---
 
@@ -157,11 +157,11 @@ assertions are superseded here — that's the intended evolution toward a proven
 
 ## 5. Close out the phase
 
-- [ ] Tick the two Phase 4 boxes in [`overview.md`](overview.md); `PHASE-4 TESTS OK`.
-- [ ] Notes one-liner: *"Carry claim→source+date through synthesis; conflicts → contested with BOTH
+- [x] Tick the two Phase 4 boxes in [`overview.md`](overview.md); `PHASE-4 TESTS OK`.
+- [x] Notes one-liner: *"Carry claim→source+date through synthesis; conflicts → contested with BOTH
   sources+dates (don't pick); established-vs-contested report, summary first; hand off facts+citations,
   not reasoning."*
-- [ ] Commit; run `/log`.
+- [x] Commit; run `/log`.
 
 ### What Phase 5 will add
 No more building. Answer the five **"Be able to answer"** questions in your own words — the exam payload

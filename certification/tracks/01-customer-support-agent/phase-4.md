@@ -19,10 +19,10 @@ judgment — the **handoff summary** and the **case-facts block** — are struct
 a **self-contained structured handoff**; and the key numbers survive a long, summarized conversation.
 
 **Phase 4 Definition of done**
-- [ ] Escalation happens on **request / policy-gap / no-progress** only; a **multi-match asks for an
+- [x] Escalation happens on **request / policy-gap / no-progress** only; a **multi-match asks for an
   identifier** (never guesses).
-- [ ] Escalation produces a **structured handoff** summary (customer ID, root cause, amount, action).
-- [ ] A persistent **"case facts"** block survives long multi-turn conversations.
+- [x] Escalation produces a **structured handoff** summary (customer ID, root cause, amount, action).
+- [x] A persistent **"case facts"** block survives long multi-turn conversations.
 
 There's nothing Phase 4 defers — it's the final build phase. (Phase 5 = write up the answers.)
 
@@ -270,18 +270,18 @@ With `uv run main.py`:
 
 ## 7. Close out the phase
 
-- [ ] Tick the three Phase 4 boxes in [`overview.md`](overview.md).
-- [ ] Re-run `test_hooks.py` (handoff signature change touches the Phase 3 redirect) + add the
+- [x] Tick the three Phase 4 boxes in [`overview.md`](overview.md).
+- [x] Re-run `test_hooks.py` (handoff signature change touches the Phase 3 redirect) + add the
   §5a/§5b tests.
-- [ ] Notes one-liner: *"Escalate on request/policy-gap/no-progress only (not complexity/sentiment/
+- [x] Notes one-liner: *"Escalate on request/policy-gap/no-progress only (not complexity/sentiment/
   confidence); structured handoff because the human can't see the chat; pin a trimmed case-facts block
   at the top so summarization can't drop the numbers."*
-- [ ] Commit (this repo commits straight to `main`):
+- [x] Commit (this repo commits straight to `main`):
   ```bash
   git add projects/cert-01-customer-support-agent certification/projects/overview.md
   git commit -m "Project 01 Phase 4: escalation calibration, structured handoff, case-facts block"
   ```
-- [ ] Run `/log`.
+- [x] Run `/log`.
 
 ### What's next — Phase 5 (the actual exam payload)
 No more code. Answer the four **"Be able to answer"** questions from the overview in your own words and

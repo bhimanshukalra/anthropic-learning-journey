@@ -15,8 +15,8 @@ hooks (run *after* a tool, can rewrite the result before the model sees it).
 reach the model in one consistent date/status shape** regardless of which tool produced them.
 
 **Phase 3 Definition of done**
-- [ ] Refund > $500 is **blocked and redirected** by a hook (not by the prompt).
-- [ ] Mixed date/status formats are **normalized by a PostToolUse hook** before the model reads them.
+- [x] Refund > $500 is **blocked and redirected** by a hook (not by the prompt).
+- [x] Mixed date/status formats are **normalized by a PostToolUse hook** before the model reads them.
 
 What Phase 3 deliberately leaves out (don't build these yet): escalation *calibration* with few-shot
 (explicit-request / policy-gap / no-progress), multi-concern decomposition, the structured handoff
@@ -420,16 +420,16 @@ The callback receives `(input_data, tool_use_id, context)` and returns the **sam
 
 ## 7. Close out the phase
 
-- [ ] Tick the two Phase 3 boxes in [`overview.md`](overview.md).
-- [ ] Notes one-liner: *"PreToolUse intercepts/redirects (refund>$500 → escalate); PostToolUse
+- [x] Tick the two Phase 3 boxes in [`overview.md`](overview.md).
+- [x] Notes one-liner: *"PreToolUse intercepts/redirects (refund>$500 → escalate); PostToolUse
   normalizes heterogeneous output (Unix/ISO dates, status codes) before the model reads it; hooks =
   guaranteed compliance, prompts = soft preference."*
-- [ ] Commit (this repo commits straight to `main`):
+- [x] Commit (this repo commits straight to `main`):
   ```bash
   git add projects/cert-01-customer-support-agent certification/projects/overview.md
   git commit -m "Project 01 Phase 3: PreToolUse/PostToolUse hooks — refund cap + output normalization"
   ```
-- [ ] Run `/log`.
+- [x] Run `/log`.
 
 ### What Phase 4 will add (preview)
 Phase 4 shifts from *enforcement* to *judgment*: **escalation calibration** with few-shot examples

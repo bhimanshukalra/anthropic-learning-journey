@@ -27,8 +27,8 @@ guide.
 
 ### Phase 0 — Project setup (from scratch) · [`phase-0.md`](phase-0.md)
 *Outcome: the project directory + a coordinator/subagent skeleton that runs end-to-end on stubs, no credits.*
-- [ ] Project directory + env created; `core/claude.py` reused from Project 01.
-- [ ] `subagent.py` + `coordinator.py` skeleton runs on stubs with no credits.
+- [x] Project directory + env created; `core/claude.py` reused from Project 01.
+- [x] `subagent.py` + `coordinator.py` skeleton runs on stubs with no credits.
 
 ---
 
@@ -48,9 +48,9 @@ Emit **multiple `Task` calls in a single coordinator response** to run subagents
 the latency win vs sequential. (Parallel = one turn with many Task calls, not many turns.)
 
 **Phase 1 milestone:** the coordinator spawns subagents via `Task`, each gets its context explicitly, and parallel Task calls in one turn beat sequential on wall-clock.
-- [ ] Coordinator spawns subagents via `Task` (with `"Task"` in `allowedTools`).
-- [ ] Subagents get all needed context explicitly in their prompts.
-- [ ] Parallel Task calls in one turn; measured latency improvement.
+- [x] Coordinator spawns subagents via `Task` (with `"Task"` in `allowedTools`).
+- [x] Subagents get all needed context explicitly in their prompts.
+- [x] Parallel Task calls in one turn; measured latency improvement.
 
 ---
 
@@ -66,7 +66,7 @@ working) search/analysis/synthesis agents. Fix by:
   queries → re-synthesize until coverage is sufficient.
 
 **Phase 2 milestone:** the narrow-decomposition failure is reproduced, then fixed — the coordinator partitions broadly and refines until coverage is sufficient.
-- [ ] Narrow-decomposition failure reproduced, then fixed with broad partition + refinement loop.
+- [x] Narrow-decomposition failure reproduced, then fixed with broad partition + refinement loop.
 
 ---
 
@@ -88,8 +88,8 @@ recovers (retry/alternative/partial). Avoid all three anti-patterns:
 Subagents recover **transient** failures locally; propagate only the unrecoverable. (Exam Q8 → A.)
 
 **Phase 3 milestone:** synthesis fact-checks with a scoped tool; a search timeout returns structured context and the coordinator proceeds with partial results + a coverage note.
-- [ ] Synthesis has a scoped `verify_fact` tool; complex cases still route via coordinator.
-- [ ] Timeout returns structured error context; coordinator proceeds with partial results + coverage note.
+- [x] Synthesis has a scoped `verify_fact` tool; complex cases still route via coordinator.
+- [x] Timeout returns structured error context; coordinator proceeds with partial results + coverage note.
 
 ---
 
@@ -111,15 +111,15 @@ downstream agent's context budget is tight. Put key summaries at the **start** o
 (lost-in-the-middle) with explicit section headers.
 
 **Phase 4 milestone:** the final report preserves claim→source mappings, annotates conflicts with dates, separates established vs contested findings; upstream handoffs carry trimmed key facts, not reasoning dumps.
-- [ ] Final report preserves claim→source mappings, annotates conflicts with dates, separates
+- [x] Final report preserves claim→source mappings, annotates conflicts with dates, separates
       established vs contested findings.
-- [ ] Upstream agents hand off structured key facts + citations; key summaries placed at the start.
+- [x] Upstream agents hand off structured key facts + citations; key summaries placed at the start.
 
 ---
 
 ### Phase 5 — Write up the answers · [`phase-5.md`](phase-5.md)
 *Outcome: the actual exam payload — answer the five "Be able to answer" questions in writing.*
-- [ ] All five questions answered in your own words (add to your notes).
+- [x] All five questions answered in your own words (add to your notes).
 
 ## Be able to answer
 1. Why don't subagents inherit the coordinator's context, and what must you do about it?

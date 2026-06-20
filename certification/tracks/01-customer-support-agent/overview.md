@@ -52,8 +52,8 @@ like *"check my order #12345"* and confirm it routes to `lookup_order`, not `get
   for "I'm done", don't use an iteration cap as the primary stop, don't treat assistant text as completion.
 
 **Phase 1 milestone:** ask *"check my order #12345"*; agent routes to `lookup_order` and replies, loop terminating on `end_turn`.
-- [ ] Two similar tools reliably selected via descriptions alone (no routing layer).
-- [ ] Loop driven purely by `stop_reason`; no NL-parsing / iteration-cap / text-content stop.
+- [x] Two similar tools reliably selected via descriptions alone (no routing layer).
+- [x] Loop driven purely by `stop_reason`; no NL-parsing / iteration-cap / text-content stop.
 
 ---
 
@@ -76,8 +76,8 @@ verified customer ID.** This is the single most-tested idea here (Q1). Prove to 
 prompt instruction ("verification is mandatory") still fails sometimes, but the gate never does.
 
 **Phase 2 milestone:** a refund attempt before verification is blocked in code; a "refund window expired" error is explained, not retried.
-- [ ] Each error category produces the right agent behavior (retry vs explain).
-- [ ] Refund is impossible without a verified `get_customer` ID — enforced in code, not prompt.
+- [x] Each error category produces the right agent behavior (retry vs explain).
+- [x] Refund is impossible without a verified `get_customer` ID — enforced in code, not prompt.
 
 ---
 
@@ -90,8 +90,8 @@ Also add a `PostToolUse` hook that **normalizes** mixed date formats (Unix vs IS
 status codes from different tools into one shape before the model reads them.
 
 **Phase 3 milestone:** a $600 refund is intercepted and escalated; tool outputs reach the model in one consistent date/status shape.
-- [ ] Refund > $500 is blocked and redirected by a hook.
-- [ ] Mixed date/status formats normalized by a `PostToolUse` hook.
+- [x] Refund > $500 is blocked and redirected by a hook.
+- [x] Mixed date/status formats normalized by a `PostToolUse` hook.
 
 ---
 
@@ -114,15 +114,15 @@ Confirm straightforward cases (damage replacement + photo) are resolved, not esc
   prompt so progressive summarization can't lose the numbers. Trim verbose order lookups to relevant fields.
 
 **Phase 4 milestone:** a multi-issue message is decomposed and synthesized into one reply; an escalation emits a structured handoff; numbers survive a long conversation.
-- [ ] Escalation happens on request/policy-gap/no-progress only; multi-match asks for an identifier.
-- [ ] Escalation produces a structured handoff summary.
-- [ ] "Case facts" block survives long multi-turn conversations.
+- [x] Escalation happens on request/policy-gap/no-progress only; multi-match asks for an identifier.
+- [x] Escalation produces a structured handoff summary.
+- [x] "Case facts" block survives long multi-turn conversations.
 
 ---
 
 ### Phase 5 — Write up the answers
 *Outcome: the actual exam payload — answer the four "Be able to answer" questions below in writing.*
-- [ ] All four questions answered in your own words (add to your notes).
+- [x] All four questions answered in your own words (add to your notes).
 
 ## Be able to answer
 1. Why is a prerequisite gate better than a strongly-worded system prompt for identity verification?

@@ -11,7 +11,7 @@ the **most effective** / **best first step**" judgment, and these four are the c
 01 trains.
 
 **Phase 5 Definition of done**
-- [ ] All four questions answered **in your own words** and added to your notes.
+- [x] All four questions answered **in your own words** and added to your notes.
 
 > **How to use this file:** for each question, **write your own answer first** (a few sentences,
 > from memory), *then* read the reference answer below and check what you missed. The gap between your
@@ -100,13 +100,13 @@ time, it belongs in a hook.
 
 ## Close out the project
 
-- [ ] Write your own version of all four answers and paste them into your notes (the file in your
+- [x] Write your own version of all four answers and paste them into your notes (the file in your
   `memory/` notes, or `NOTES-TOPICS.md`) — *your wording*, not this file's.
-- [ ] Tick the Phase 5 box and the remaining boxes in
+- [x] Tick the Phase 5 box and the remaining boxes in
   [`overview.md`](overview.md).
-- [ ] (When you have credits) run the deferred **model-level** checks — Phase 2 §4c, Phase 3 §5c,
+- [x] (When you have credits) run the deferred **model-level** checks — Phase 2 §4c, Phase 3 §5c,
   Phase 4 §5c — to confirm the *behaviors*, not just the deterministic code.
-- [ ] Commit and run `/log`.
+- [x] Commit and run `/log`.
 
 > **Project 01 is the highest-value scenario on the exam** (Scenario 1; Domains 1, 2, 5). When you can
 > produce all four answers from memory — *and* explain why each tempting wrong answer is wrong — you've

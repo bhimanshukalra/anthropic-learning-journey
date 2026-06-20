@@ -17,9 +17,9 @@ the first file to create, and a **runnable skeleton that needs zero API credits.
 runs end-to-end with **no API key set**.
 
 **Phase 0 Definition of done**
-- [ ] Project directory + env created; `core/claude.py` reused from Project 01.
-- [ ] `subagent.py` + `coordinator.py` skeleton runs on stubs with **no credits**.
-- [ ] You can explain how `spawn()` maps to the real `Task` tool (§4).
+- [x] Project directory + env created; `core/claude.py` reused from Project 01.
+- [x] `subagent.py` + `coordinator.py` skeleton runs on stubs with **no credits**.
+- [x] You can explain how `spawn()` maps to the real `Task` tool (§4).
 
 ---
 
@@ -152,11 +152,11 @@ Know the SDK names for the exam; build the harness to understand *why* they exis
 
 ## 5. Close out the phase
 
-- [ ] Tick the Phase 0 boxes in [`overview.md`](overview.md).
-- [ ] Notes one-liner: *"Multi-agent from scratch = Subagent (AgentDefinition + injectable model) +
+- [x] Tick the Phase 0 boxes in [`overview.md`](overview.md).
+- [x] Notes one-liner: *"Multi-agent from scratch = Subagent (AgentDefinition + injectable model) +
   Coordinator (decompose→spawn→synthesize); `spawn` = the Task tool; `asyncio.gather` = parallel;
   stub mode (claude=None) runs credit-free."*
-- [ ] Commit; run `/log`.
+- [x] Commit; run `/log`.
 
 ### What Phase 1 will add
 Flesh out the coordinator/subagent mechanics: explicit context passing, `AgentDefinition` per role with

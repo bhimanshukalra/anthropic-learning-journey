@@ -13,9 +13,9 @@ its context **explicitly**, and runs them **in parallel** — all observable **w
 prompt, and **parallel execution is measurably faster than sequential** — printed, no API key.
 
 **Phase 1 Definition of done**
-- [ ] Coordinator spawns subagents via `spawn()` (the `Task` stand-in); `AgentDefinition` per role with restricted tools.
-- [ ] Subagents get all needed context explicitly in their prompts (synthesis sees the findings).
-- [ ] Parallel run measurably beats sequential; you can show the numbers.
+- [x] Coordinator spawns subagents via `spawn()` (the `Task` stand-in); `AgentDefinition` per role with restricted tools.
+- [x] Subagents get all needed context explicitly in their prompts (synthesis sees the findings).
+- [x] Parallel run measurably beats sequential; you can show the numbers.
 
 ---
 
@@ -232,11 +232,11 @@ fan-out **without a model**.
 
 ## 5. Close out the phase
 
-- [ ] Tick the three Phase 1 boxes in [`overview.md`](overview.md).
-- [ ] `PHASE-1 TESTS OK`, and you can show `parallel < sequential` numbers.
-- [ ] Notes one-liner: *"Subagents inherit nothing → paste findings into the prompt; AgentDefinition
+- [x] Tick the three Phase 1 boxes in [`overview.md`](overview.md).
+- [x] `PHASE-1 TESTS OK`, and you can show `parallel < sequential` numbers.
+- [x] Notes one-liner: *"Subagents inherit nothing → paste findings into the prompt; AgentDefinition
   restricts tools; parallel = gather many spawns in one step (≈ many Task calls/turn)."*
-- [ ] Commit; run `/log`.
+- [x] Commit; run `/log`.
 
 ### What Phase 2 will add (preview)
 The decomposition-quality failure mode: make `decompose()` over-narrow (e.g. only `["visual"]`),

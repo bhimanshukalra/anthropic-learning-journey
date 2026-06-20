@@ -13,8 +13,8 @@ prompt), and a `process_refund` on an expired-window order returns a **business 
 explains rather than retries**.
 
 **Phase 2 Definition of done**
-- [ ] Each error category produces the right agent behavior (retry vs explain).
-- [ ] Refund is impossible without a verified `get_customer` ID — enforced in code, not prompt.
+- [x] Each error category produces the right agent behavior (retry vs explain).
+- [x] Refund is impossible without a verified `get_customer` ID — enforced in code, not prompt.
 
 What Phase 2 deliberately leaves out (don't build these yet): the $500 interception hook and the
 `PostToolUse` date/status normalization (Phase 3), and escalation *calibration* + the case-facts
@@ -294,15 +294,15 @@ With `uv run main.py`:
 
 ## 5. Close out the phase
 
-- [ ] Tick the two Phase 2 boxes in [`overview.md`](overview.md).
-- [ ] Notes one-liner: *"Gate > prompt for hard prerequisites (Q1); empty result ≠ access error;
+- [x] Tick the two Phase 2 boxes in [`overview.md`](overview.md).
+- [x] Notes one-liner: *"Gate > prompt for hard prerequisites (Q1); empty result ≠ access error;
   isRetryable drives retry-vs-explain."*
-- [ ] Commit (this repo commits straight to `main`):
+- [x] Commit (this repo commits straight to `main`):
   ```bash
   git add projects/cert-01-customer-support-agent certification/projects/overview.md
   git commit -m "Project 01 Phase 2: structured errors + deterministic verification gate"
   ```
-- [ ] Run `/log`.
+- [x] Run `/log`.
 
 ### What Phase 3 will add (preview)
 You'll **generalize the gate into hooks**: a `PreToolUse`-style hook that blocks `process_refund`

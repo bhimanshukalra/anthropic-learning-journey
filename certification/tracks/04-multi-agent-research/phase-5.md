@@ -7,7 +7,7 @@ This is the **exam payload** for Scenario 3. Domain 1 is the heaviest on the exa
 multi-agent orchestration is its core, so these five answers carry weight.
 
 **Phase 5 Definition of done**
-- [ ] All five questions answered **in your own words** and added to your notes.
+- [x] All five questions answered **in your own words** and added to your notes.
 
 > **How to use this file:** write your own answer first, then read the reference and check the gap.
 
@@ -81,9 +81,9 @@ of aggregated inputs so attribution isn't lost-in-the-middle.
 
 ## Close out the project
 
-- [ ] Write your own version of all five answers and paste them into your notes — *your wording*.
-- [ ] Tick the Phase 5 box and the remaining boxes in [`overview.md`](overview.md).
-- [ ] Commit and run `/log`.
+- [x] Write your own version of all five answers and paste them into your notes — *your wording*.
+- [x] Tick the Phase 5 box and the remaining boxes in [`overview.md`](overview.md).
+- [x] Commit and run `/log`.
 
 > **Scenario 3 is pure Domain-1 territory (the 27% bucket) plus error propagation and provenance.** When
 > you can answer all five from memory — and say why each wrong option is wrong — these points are banked.

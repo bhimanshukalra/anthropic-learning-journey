@@ -13,8 +13,8 @@ the transient failure, then **proceeds with partial results + a coverage note** 
 produces a synthesis, and the workflow is never killed.
 
 **Phase 3 Definition of done**
-- [ ] `verify_fact` is a scoped tool on synthesis (`allowed_tools == ["verify_fact"]`, no web tools).
-- [ ] Timeout → structured error (type/query/partial/alternatives/retryable); coordinator recovers and proceeds with partial + coverage note.
+- [x] `verify_fact` is a scoped tool on synthesis (`allowed_tools == ["verify_fact"]`, no web tools).
+- [x] Timeout → structured error (type/query/partial/alternatives/retryable); coordinator recovers and proceeds with partial + coverage note.
 
 ---
 
@@ -187,10 +187,10 @@ shipped) — Q8's "recover and proceed" in one view, no model.
 
 ## 5. Close out the phase
 
-- [ ] Tick the two Phase 3 boxes in [`overview.md`](overview.md); `PHASE-3 TESTS OK`.
-- [ ] Notes one-liner: *"Scoped verify_fact on synthesis (Q9, least privilege); timeout → structured
+- [x] Tick the two Phase 3 boxes in [`overview.md`](overview.md); `PHASE-3 TESTS OK`.
+- [x] Notes one-liner: *"Scoped verify_fact on synthesis (Q9, least privilege); timeout → structured
   envelope, retry transient locally, proceed with partial + coverage note, never kill (Q8)."*
-- [ ] Commit; run `/log`.
+- [x] Commit; run `/log`.
 
 ### What Phase 4 will add (preview)
 Provenance: upgrade the corpus to **structured records** (claim, source, date), preserve claim→source
