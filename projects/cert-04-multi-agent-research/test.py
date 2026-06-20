@@ -3,10 +3,17 @@
 
 import asyncio
 import mock_sources
-from main import build
+from main import build, measure_latency
 
 coord = build()  # stub mode
 KNOWN = list(mock_sources.KNOWN_SUBDOMAINS)
+
+
+# ---- latency: parallel fan-out must beat sequential by ~N× (Step 2) ----
+par, seq, speedup = asyncio.run(measure_latency(coord, "AI in creative industries", KNOWN))
+assert speedup > 2, (par, seq, speedup)  # 5 topics overlapping -> well over 2x
+assert par < seq  # parallel is the faster wall-clock
+print(f"LATENCY TESTS OK (parallel {par:.2f}s vs sequential {seq:.2f}s, {speedup:.1f}x)")
 
 
 # ---- fan-out: the coordinator spawns one subagent per sub-topic ----

@@ -45,6 +45,17 @@ class Coordinator:
                 findings[i] = r
         return findings
 
+    async def research_sequential(self, query: str, scope: list[str]) -> list[dict]:
+        """Same work as research(), but awaiting each spawn one-at-a-time. Exists ONLY to
+        contrast wall-clock with the parallel research() — never used in the real pipeline."""
+        tasks = self.decompose(query, scope)
+        findings = []
+        for t in tasks:  # one await per topic -> latencies ADD UP instead of overlapping
+            f = await self.spawn(t["agent"], t["prompt"])
+            f["subdomain"] = t["subdomain"]
+            findings.append(f)
+        return findings
+
     def covered(self, findings: list[dict]) -> set:
         """Which topics actually came back with sources (ignore errors and empty results)."""
         return {
