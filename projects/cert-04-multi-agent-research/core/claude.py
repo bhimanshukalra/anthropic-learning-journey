@@ -1,3 +1,7 @@
+# core/claude.py
+# A thin wrapper around the Anthropic API (reused from the customer-support project).
+# Only used in "real mode" — when a Claude instance is passed into the subagents.
+
 from anthropic import Anthropic
 from anthropic.types import Message
 
@@ -8,6 +12,7 @@ class Claude:
         self.model = model
 
     def add_user_message(self, messages: list, message):
+        """Append a user turn to a messages list (accepts a Message or raw content)."""
         user_message = {
             "role": "user",
             "content": message.content if isinstance(message, Message) else message,
@@ -15,6 +20,7 @@ class Claude:
         messages.append(user_message)
 
     def add_assistant_message(self, messages: list, message):
+        """Append an assistant turn to a messages list."""
         assistant_message = {
             "role": "assistant",
             "content": message.content if isinstance(message, Message) else message,
@@ -22,6 +28,7 @@ class Claude:
         messages.append(assistant_message)
 
     def text_from_message(self, message: Message):
+        """Pull just the plain text out of a model response (ignore non-text blocks)."""
         return "\n".join(
             [block.text for block in message.content if block.type == "text"]
         )
@@ -36,6 +43,7 @@ class Claude:
         thinking=False,
         thinking_budget=1024,
     ) -> Message:
+        """Send one request to the model and return its response."""
         params = {
             "model": self.model,
             "max_tokens": 8000,
@@ -43,16 +51,13 @@ class Claude:
             "temperature": temperature,
             "stop_sequences": stop_sequences,
         }
-
         if thinking:
             params["thinking"] = {
                 "type": "enabled",
                 "budget_tokens": thinking_budget,
             }
-
         if tools:
             params["tools"] = tools
-
         if system:
             params["system"] = system
 

@@ -1,3 +1,9 @@
+# mock_sources.py
+# A fake "internet" for the research agents — pure Python data, no network calls.
+# Each sub-topic maps to a list of source "records".
+
+# topic -> list of {claim, source, date} records the web_search agent can return.
+# "film" deliberately holds TWO conflicting records so we can test conflict handling.
 _CORPUS = {
     "music": [
         {"claim": "AI music market grew sharply in 2025", "source": "musicbiz.example", "date": "2025-01"}
@@ -17,29 +23,33 @@ _CORPUS = {
     ],
 }
 
+# Every topic we know about — the coordinator compares against this to find coverage gaps.
 KNOWN_SUBDOMAINS = list(_CORPUS)
-FAILING: set[str] = set()  # sub-domains whose search times out (tests set this)
+
+# Test switch: any topic listed here makes search() "time out" (simulates a flaky backend).
+FAILING: set[str] = set()
 
 
+# Raised by search() to simulate a transient backend/network failure.
 class SourceTimeout(Exception):
     pass
 
 
 def search(query: str) -> list[dict]:
-    """Return structured claim→source records for a sub-domain, or raise a (simulated) timeout."""
+    """Look up sources for a topic."""
     q = query.lower()
-    if any(sd in q for sd in FAILING):
+    if any(sd in q for sd in FAILING):  # simulate an outage for the chosen topic
         raise SourceTimeout("source service unreachable")
-    for sd in KNOWN_SUBDOMAINS:
+    for sd in KNOWN_SUBDOMAINS:  # return the matching topic's records...
         if sd in q:
             return _CORPUS[sd]
-    return []
+    return []  # ...or an empty list (a valid "no results", NOT an error)
 
 
 def verify_fact(claim: str) -> dict:
-    """Scoped fact-check: match a claim to its sub-domain's records (no full web toolset)."""
+    """A small, scoped fact-checker the synthesis agent is allowed to use."""
     q = claim.lower()
-    for sd, recs in _CORPUS.items():
+    for sd, recs in _CORPUS.items():  # claim mentions a known topic -> verified, with its sources
         if sd in q:
             return {"verified": True, "sources": recs}
     return {"verified": False, "sources": []}
