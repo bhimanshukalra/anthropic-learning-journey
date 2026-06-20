@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "location": "app/calculator.py:6",
+      "issue": "average() divides by len(numbers) with no guard; raises ZeroDivisionError on an empty list.",
+      "severity": "high",
+      "suggested_fix": "Guard the empty case: return 0 (or raise a clear ValueError) when numbers is empty.",
+      "detected_pattern": "unhandled-edge-case"
+    },
+    {
+      "location": "app/calculator.py:11",
+      "issue": "Docstring claims it returns a copy, but it returns the live list — callers can mutate internal state.",
+      "severity": "medium",
+      "suggested_fix": "return list(stored_tags)",
+      "detected_pattern": "comment-contradicts-code"
+    }
+  ]
+}

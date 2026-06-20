@@ -1,0 +1,31 @@
+# GitHub Actions workflow TEMPLATE for Project 05.
+#
+# ⚠️ To actually run, this must live at the REPO ROOT in .github/workflows/ — GitHub only picks up
+# workflows there, not under projects/. Kept here as a reference you'd copy up and adapt.
+
+name: Claude Code Review
+on:
+  pull_request:
+    types: [opened, synchronize] # synchronize = new commits pushed (drives re-run hygiene, Phase 4)
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need full history so we can diff against the base branch
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run review (blocking pre-merge → synchronous, Phase 4)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x projects/cert-05-claude-code-cicd/review.sh
+          projects/cert-05-claude-code-cicd/review.sh "origin/${{ github.base_ref }}"
+
+  # The overnight tech-debt report would be a SEPARATE workflow on `schedule:` that submits to the
+  # Message Batches API (50% off, ≤24h, no SLA) — never batch this blocking pre-merge job (Phase 4 / Q11).

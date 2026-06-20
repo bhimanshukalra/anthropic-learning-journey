@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "location": { "type": "string", "description": "file:line, e.g. app/calculator.py:5" },
+          "issue": { "type": "string" },
+          "severity": { "type": "string", "enum": ["low", "medium", "high"] },
+          "suggested_fix": { "type": "string" },
+          "detected_pattern": { "type": "string", "description": "rule id, for false-positive analysis" }
+        },
+        "required": ["location", "issue", "severity"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["findings"],
+  "additionalProperties": false
+}
