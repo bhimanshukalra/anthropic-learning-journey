@@ -21,12 +21,16 @@ class Subagent:
         """Run on an explicit prompt."""
         if self.claude is None:
             await asyncio.sleep(STUB_LATENCY_S)
-            text = (
+            res = (
                 self.stub_responder(prompt)
                 if self.stub_responder
                 else f"[stub: {self.definition.name}]"
             )
-            return {"agent": self.definition.name, "text": text}
+            return (
+                {"agent": self.definition.name, **res}
+                if isinstance(res, dict)
+                else {"agent": self.definition.name, "text": res}
+            )
         msg = self.claude.chat(
             messages=[{"role": "user", "content": prompt}],
             system=self.definition.system,

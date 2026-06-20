@@ -27,13 +27,24 @@ class Coordinator:
         )
         for t, f in zip(tasks, findings):
             f["subdomain"] = t["subdomain"]
+
+        for i, (t, f) in enumerate(zip(tasks, findings)):
+            if f.get("isError") and f.get("isRetryable"):
+                r = await self.spawn(t["agent"], t["prompt"])
+                r["subdomain"] = t["subdomain"]
+                findings = r
+
         return findings
 
     def covered(self, findings: list[dict]) -> set:
-        return {f["subdomain"] for f in findings if "no sources found" not in f["text"]}
+        return {
+            f["subdomain"]
+            for f in findings
+            if not f.get("isError") and "no sources found" not in f.get("text", "")
+        }
 
     async def run(
-        self, query: str, scope: list[str], refine: bool = True, max_rounds: int = 3
+        self, query: str, scope: list[str], refine: bool = False, max_rounds: int = 3
     ) -> dict:
         findings = await self.research(query, scope)
         rounds = 0
@@ -42,21 +53,25 @@ class Coordinator:
             if not gaps:
                 break
             findings += await self.research(query, sorted(gaps))
-
             rounds += 1
 
-        gaps = sorted(set(mock_sources.KNOWN_SUBDOMAINS) - self.covered(findings))
-        joined = "\n".join(f"- {f['subdomain']}: {f['text']}" for f in findings)
-        synth_prompt = (
-            f"Synthesize a cited overview for: {query}\nFINDINGS:\n{joined}\n"
-            f"COVERAGE: covered={sorted(self.covered(findings))} gaps={gaps}"
+        ok = [f for f in findings if not f.get("isError")]
+        errors = [f for f in findings if f.get("isError")]
+        failed = sorted({f["subdomain"] for f in errors})
+        joined = "\n".join(f"- {f['subdomain']}: {f['text']}" for f in ok)
+        note = (
+            f"\nCOVERAGE NOTE: search errors on {failed} (retried, proceeding with partial)."
+            if errors
+            else ""
         )
-        synthesis = await self.spawn("synthesis", synth_prompt)
+
+        synthesis = await self.spawn(
+            "synthesis", f"Synthesize for: {query}\nFINDINGS:\n{joined}{note}"
+        )
         return {
             "query": query,
-            "findings": findings,
-            "covered": sorted(self.covered(findings)),
-            "gaps": gaps,
-            "rounds": rounds,
+            "findings": ok,
+            "errors": errors,
+            "failed": failed,
             "synthesis": synthesis,
         }

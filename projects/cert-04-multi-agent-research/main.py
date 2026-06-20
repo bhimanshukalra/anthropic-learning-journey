@@ -10,7 +10,7 @@ def build(claude=None):
             "web_search", "Find credible, dated sources.", ["search"]
         ),
         "synthesis": AgentDefinition(
-            "synthesis", "Combine findings into a cited overview.", ["verify_fact"]
+            "synthesis", "Combine findings; verify simple claims.", ["verify_fact"]
         ),
     }
     stubs = {
@@ -22,6 +22,20 @@ def build(claude=None):
         for n, d in defs.items()
     }
     return Coordinator(subagents)
+
+
+def _web_search_stub(prompt: str):
+    try:
+        return mock_sources.search(prompt)
+    except mock_sources.SourceTimeout:
+        return {
+            "isError": True,
+            "failureType": "transient",
+            "attemptedQuery": prompt,
+            "partialResults": [],
+            "suggestedAlternatives": ["retry", "narrow date range"],
+            "isRetryable": True,
+        }
 
 
 if __name__ == "__main__":
