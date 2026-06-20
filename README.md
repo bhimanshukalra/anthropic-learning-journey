@@ -72,7 +72,7 @@ Each project has a detailed build guide. Tick the box when its "Definition of do
   → [`certification/projects/04-multi-agent-research/overview.md`](certification/projects/04-multi-agent-research/overview.md)
   *(coordinator/subagent, Task tool, parallel spawn, error propagation, provenance)*
 - [ ] **05 — Claude Code in CI/CD** · Scenario 5 · Domains 3, 4
-  → [`certification/projects/05-claude-code-cicd.md`](certification/projects/05-claude-code-cicd.md)
+  → [`certification/projects/05-claude-code-cicd/overview.md`](certification/projects/05-claude-code-cicd/overview.md)
   *(-p/--print, json-schema output, explicit criteria, independent + multi-pass review)*
 - [ ] **06 — Developer Productivity / Codebase Explorer** · Scenario 4 · Domains 2, 3, 1
   → [`certification/projects/06-developer-productivity-explorer.md`](certification/projects/06-developer-productivity-explorer.md)
@@ -139,7 +139,8 @@ certification/
     03-structured-data-extraction.md
     04-multi-agent-research/
       overview.md   phase-0.md (setup) … phase-5.md
-    05-claude-code-cicd.md
+    05-claude-code-cicd/
+      overview.md   phase-1.md … phase-5.md
     06-developer-productivity-explorer.md
     prep-exercise-01-multi-tool-agent.md     # official Exam Guide exercises (verbatim source)
     prep-exercise-02-claude-code-team-workflow.md
