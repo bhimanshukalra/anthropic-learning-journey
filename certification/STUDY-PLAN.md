@@ -67,7 +67,7 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 
 ## Weekly checkpoints (fill at end of each week)
 
-- [ ] **Week 1 (Jun 16–21):** Oriented; Domain 1 notes drafted. Weakest topic: ____
+- [x] **Week 1 (Jun 16–21):** Oriented; Domain 1 notes drafted (all 24 §1 topics, MCQ-tested ≥4). Weakest topic: narrow-decomposition blame-attribution (root cause = coordinator, not synthesis). _Outstanding: EXAM-PREP §4 heuristics not yet read; API key pending._
 - [ ] **Week 2 (Jun 22–28):** Domains 2–3 notes done. Weakest: ____
 - [ ] **Week 3 (Jun 29–Jul 5):** Domains 4–5 notes done. Weakest: ____
 - [ ] **Week 4 (Jul 6–12):** Glossary + consolidation done; Projects 1–2 underway. Weakest: ____
@@ -88,48 +88,48 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 #### Day 1 · Tue Jun 16 — Phase 0: Orientation
 **Focus:** Understand the exam and this plan; set up your workspace.
 - [ ] Read `EXAM-PREP.md` end-to-end (don't memorize — absorb the shape).
-- [ ] Skim `NOTES-TOPICS.md` and all 6 project guides so you know what's coming.
-- [ ] Set up a notes folder/app and a dev environment (Agent SDK + API key) for projects.
+- [x] Skim `NOTES-TOPICS.md` and all 6 project guides so you know what's coming.
+- [ ] Set up a notes folder/app and a dev environment (Agent SDK + API key) for projects. _(env/notes done; API key still pending)_
 - [ ] Read `EXAM-PREP.md` §4 (heuristics) a second time — this is your north star.
 
-🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
+🌙 **Evening log:** _Confidence (1–5): 4 · What clicked: plan critique — projects already built, so theory = consolidation not first-exposure · Revisit: EXAM-PREP §4 heuristics (skipped, the real gap)_
 
 #### Day 2 · Wed Jun 17 — Phase 1: Domain 1 notes
 **Focus:** Agentic loop fundamentals.
-- [ ] Warm-up (15m): re-read §4 heuristics 4.1–4.3.
-- [ ] Notes: agentic loop lifecycle, tool results in history, model-driven vs pre-configured control,
+- [ ] Warm-up (15m): re-read §4 heuristics 4.1–4.3. _(skipped — §4 not yet read)_
+- [x] Notes: agentic loop lifecycle, tool results in history, model-driven vs pre-configured control,
       loop anti-patterns (NOTES §1, first 4 topics).
-- [ ] Active recall: from memory, write the loop control flow and the 3 anti-patterns + why each is wrong.
+- [x] Active recall: from memory, write the loop control flow and the 3 anti-patterns + why each is wrong.
 
-🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
+🌙 **Evening log:** _Confidence (1–5): 5 · What clicked: stop_reason is the only control signal; text ≠ completion · Revisit: — (Batch 1 quiz 5/5)_
 
 #### Day 3 · Thu Jun 18 — Phase 1: Domain 1 notes
 **Focus:** Coordinator–subagent orchestration.
-- [ ] Warm-up (15m): recite yesterday's loop anti-patterns.
-- [ ] Notes: hub-and-spoke, subagent context isolation, coordinator responsibilities,
+- [x] Warm-up (15m): recite yesterday's loop anti-patterns.
+- [x] Notes: hub-and-spoke, subagent context isolation, coordinator responsibilities,
       narrow-decomposition risk, scope partitioning, iterative refinement (NOTES §1).
-- [ ] Active recall: explain why subagents don't inherit context and what you must do about it.
+- [x] Active recall: explain why subagents don't inherit context and what you must do about it.
 
-🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
+🌙 **Evening log:** _Confidence (1–5): 4 · What clicked: scope partitioning (prevent) + refinement loop (cure) are complementary · Revisit: narrow-decomposition blame-attribution — initially blamed synthesis, not the coordinator_
 
 #### Day 4 · Fri Jun 19 — Phase 1: Domain 1 notes
 **Focus:** Spawning, context passing, enforcement & handoff.
-- [ ] Warm-up (15m): coordinator responsibilities from memory.
-- [ ] Notes: `Task` tool + `allowedTools`, `AgentDefinition`, parallel spawning, goal-vs-procedural
+- [x] Warm-up (15m): coordinator responsibilities from memory.
+- [x] Notes: `Task` tool + `allowedTools`, `AgentDefinition`, parallel spawning, goal-vs-procedural
       prompts, programmatic enforcement vs prompt, prerequisite gates, structured handoff (NOTES §1).
-- [ ] Active recall: when do you use a hook/gate instead of a prompt instruction?
+- [x] Active recall: when do you use a hook/gate instead of a prompt instruction?
 
-🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
+🌙 **Evening log:** _Confidence (1–5): 5 · What clicked: prompts are probabilistic, gates/hooks deterministic — enforce money/safety in code · Revisit: — (Batch 3 quiz 7/7)_
 
 #### Day 5 · Sat Jun 20 — Phase 1: Domain 1 notes
 **Focus:** Hooks, decomposition, sessions.
-- [ ] Warm-up (15m): prerequisite-gate example (refund) from memory.
-- [ ] Notes: `PostToolUse` normalization, tool-call interception, hooks-vs-prompts, prompt chaining vs
+- [x] Warm-up (15m): prerequisite-gate example (refund) from memory.
+- [x] Notes: `PostToolUse` normalization, tool-call interception, hooks-vs-prompts, prompt chaining vs
       dynamic decomposition, `--resume`, `fork_session`, resume-vs-fresh (NOTES §1, remaining topics).
-- [ ] Active recall: resume vs start-fresh-with-summary — when each?
-- [ ] ✅ Mark NOTES §1 progress box if all 24 Domain-1 topics are noted.
+- [x] Active recall: resume vs start-fresh-with-summary — when each?
+- [x] ✅ Mark NOTES §1 progress box if all 24 Domain-1 topics are noted.
 
-🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
+🌙 **Evening log:** _Confidence (1–5): 5 · What clicked: resume when context valid; fresh+summary when tool results stale (name changed files) · Revisit: — (Batch 4 quiz 7/7)_
 
 #### Day 6 · Sun Jun 21 — 🛌 REST
 - [ ] Optional 15-min skim of anything flagged "revisit" this week. Otherwise rest.

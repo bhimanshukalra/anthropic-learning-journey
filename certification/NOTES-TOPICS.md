@@ -29,43 +29,43 @@
 
 ## §1 — Agentic Architecture & Orchestration 🔴 (27%)
 
-- [ ] **The agentic loop lifecycle** — request → inspect `stop_reason` → execute tools → append
+- [x] **The agentic loop lifecycle** — request → inspect `stop_reason` → execute tools → append
       results → repeat. Continue on `"tool_use"`, terminate on `"end_turn"`.
-- [ ] **Tool results in conversation history** — why results must be appended each turn so the model
+- [x] **Tool results in conversation history** — why results must be appended each turn so the model
       can reason about the next action.
-- [ ] **Model-driven vs pre-configured control** — Claude reasoning about the next tool vs hardcoded
+- [x] **Model-driven vs pre-configured control** — Claude reasoning about the next tool vs hardcoded
       decision trees / fixed tool sequences.
-- [ ] **Agentic-loop anti-patterns** — parsing natural language for "done," iteration cap as the
+- [x] **Agentic-loop anti-patterns** — parsing natural language for "done," iteration cap as the
       *primary* stop, treating assistant text as a completion signal. (Know *why* each is wrong.)
-- [ ] **Hub-and-spoke orchestration** — coordinator owns all inter-subagent comms, error handling, routing.
-- [ ] **Subagent context isolation** — subagents do NOT inherit coordinator history; context must be
+- [x] **Hub-and-spoke orchestration** — coordinator owns all inter-subagent comms, error handling, routing.
+- [x] **Subagent context isolation** — subagents do NOT inherit coordinator history; context must be
       passed explicitly in the prompt.
-- [ ] **Coordinator responsibilities** — decomposition, delegation, aggregation, dynamic subagent
+- [x] **Coordinator responsibilities** — decomposition, delegation, aggregation, dynamic subagent
       selection by query complexity.
-- [ ] **Narrow-decomposition risk** — too-narrow task breakdown → incomplete topic coverage (the
+- [x] **Narrow-decomposition risk** — too-narrow task breakdown → incomplete topic coverage (the
       "creative industries → only visual arts" failure).
-- [ ] **Scope partitioning** — assigning distinct subtopics/source types to subagents to avoid duplication.
-- [ ] **Iterative refinement loop** — synthesis flags gaps → coordinator re-delegates targeted queries → re-synthesize.
-- [ ] **The `Task` tool & `allowedTools`** — `Task` spawns subagents; coordinator's `allowedTools`
+- [x] **Scope partitioning** — assigning distinct subtopics/source types to subagents to avoid duplication.
+- [x] **Iterative refinement loop** — synthesis flags gaps → coordinator re-delegates targeted queries → re-synthesize.
+- [x] **The `Task` tool & `allowedTools`** — `Task` spawns subagents; coordinator's `allowedTools`
       must include `"Task"`.
-- [ ] **`AgentDefinition`** — description + system prompt + tool restrictions per subagent type.
-- [ ] **Parallel subagent spawning** — multiple `Task` calls in ONE response (not across turns).
-- [ ] **Goal-based vs procedural coordinator prompts** — specify goals/quality criteria, not step-by-step.
-- [ ] **Programmatic enforcement vs prompt guidance** — deterministic gates/hooks vs probabilistic
+- [x] **`AgentDefinition`** — description + system prompt + tool restrictions per subagent type.
+- [x] **Parallel subagent spawning** — multiple `Task` calls in ONE response (not across turns).
+- [x] **Goal-based vs procedural coordinator prompts** — specify goals/quality criteria, not step-by-step.
+- [x] **Programmatic enforcement vs prompt guidance** — deterministic gates/hooks vs probabilistic
       prompt instructions; prompts have non-zero failure rate.
-- [ ] **Prerequisite gates** — blocking downstream tools until a prerequisite returns (e.g. block
+- [x] **Prerequisite gates** — blocking downstream tools until a prerequisite returns (e.g. block
       `process_refund` until verified customer ID).
-- [ ] **Structured handoff protocols** — customer ID + root cause + amount + recommended action for
+- [x] **Structured handoff protocols** — customer ID + root cause + amount + recommended action for
       humans who can't see the transcript.
-- [ ] **Hooks — `PostToolUse`** — intercept/transform tool results before the model sees them (data
+- [x] **Hooks — `PostToolUse`** — intercept/transform tool results before the model sees them (data
       normalization: Unix vs ISO 8601 vs status codes).
-- [ ] **Hooks — tool-call interception** — block policy violations (refund > $500) and redirect to escalation.
-- [ ] **Hooks vs prompts for compliance** — when guaranteed compliance is required, choose hooks.
-- [ ] **Task decomposition strategies** — prompt chaining (fixed sequential) vs dynamic/adaptive
+- [x] **Hooks — tool-call interception** — block policy violations (refund > $500) and redirect to escalation.
+- [x] **Hooks vs prompts for compliance** — when guaranteed compliance is required, choose hooks.
+- [x] **Task decomposition strategies** — prompt chaining (fixed sequential) vs dynamic/adaptive
       decomposition; per-file + cross-file passes; mapping structure before planning open-ended work.
-- [ ] **Session resumption** — `--resume <session-name>` for named sessions.
-- [ ] **`fork_session`** — branch from a shared baseline to explore divergent approaches.
-- [ ] **Resume vs fresh-with-summary** — resume when context mostly valid; start fresh with injected
+- [x] **Session resumption** — `--resume <session-name>` for named sessions.
+- [x] **`fork_session`** — branch from a shared baseline to explore divergent approaches.
+- [x] **Resume vs fresh-with-summary** — resume when context mostly valid; start fresh with injected
       summary when prior tool results are stale; inform resumed sessions which files changed.
 
 ## §2 — Tool Design & MCP Integration 🟡 (18%)
