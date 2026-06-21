@@ -132,9 +132,9 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 🌙 **Evening log:** _Confidence (1–5): 5 · What clicked: resume when context valid; fresh+summary when tool results stale (name changed files) · Revisit: — (Batch 4 quiz 7/7)_
 
 #### Day 6 · Sun Jun 21 — 🛌 REST
-- [ ] Optional 15-min skim of anything flagged "revisit" this week. Otherwise rest.
+- [x] Optional 15-min skim of anything flagged "revisit" this week. Otherwise rest.
 
-🌙 **Evening log:** _Energy/notes: ____
+🌙 **Evening log:** _Domain 1 closed out: 10/10 on a fresh full-domain practice exam (1.1–1.7), exam-ready. Re-tested the narrow-decomposition revisit item in a new scenario — passed. Next: EXAM-PREP §4 heuristics (standing gap), then the coordinator+gate+hook build exercise._
 
 ---
 
