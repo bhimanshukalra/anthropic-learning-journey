@@ -70,34 +70,34 @@
 
 ## §2 — Tool Design & MCP Integration 🟡 (18%)
 
-- [ ] **Tool descriptions as the selection mechanism** — minimal descriptions → unreliable selection
+- [x] **Tool descriptions as the selection mechanism** — minimal descriptions → unreliable selection
       among similar tools.
-- [ ] **What a good description contains** — input formats, example queries, edge cases, boundaries,
+- [x] **What a good description contains** — input formats, example queries, edge cases, boundaries,
       "use this vs that."
-- [ ] **Overlapping-tool misrouting** — `analyze_content` vs `analyze_document`; fix by renaming +
+- [x] **Overlapping-tool misrouting** — `analyze_content` vs `analyze_document`; fix by renaming +
       specializing (`extract_web_results`) or splitting generic tools.
-- [ ] **System-prompt keyword sensitivity** — wording that creates unintended tool associations and
+- [x] **System-prompt keyword sensitivity** — wording that creates unintended tool associations and
       overrides good descriptions.
-- [ ] **MCP `isError` flag** — communicating tool failures back to the agent.
-- [ ] **Error taxonomy** — transient vs validation vs business vs permission; retryable vs non-retryable.
-- [ ] **Structured error metadata** — `errorCategory`, `isRetryable`, human-readable text,
+- [x] **MCP `isError` flag** — communicating tool failures back to the agent.
+- [x] **Error taxonomy** — transient vs validation vs business vs permission; retryable vs non-retryable.
+- [x] **Structured error metadata** — `errorCategory`, `isRetryable`, human-readable text,
       `retriable:false` + customer-friendly message for business rules.
-- [ ] **Access failure vs valid empty result** — retry decision vs successful query with no matches.
-- [ ] **Why generic errors are bad** — "operation failed" prevents informed recovery.
-- [ ] **Too-many-tools degradation** — 18 vs 4–5 tools hurts selection reliability.
-- [ ] **Cross-specialization misuse** — agents with off-role tools misuse them (synthesis agent doing web search).
-- [ ] **Scoped tool access + scoped cross-role tools** — role-only tools + one high-frequency
+- [x] **Access failure vs valid empty result** — retry decision vs successful query with no matches.
+- [x] **Why generic errors are bad** — "operation failed" prevents informed recovery.
+- [x] **Too-many-tools degradation** — 18 vs 4–5 tools hurts selection reliability.
+- [x] **Cross-specialization misuse** — agents with off-role tools misuse them (synthesis agent doing web search).
+- [x] **Scoped tool access + scoped cross-role tools** — role-only tools + one high-frequency
       exception (`verify_fact`).
-- [ ] **`tool_choice` options** — `"auto"` (text allowed) / `"any"` (must call some tool) / forced
+- [x] **`tool_choice` options** — `"auto"` (text allowed) / `"any"` (must call some tool) / forced
       `{"type":"tool","name":"..."}`.
-- [ ] **MCP server scoping** — project `.mcp.json` (shared) vs user `~/.claude.json` (personal/experimental).
-- [ ] **Env var expansion** — `${GITHUB_TOKEN}` in `.mcp.json` keeps secrets out of git.
-- [ ] **Simultaneous multi-server availability** — all configured servers' tools discovered at connection time.
-- [ ] **MCP resources** — content catalogs (issue summaries, doc hierarchies, DB schemas) to reduce
+- [x] **MCP server scoping** — project `.mcp.json` (shared) vs user `~/.claude.json` (personal/experimental).
+- [x] **Env var expansion** — `${GITHUB_TOKEN}` in `.mcp.json` keeps secrets out of git.
+- [x] **Simultaneous multi-server availability** — all configured servers' tools discovered at connection time.
+- [x] **MCP resources** — content catalogs (issue summaries, doc hierarchies, DB schemas) to reduce
       exploratory tool calls. Resources = content/read; tools = actions.
-- [ ] **Community vs custom MCP servers** — community (Jira) for standard integrations; custom for
+- [x] **Community vs custom MCP servers** — community (Jira) for standard integrations; custom for
       team-specific workflows.
-- [ ] **Built-in tools** — Grep (content) vs Glob (paths) vs Read/Write (full) vs Edit (unique anchor)
+- [x] **Built-in tools** — Grep (content) vs Glob (paths) vs Read/Write (full) vs Edit (unique anchor)
       vs Bash; Edit → Read+Write fallback; incremental codebase exploration.
 
 ## §3 — Claude Code Configuration & Workflows 🟠 (20%)
