@@ -102,28 +102,28 @@
 
 ## §3 — Claude Code Configuration & Workflows 🟠 (20%)
 
-- [ ] **CLAUDE.md hierarchy** — user (`~/.claude/CLAUDE.md`) vs project (`.claude/CLAUDE.md` or root)
+- [x] **CLAUDE.md hierarchy** — user (`~/.claude/CLAUDE.md`) vs project (`.claude/CLAUDE.md` or root)
       vs directory; user-level is NOT shared via git.
-- [ ] **`@import` syntax** — modular CLAUDE.md referencing external standards files.
-- [ ] **`.claude/rules/`** — topic-specific rule files as an alternative to a monolithic CLAUDE.md.
-- [ ] **Config hierarchy diagnosis** — teammate missing instructions because they're user-level not project-level.
-- [ ] **`/memory` command** — verify which memory files are loaded; diagnose inconsistency.
-- [ ] **Custom slash commands** — `.claude/commands/` (shared) vs `~/.claude/commands/` (personal).
-- [ ] **Skills & SKILL.md frontmatter** — `context: fork`, `allowed-tools`, `argument-hint`.
-- [ ] **`context: fork`** — isolate verbose/exploratory skill output from the main conversation.
-- [ ] **Skills vs CLAUDE.md** — on-demand task workflows vs always-loaded universal standards.
-- [ ] **Path-specific rules** — `.claude/rules/` with YAML `paths:` globs; load only on matching files.
-- [ ] **Glob rules vs directory CLAUDE.md** — for conventions spanning many directories (all test files).
-- [ ] **Plan mode vs direct execution** — complex/architectural/multi-file/multiple-approaches vs
+- [x] **`@import` syntax** — modular CLAUDE.md referencing external standards files.
+- [x] **`.claude/rules/`** — topic-specific rule files as an alternative to a monolithic CLAUDE.md.
+- [x] **Config hierarchy diagnosis** — teammate missing instructions because they're user-level not project-level.
+- [x] **`/memory` command** — verify which memory files are loaded; diagnose inconsistency.
+- [x] **Custom slash commands** — `.claude/commands/` (shared) vs `~/.claude/commands/` (personal).
+- [x] **Skills & SKILL.md frontmatter** — `context: fork`, `allowed-tools`, `argument-hint`.
+- [x] **`context: fork`** — isolate verbose/exploratory skill output from the main conversation.
+- [x] **Skills vs CLAUDE.md** — on-demand task workflows vs always-loaded universal standards.
+- [x] **Path-specific rules** — `.claude/rules/` with YAML `paths:` globs; load only on matching files.
+- [x] **Glob rules vs directory CLAUDE.md** — for conventions spanning many directories (all test files).
+- [x] **Plan mode vs direct execution** — complex/architectural/multi-file/multiple-approaches vs
       simple well-scoped single change.
-- [ ] **Explore subagent** — isolate verbose discovery, return summaries, preserve main context.
-- [ ] **Iterative refinement techniques** — concrete input/output examples; test-driven iteration;
+- [x] **Explore subagent** — isolate verbose discovery, return summaries, preserve main context.
+- [x] **Iterative refinement techniques** — concrete input/output examples; test-driven iteration;
       interview pattern; interacting (one message) vs independent (sequential) fixes.
-- [ ] **CI/CD: `-p`/`--print`** — non-interactive mode (prevents hangs).
-- [ ] **CI/CD: `--output-format json` + `--json-schema`** — machine-parseable findings for PR comments.
-- [ ] **CLAUDE.md as CI context** — testing standards, fixtures, review criteria for CI-invoked Claude.
-- [ ] **Session context isolation in CI** — a fresh instance reviews code better than the session that wrote it.
-- [ ] **Re-run hygiene** — pass prior findings so re-reviews report only new/unaddressed issues; pass
+- [x] **CI/CD: `-p`/`--print`** — non-interactive mode (prevents hangs).
+- [x] **CI/CD: `--output-format json` + `--json-schema`** — machine-parseable findings for PR comments.
+- [x] **CLAUDE.md as CI context** — testing standards, fixtures, review criteria for CI-invoked Claude.
+- [x] **Session context isolation in CI** — a fresh instance reviews code better than the session that wrote it.
+- [x] **Re-run hygiene** — pass prior findings so re-reviews report only new/unaddressed issues; pass
       existing tests to avoid duplicate test generation.
 
 ## §4 — Prompt Engineering & Structured Output 🟠 (20%)
