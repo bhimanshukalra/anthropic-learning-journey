@@ -128,36 +128,36 @@
 
 ## §4 — Prompt Engineering & Structured Output 🟠 (20%)
 
-- [ ] **Explicit criteria vs vague instructions** — categorical criteria beat "be conservative / only
+- [x] **Explicit criteria vs vague instructions** — categorical criteria beat "be conservative / only
       high-confidence."
-- [ ] **False positives & developer trust** — noisy categories poison trust in accurate ones;
+- [x] **False positives & developer trust** — noisy categories poison trust in accurate ones;
       temporarily disable while fixing.
-- [ ] **Severity definitions** — concrete code examples per severity level for consistent classification.
-- [ ] **Few-shot prompting — core** — most effective when detailed instructions still vary; 2–4
+- [x] **Severity definitions** — concrete code examples per severity level for consistent classification.
+- [x] **Few-shot prompting — core** — most effective when detailed instructions still vary; 2–4
       targeted examples for ambiguous cases.
-- [ ] **Few-shot — reasoning & generalization** — show *why* one choice over alternatives; generalize
+- [x] **Few-shot — reasoning & generalization** — show *why* one choice over alternatives; generalize
       to novel patterns, not just listed cases.
-- [ ] **Few-shot — extraction** — reduce hallucination across varied document structures (citations vs
+- [x] **Few-shot — extraction** — reduce hallucination across varied document structures (citations vs
       bibliographies, tables vs narrative).
-- [ ] **tool_use + JSON schema** — most reliable structured output; eliminates syntax errors, NOT
+- [x] **tool_use + JSON schema** — most reliable structured output; eliminates syntax errors, NOT
       semantic errors.
-- [ ] **`tool_choice` for output** — `"any"` when doc type unknown; forced tool to run a specific
+- [x] **`tool_choice` for output** — `"any"` when doc type unknown; forced tool to run a specific
       extraction first.
-- [ ] **Schema design** — required vs optional, nullable fields to prevent fabrication, enum +
+- [x] **Schema design** — required vs optional, nullable fields to prevent fabrication, enum +
       `"other"`+detail, `"unclear"` value.
-- [ ] **Format normalization in prompts** — alongside the strict schema for inconsistent source formatting.
-- [ ] **Validation + retry-with-error-feedback** — resend doc + failed extraction + specific error.
-- [ ] **Limits of retry** — useless when info is absent from the source (vs format/structural errors).
-- [ ] **Semantic self-validation** — `calculated_total` vs `stated_total`, `conflict_detected`,
+- [x] **Format normalization in prompts** — alongside the strict schema for inconsistent source formatting.
+- [x] **Validation + retry-with-error-feedback** — resend doc + failed extraction + specific error.
+- [x] **Limits of retry** — useless when info is absent from the source (vs format/structural errors).
+- [x] **Semantic self-validation** — `calculated_total` vs `stated_total`, `conflict_detected`,
       `detected_pattern` for false-positive analysis.
-- [ ] **Message Batches API** — 50% cheaper, ≤24h, no SLA, `custom_id` correlation, no multi-turn
+- [x] **Message Batches API** — 50% cheaper, ≤24h, no SLA, `custom_id` correlation, no multi-turn
       tool calling in one request.
-- [ ] **Batch appropriateness** — overnight/weekly (yes) vs blocking pre-merge (no); SLA cadence math;
+- [x] **Batch appropriateness** — overnight/weekly (yes) vs blocking pre-merge (no); SLA cadence math;
       resubmit failed `custom_id`s; sample-first prompt refinement.
-- [ ] **Multi-instance review** — independent instance > self-review/extended thinking (generator
+- [x] **Multi-instance review** — independent instance > self-review/extended thinking (generator
       retains reasoning).
-- [ ] **Multi-pass review** — per-file local + cross-file integration passes to avoid attention dilution.
-- [ ] **Confidence per finding** — self-reported confidence alongside findings for calibrated routing.
+- [x] **Multi-pass review** — per-file local + cross-file integration passes to avoid attention dilution.
+- [x] **Confidence per finding** — self-reported confidence alongside findings for calibrated routing.
 
 ## §5 — Context Management & Reliability 🟡 (15%)
 
