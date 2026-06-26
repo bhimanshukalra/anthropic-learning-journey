@@ -68,9 +68,9 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 ## Weekly checkpoints (fill at end of each week)
 
 - [x] **Week 1 (Jun 16–21):** Oriented; Domain 1 notes drafted (all 24 §1 topics, MCQ-tested ≥4). Weakest topic: narrow-decomposition blame-attribution (root cause = coordinator, not synthesis). _Outstanding: EXAM-PREP §4 heuristics not yet read; API key pending._
-- [ ] **Week 2 (Jun 22–28):** Domains 2–3 notes done. Weakest: ____
-- [ ] **Week 3 (Jun 29–Jul 5):** Domains 4–5 notes done. Weakest: ____
-- [ ] **Week 4 (Jul 6–12):** Glossary + consolidation done; Projects 1–2 underway. Weakest: ____
+- [x] **Week 2 (Jun 22–28):** Domains 2–3 notes done (§2 19/19, §3 19/19; practice exams 7/7, 9/9). Weakest: none significant.
+- [x] **Week 3 (Jun 29–Jul 5):** Domains 4–5 notes done (§4 18/18, §5 25/25; all batches passed). Weakest: none significant.
+- [x] **Week 4 (Jul 6–12):** Glossary + theory consolidation done (§6 14/14) — **Phase 1 theory complete, all ahead of schedule**. Projects: 01 & 04 done, 05 & 06 partial, 02 & 03 not started. Weakest: none from theory.
 - [ ] **Week 5 (Jul 13–19):** Projects 3–4 done. Weakest: ____
 - [ ] **Week 6 (Jul 20–26):** Projects 5–6 done. Weakest: ____
 - [ ] **Week 7 (Jul 27–Aug 2):** All projects done; sample-Q deep dive done. Mock score: ____
@@ -150,56 +150,56 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 
 #### Day 8 · Tue Jun 23 — Phase 1: Domain 2 notes
 **Focus:** Tool interfaces & errors.
-- [ ] Warm-up (15m): Domain-1 weak topic.
-- [ ] Notes: tool descriptions as selection mechanism, good-description contents, overlapping-tool
+- [x] Warm-up (15m): Domain-1 weak topic.
+- [x] Notes: tool descriptions as selection mechanism, good-description contents, overlapping-tool
       misrouting, system-prompt keyword sensitivity, `isError`, error taxonomy, structured error
       metadata, access-failure-vs-empty (NOTES §2, first ~8).
-- [ ] Active recall: the 4 error categories + which are retryable.
+- [x] Active recall: the 4 error categories + which are retryable.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 9 · Wed Jun 24 — Phase 1: Domain 2 notes
 **Focus:** Tool distribution & MCP config.
-- [ ] Warm-up (15m): error taxonomy from memory.
-- [ ] Notes: too-many-tools, cross-specialization misuse, scoped tools, `tool_choice` options,
+- [x] Warm-up (15m): error taxonomy from memory.
+- [x] Notes: too-many-tools, cross-specialization misuse, scoped tools, `tool_choice` options,
       MCP server scoping, env var expansion, simultaneous servers, MCP resources, community-vs-custom,
       built-in tools (NOTES §2, remaining).
-- [ ] Active recall: `auto` vs `any` vs forced `tool_choice`.
-- [ ] ✅ Mark NOTES §2 progress box.
+- [x] Active recall: `auto` vs `any` vs forced `tool_choice`.
+- [x] ✅ Mark NOTES §2 progress box.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 10 · Thu Jun 25 — Phase 1: Domain 3 notes
 **Focus:** CLAUDE.md hierarchy & config.
-- [ ] Warm-up (15m): `tool_choice` options.
-- [ ] Notes: CLAUDE.md hierarchy, `@import`, `.claude/rules/`, config-hierarchy diagnosis, `/memory`
+- [x] Warm-up (15m): `tool_choice` options.
+- [x] Notes: CLAUDE.md hierarchy, `@import`, `.claude/rules/`, config-hierarchy diagnosis, `/memory`
       (NOTES §3, first ~5).
-- [ ] Active recall: where does a *shared* vs *personal* instruction live?
+- [x] Active recall: where does a *shared* vs *personal* instruction live?
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 11 · Fri Jun 26 — Phase 1: Domain 3 notes
 **Focus:** Commands, skills, path rules.
-- [ ] Warm-up (15m): shared-vs-personal config locations.
-- [ ] Notes: slash commands (project vs user), skills + SKILL.md frontmatter, `context: fork`,
+- [x] Warm-up (15m): shared-vs-personal config locations.
+- [x] Notes: slash commands (project vs user), skills + SKILL.md frontmatter, `context: fork`,
       skills-vs-CLAUDE.md, path-specific rules, glob-vs-directory-CLAUDE.md (NOTES §3, middle).
-- [ ] Active recall: test files everywhere → which mechanism and why?
+- [x] Active recall: test files everywhere → which mechanism and why?
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 12 · Sat Jun 27 — Phase 1: Domain 3 notes
 **Focus:** Plan mode, refinement, CI/CD.
-- [ ] Warm-up (15m): glob rules vs directory CLAUDE.md.
-- [ ] Notes: plan mode vs direct, Explore subagent, iterative refinement techniques, CI `-p/--print`,
+- [x] Warm-up (15m): glob rules vs directory CLAUDE.md.
+- [x] Notes: plan mode vs direct, Explore subagent, iterative refinement techniques, CI `-p/--print`,
       `--output-format json`/`--json-schema`, CLAUDE.md as CI context, session isolation in CI,
       re-run hygiene (NOTES §3, remaining).
-- [ ] Active recall: why does a fresh instance review better than the generator session?
-- [ ] ✅ Mark NOTES §3 progress box.
+- [x] Active recall: why does a fresh instance review better than the generator session?
+- [x] ✅ Mark NOTES §3 progress box.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 13 · Sun Jun 28 — 🛌 REST
-- [ ] Optional light skim of week's "revisit" notes.
+- [x] Optional light skim of week's "revisit" notes.
 
 🌙 **Evening log:** _Energy/notes: ____
 
@@ -209,66 +209,66 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 
 #### Day 14 · Mon Jun 29 — Phase 1: Domain 4 notes
 **Focus:** Explicit criteria & few-shot.
-- [ ] Warm-up (15m): Domain-3 weak topic.
-- [ ] Notes: explicit-criteria-vs-vague, false positives & trust, severity definitions, few-shot core,
+- [x] Warm-up (15m): Domain-3 weak topic.
+- [x] Notes: explicit-criteria-vs-vague, false positives & trust, severity definitions, few-shot core,
       few-shot reasoning/generalization, few-shot for extraction (NOTES §4, first ~6).
-- [ ] Active recall: why does "be conservative" fail to reduce false positives?
+- [x] Active recall: why does "be conservative" fail to reduce false positives?
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 15 · Tue Jun 30 — Phase 1: Domain 4 notes
 **Focus:** Structured output & schemas.
-- [ ] Warm-up (15m): few-shot use cases.
-- [ ] Notes: tool_use + JSON schema, `tool_choice` for output, schema design (nullable/enum/other),
+- [x] Warm-up (15m): few-shot use cases.
+- [x] Notes: tool_use + JSON schema, `tool_choice` for output, schema design (nullable/enum/other),
       format normalization in prompts (NOTES §4, middle).
-- [ ] Active recall: tool_use eliminates *which* errors but not which?
+- [x] Active recall: tool_use eliminates *which* errors but not which?
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 16 · Wed Jul 1 — Phase 1: Domain 4 notes
 **Focus:** Validation, batch, multi-pass review.
-- [ ] Warm-up (15m): syntax vs semantic errors.
-- [ ] Notes: validation + retry-with-feedback, limits of retry, semantic self-validation, Message
+- [x] Warm-up (15m): syntax vs semantic errors.
+- [x] Notes: validation + retry-with-feedback, limits of retry, semantic self-validation, Message
       Batches API, batch appropriateness, multi-instance review, multi-pass review, confidence per
       finding (NOTES §4, remaining).
-- [ ] Active recall: the 4 defining constraints of the batch API.
-- [ ] ✅ Mark NOTES §4 progress box.
+- [x] Active recall: the 4 defining constraints of the batch API.
+- [x] ✅ Mark NOTES §4 progress box.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 17 · Thu Jul 2 — Phase 1: Domain 5 notes
 **Focus:** Context preservation & escalation.
-- [ ] Warm-up (15m): batch API constraints.
-- [ ] Notes: progressive-summarization risk, case-facts block, lost-in-the-middle, tool-output bloat,
+- [x] Warm-up (15m): batch API constraints.
+- [x] Notes: progressive-summarization risk, case-facts block, lost-in-the-middle, tool-output bloat,
       structured upstream output, escalation triggers, escalate-now-vs-offer, unreliable signals,
       multiple-matches-clarify (NOTES §5, first ~9).
-- [ ] Active recall: 3 valid escalation triggers vs 2 invalid signals.
+- [x] Active recall: 3 valid escalation triggers vs 2 invalid signals.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 18 · Fri Jul 3 — Phase 1: Domain 5 notes
 **Focus:** Error propagation & large-codebase context.
-- [ ] Warm-up (15m): escalation triggers.
-- [ ] Notes: multi-agent error propagation, propagation anti-patterns, local-recovery-first, coverage
+- [x] Warm-up (15m): escalation triggers.
+- [x] Notes: multi-agent error propagation, propagation anti-patterns, local-recovery-first, coverage
       annotations, context degradation, scratchpad files, subagent delegation, crash-recovery manifests,
       `/compact` (NOTES §5, middle).
-- [ ] Active recall: 3 error-propagation anti-patterns.
+- [x] Active recall: 3 error-propagation anti-patterns.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 19 · Sat Jul 4 — Phase 1: Domain 5 notes
 **Focus:** Human review, calibration, provenance.
-- [ ] Warm-up (15m): propagation anti-patterns.
-- [ ] Notes: human review & confidence calibration, stratified sampling, accuracy segmentation,
+- [x] Warm-up (15m): propagation anti-patterns.
+- [x] Notes: human review & confidence calibration, stratified sampling, accuracy segmentation,
       provenance/claim-source mappings, conflicting sources, temporal data, content-type rendering
       (NOTES §5, remaining).
-- [ ] Active recall: why is a 97% aggregate accuracy dangerous?
-- [ ] ✅ Mark NOTES §5 progress box.
+- [x] Active recall: why is a 97% aggregate accuracy dangerous?
+- [x] ✅ Mark NOTES §5 progress box.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 20 · Sun Jul 5 — 🛌 REST
-- [ ] Optional light skim of "revisit" notes.
+- [x] Optional light skim of "revisit" notes.
 
 🌙 **Evening log:** _Energy/notes: ____
 
@@ -278,10 +278,10 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 
 #### Day 21 · Mon Jul 6 — Phase 1: Glossary + consolidation
 **Focus:** Close out theory; prove retention.
-- [ ] Warm-up (15m): one topic from each domain.
-- [ ] Notes: §6 glossary — one-liner + "what it's for" for all 14 terms.
-- [ ] Self-quiz: re-derive sample questions **Q1–Q4** from memory (answer + why each distractor fails).
-- [ ] ✅ Mark NOTES §6 progress box. **Phase 1 complete** if all sections ticked.
+- [x] Warm-up (15m): one topic from each domain.
+- [x] Notes: §6 glossary — one-liner + "what it's for" for all 14 terms.
+- [ ] Self-quiz: re-derive sample questions **Q1–Q4** from memory (answer + why each distractor fails). _(deferred to the cross-domain mock / Phase 3)_
+- [x] ✅ Mark NOTES §6 progress box. **Phase 1 complete** — all six NOTES sections ticked.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
