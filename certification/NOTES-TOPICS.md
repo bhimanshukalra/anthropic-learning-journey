@@ -241,10 +241,10 @@ Skip to save time. If an answer option relies on one of these as the "fix," it's
 
 ## Progress
 
-- [ ] §1 Agentic Architecture notes complete (24 topics)
-- [ ] §2 Tool Design & MCP notes complete (19 topics)
-- [ ] §3 Claude Code Config notes complete (19 topics)
-- [ ] §4 Prompt Engineering & Structured Output notes complete (19 topics)
-- [ ] §5 Context & Reliability notes complete (25 topics)
+- [x] §1 Agentic Architecture notes complete (24 topics)
+- [x] §2 Tool Design & MCP notes complete (19 topics)
+- [x] §3 Claude Code Config notes complete (19 topics)
+- [x] §4 Prompt Engineering & Structured Output notes complete (19 topics)
+- [x] §5 Context & Reliability notes complete (25 topics)
 - [ ] §6 Glossary complete (14 terms)
 - [ ] Can recite the key tradeoff for every 🔴/🟠 topic from memory
