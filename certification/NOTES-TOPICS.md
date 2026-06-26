@@ -161,36 +161,36 @@
 
 ## §5 — Context Management & Reliability 🟡 (15%)
 
-- [ ] **Progressive summarization risk** — losing numbers/dates/percentages/customer expectations.
-- [ ] **"Case facts" block** — persistent transactional facts injected every prompt, outside summarized history.
-- [ ] **Lost-in-the-middle** — models favor start/end; put key summaries first, use section headers.
-- [ ] **Tool-output token bloat** — trim verbose outputs to relevant fields before accumulation.
-- [ ] **Structured upstream output** — key facts + citations + relevance scores instead of verbose
+- [x] **Progressive summarization risk** — losing numbers/dates/percentages/customer expectations.
+- [x] **"Case facts" block** — persistent transactional facts injected every prompt, outside summarized history.
+- [x] **Lost-in-the-middle** — models favor start/end; put key summaries first, use section headers.
+- [x] **Tool-output token bloat** — trim verbose outputs to relevant fields before accumulation.
+- [x] **Structured upstream output** — key facts + citations + relevance scores instead of verbose
       reasoning when downstream budgets are tight.
-- [ ] **Escalation triggers** — explicit human request, policy gap/silence, inability to progress.
-- [ ] **Escalate-immediately vs offer-to-resolve** — honor explicit human requests at once.
-- [ ] **Unreliable escalation signals** — sentiment and self-reported confidence don't track complexity.
-- [ ] **Multiple matches → clarify** — request another identifier, don't pick heuristically.
-- [ ] **Error propagation (multi-agent)** — structured context (type, attempted, partial, alternatives)
+- [x] **Escalation triggers** — explicit human request, policy gap/silence, inability to progress.
+- [x] **Escalate-immediately vs offer-to-resolve** — honor explicit human requests at once.
+- [x] **Unreliable escalation signals** — sentiment and self-reported confidence don't track complexity.
+- [x] **Multiple matches → clarify** — request another identifier, don't pick heuristically.
+- [x] **Error propagation (multi-agent)** — structured context (type, attempted, partial, alternatives)
       for coordinator recovery.
-- [ ] **Anti-patterns in propagation** — generic statuses, silent suppression (empty-as-success),
+- [x] **Anti-patterns in propagation** — generic statuses, silent suppression (empty-as-success),
       whole-workflow termination on one failure.
-- [ ] **Local recovery first** — subagents handle transient failures locally; propagate only unrecoverable + partials.
-- [ ] **Coverage annotations** — synthesis marks well-supported vs gap areas.
-- [ ] **Context degradation in long sessions** — model cites "typical patterns" instead of specific
+- [x] **Local recovery first** — subagents handle transient failures locally; propagate only unrecoverable + partials.
+- [x] **Coverage annotations** — synthesis marks well-supported vs gap areas.
+- [x] **Context degradation in long sessions** — model cites "typical patterns" instead of specific
       discovered classes.
-- [ ] **Scratchpad files** — persist key findings across context boundaries.
-- [ ] **Subagent delegation for discovery** — isolate verbose exploration; main agent coordinates.
-- [ ] **Crash recovery via manifests** — structured state exports loaded on resume.
-- [ ] **`/compact`** — reduce context during extended exploration.
-- [ ] **Human review & confidence calibration** — aggregate accuracy hides per-type/field weakness;
+- [x] **Scratchpad files** — persist key findings across context boundaries.
+- [x] **Subagent delegation for discovery** — isolate verbose exploration; main agent coordinates.
+- [x] **Crash recovery via manifests** — structured state exports loaded on resume.
+- [x] **`/compact`** — reduce context during extended exploration.
+- [x] **Human review & confidence calibration** — aggregate accuracy hides per-type/field weakness;
       field-level confidence calibrated on labeled validation sets.
-- [ ] **Stratified sampling** — measure error rates in high-confidence extractions; detect novel patterns.
-- [ ] **Accuracy segmentation** — validate by document type and field before automating.
-- [ ] **Information provenance** — claim→source mappings preserved through summarization.
-- [ ] **Conflicting credible sources** — annotate both with attribution, don't pick one.
-- [ ] **Temporal data** — require publication/collection dates so time differences aren't read as conflicts.
-- [ ] **Content-type rendering** — financials as tables, news as prose, technical as lists (not uniform).
+- [x] **Stratified sampling** — measure error rates in high-confidence extractions; detect novel patterns.
+- [x] **Accuracy segmentation** — validate by document type and field before automating.
+- [x] **Information provenance** — claim→source mappings preserved through summarization.
+- [x] **Conflicting credible sources** — annotate both with attribution, don't pick one.
+- [x] **Temporal data** — require publication/collection dates so time differences aren't read as conflicts.
+- [x] **Content-type rendering** — financials as tables, news as prose, technical as lists (not uniform).
 
 ## §6 — Technologies & Concepts glossary (Appendix) ⚪
 
