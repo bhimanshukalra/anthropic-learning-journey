@@ -197,22 +197,22 @@
 Write a one-liner definition + "what it's for" for each. These are the exact terms the Appendix says
 may appear.
 
-- [ ] **Claude Agent SDK** — agent definitions, agentic loops, `stop_reason`, hooks, `Task` spawning, `allowedTools`.
-- [ ] **MCP** — servers, tools, resources, `isError`, descriptions, distribution, `.mcp.json`, env expansion.
-- [ ] **Claude Code** — CLAUDE.md hierarchy, `.claude/rules/`, `.claude/commands/`, `.claude/skills/`,
+- [x] **Claude Agent SDK** — agent definitions, agentic loops, `stop_reason`, hooks, `Task` spawning, `allowedTools`.
+- [x] **MCP** — servers, tools, resources, `isError`, descriptions, distribution, `.mcp.json`, env expansion.
+- [x] **Claude Code** — CLAUDE.md hierarchy, `.claude/rules/`, `.claude/commands/`, `.claude/skills/`,
       plan mode, direct execution, `/memory`, `/compact`, `--resume`, `fork_session`, Explore subagent.
-- [ ] **Claude Code CLI** — `-p`/`--print`, `--output-format json`, `--json-schema`.
-- [ ] **Claude API** — `tool_use` + JSON schemas, `tool_choice`, `stop_reason` values, `max_tokens`, system prompts.
-- [ ] **Message Batches API** — 50% savings, ≤24h, `custom_id`, polling, no multi-turn tool calling.
-- [ ] **JSON Schema** — required/optional, enum, nullable, `"other"`+detail, strict mode.
-- [ ] **Pydantic** — schema validation, semantic validation errors, validation-retry loops.
-- [ ] **Built-in tools** — Read, Write, Edit, Bash, Grep, Glob purposes & selection criteria.
-- [ ] **Few-shot prompting** — targeted examples, format demonstration, generalization.
-- [ ] **Prompt chaining** — sequential decomposition into focused passes.
-- [ ] **Context window management** — token budgets, progressive summarization, lost-in-the-middle,
+- [x] **Claude Code CLI** — `-p`/`--print`, `--output-format json`, `--json-schema`.
+- [x] **Claude API** — `tool_use` + JSON schemas, `tool_choice`, `stop_reason` values, `max_tokens`, system prompts.
+- [x] **Message Batches API** — 50% savings, ≤24h, `custom_id`, polling, no multi-turn tool calling.
+- [x] **JSON Schema** — required/optional, enum, nullable, `"other"`+detail, strict mode.
+- [x] **Pydantic** — schema validation, semantic validation errors, validation-retry loops.
+- [x] **Built-in tools** — Read, Write, Edit, Bash, Grep, Glob purposes & selection criteria.
+- [x] **Few-shot prompting** — targeted examples, format demonstration, generalization.
+- [x] **Prompt chaining** — sequential decomposition into focused passes.
+- [x] **Context window management** — token budgets, progressive summarization, lost-in-the-middle,
       context extraction, scratchpads.
-- [ ] **Session management** — resumption, `fork_session`, named sessions, session context isolation.
-- [ ] **Confidence scoring** — field-level confidence, calibration with labeled sets, stratified sampling.
+- [x] **Session management** — resumption, `fork_session`, named sessions, session context isolation.
+- [x] **Confidence scoring** — field-level confidence, calibration with labeled sets, stratified sampling.
 
 ---
 
@@ -246,5 +246,5 @@ Skip to save time. If an answer option relies on one of these as the "fix," it's
 - [x] §3 Claude Code Config notes complete (19 topics)
 - [x] §4 Prompt Engineering & Structured Output notes complete (19 topics)
 - [x] §5 Context & Reliability notes complete (25 topics)
-- [ ] §6 Glossary complete (14 terms)
-- [ ] Can recite the key tradeoff for every 🔴/🟠 topic from memory
+- [x] §6 Glossary complete (14 terms)
+- [x] Can recite the key tradeoff for every 🔴/🟠 topic from memory
