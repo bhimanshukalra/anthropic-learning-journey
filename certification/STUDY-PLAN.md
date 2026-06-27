@@ -73,7 +73,7 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 - [x] **Week 4 (Jul 6–12):** Glossary + theory consolidation done (§6 14/14) — **Phase 1 theory complete, all ahead of schedule**. Projects: 01 & 04 done, 05 & 06 partial, 02 & 03 not started. Weakest: none from theory.
 - [ ] **Week 5 (Jul 13–19):** Projects 3–4 done. Weakest: ____
 - [ ] **Week 6 (Jul 20–26):** Projects 5–6 done. Weakest: ____
-- [ ] **Week 7 (Jul 27–Aug 2):** All projects done; sample-Q deep dive done. Mock score: ____
+- [ ] **Week 7 (Jul 27–Aug 2):** All projects done; sample-Q deep dive done. Mock score: 19/20 (mock 1) → 20/20 (mock 2), both 27 Jun
 - [ ] **Week 8 (Aug 3–9):** Weak areas remediated; practice exam taken. Score: ____
 - [ ] **Week 9 (Aug 10–14):** Go/No-Go passed → exam booked/sat. Result: ____
 
@@ -524,6 +524,11 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 - [ ] Take them **timed, closed-book**. Score yourself. Log every miss to the Weak List.
 
 🌙 **Evening log:** _Mock score: __ / 20 · Weakest: ____
+> **Cross-domain mock 1 (taken early, 27 Jun): 19/20 (95%).** Per-domain: D1 4/5, D2 4/4, D3 4/4,
+> D4 4/4, D5 3/3. Only miss: Q15 (D1) — parallel subagents = multiple `Task` calls in **one**
+> assistant turn (not one call with an array of prompts). Mechanics slip, not a judgement error.
+> **Cross-domain mock 2 (27 Jun): 20/20 (100%).** All domains clean (D1 5/5, D2 4/4, D3 4/4,
+> D4 4/4, D5 3/3) — including the parallel-`Task` pattern missed in mock 1. Theory exam-ready.
 
 #### Day 53 · Fri Aug 7 — Phase 3: Mock review + remediate
 **Focus:** Convert misses into mastery.
