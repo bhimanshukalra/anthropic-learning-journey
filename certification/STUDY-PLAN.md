@@ -287,27 +287,27 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 
 #### Day 22 · Tue Jul 7 — Phase 2: Project 01 (Customer Support Agent)
 **Focus:** Tools + agentic loop. (Domains 1,2,5)
-- [ ] Warm-up (15m): loop anti-patterns + prerequisite gate.
-- [ ] Build steps 1–2: differentiating tool descriptions; `stop_reason`-driven loop.
-- [ ] Verify the loop continues on `tool_use`, ends on `end_turn`.
+- [x] Warm-up (15m): loop anti-patterns + prerequisite gate.
+- [x] Build steps 1–2: differentiating tool descriptions; `stop_reason`-driven loop.
+- [x] Verify the loop continues on `tool_use`, ends on `end_turn`.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 23 · Wed Jul 8 — Phase 2: Project 01
 **Focus:** Structured errors + deterministic gate.
-- [ ] Warm-up (15m): error taxonomy.
-- [ ] Build steps 3–5: structured error responses; **prerequisite gate** (no refund without verified
+- [x] Warm-up (15m): error taxonomy.
+- [x] Build steps 3–5: structured error responses; **prerequisite gate** (no refund without verified
       ID); tool-call interception hook (>$500) + `PostToolUse` normalization.
-- [ ] Prove the gate blocks the refund even when the prompt would allow it.
+- [x] Prove the gate blocks the refund even when the prompt would allow it.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 24 · Thu Jul 9 — Phase 2: Project 01
 **Focus:** Escalation + context discipline; close out.
-- [ ] Warm-up (15m): escalation triggers.
-- [ ] Build steps 6–7: escalation few-shot + multi-concern decomposition + structured handoff +
+- [x] Warm-up (15m): escalation triggers.
+- [x] Build steps 6–7: escalation few-shot + multi-concern decomposition + structured handoff +
       "case facts" block.
-- [ ] ✅ Tick Project 01 "Definition of done"; answer its self-quiz from memory.
+- [x] ✅ Tick Project 01 "Definition of done"; answer its self-quiz from memory.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
@@ -369,16 +369,16 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 
 #### Day 32 · Fri Jul 17 — Phase 2: Project 04 (Multi-Agent Research)
 **Focus:** Spawning + parallel. (Domains 1,2,5)
-- [ ] Warm-up (15m): why subagents don't inherit context.
-- [ ] Build steps 1–2: coordinator with `Task` in `allowedTools`; explicit context passing;
+- [x] Warm-up (15m): why subagents don't inherit context.
+- [x] Build steps 1–2: coordinator with `Task` in `allowedTools`; explicit context passing;
       parallel Task calls in one turn (measure latency win).
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
 #### Day 33 · Sat Jul 18 — Phase 2: Project 04
 **Focus:** Narrow-decomposition bug + scoped tool.
-- [ ] Warm-up (15m): narrow-decomposition risk.
-- [ ] Build steps 3–4: reproduce the narrow-decomposition failure, then fix with broad partition +
+- [x] Warm-up (15m): narrow-decomposition risk.
+- [x] Build steps 3–4: reproduce the narrow-decomposition failure, then fix with broad partition +
       refinement loop; add scoped `verify_fact` tool to synthesis.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
@@ -392,10 +392,10 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 
 #### Day 35 · Mon Jul 20 — Phase 2: Project 04 close-out
 **Focus:** Error propagation + provenance.
-- [ ] Warm-up (15m): propagation anti-patterns.
-- [ ] Build steps 5–7: structured error context on timeout; claim→source provenance; conflict
+- [x] Warm-up (15m): propagation anti-patterns.
+- [x] Build steps 5–7: structured error context on timeout; claim→source provenance; conflict
       annotation with dates; coverage annotations.
-- [ ] ✅ Tick Project 04 "Definition of done"; self-quiz from memory.
+- [x] ✅ Tick Project 04 "Definition of done"; self-quiz from memory.
 
 🌙 **Evening log:** _Confidence (1–5): __ · What clicked: ___ · Revisit: ____
 
@@ -520,10 +520,10 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 
 #### Day 52 · Thu Aug 6 — Phase 3: Self-made mock (timed)
 **Focus:** Exam stamina.
-- [ ] Write/collect ~20 scenario MCQs (reuse the 12 samples + invent 8 from your projects).
-- [ ] Take them **timed, closed-book**. Score yourself. Log every miss to the Weak List.
+- [x] Write/collect ~20 scenario MCQs (reuse the 12 samples + invent 8 from your projects).
+- [x] Take them **timed, closed-book**. Score yourself. Log every miss to the Weak List.
 
-🌙 **Evening log:** _Mock score: __ / 20 · Weakest: ____
+🌙 **Evening log:** _Mock score: 20 / 20 (best of 2; mock 1 = 19/20, taken early 27 Jun) · Weakest: D1 parallel-`Task` mechanics — fixed in mock 2_
 > **Cross-domain mock 1 (taken early, 27 Jun): 19/20 (95%).** Per-domain: D1 4/5, D2 4/4, D3 4/4,
 > D4 4/4, D5 3/3. Only miss: Q15 (D1) — parallel subagents = multiple `Task` calls in **one**
 > assistant turn (not one call with an array of prompts). Mechanics slip, not a judgement error.
