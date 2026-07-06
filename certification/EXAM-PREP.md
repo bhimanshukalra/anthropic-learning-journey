@@ -12,10 +12,22 @@
 | Fact | Value |
 |------|-------|
 | Format | Multiple choice, **single best answer**, 1 correct + 3 distractors |
+| Length | **60 questions** in **120 minutes** (~2 min/question) |
 | Scoring | Scaled **100–1,000**, **pass = 720**, pass/fail |
-| Guessing | **No penalty** — never leave a question blank |
+| Answering | The platform **forces an answer** before you can advance — so effectively no blanks, no penalty for guessing |
 | Scenarios | **4 scenarios** drawn at random from a pool of **6** |
-| Last updated | Guide v0.1, Feb 10 2025 |
+| Delivery | Online proctored **or** at a test center |
+| Fee | **$125 USD** |
+| Validity | **12 months** from award date |
+| Last updated | Guide **v0.2, June 30 2026** |
+
+> **Guide v0.2 vs v0.1 (what changed):** only logistics. All 5 domains + weightings, all 28 task
+> statements, all 12 sample questions, and all 4 preparation exercises are **word-for-word identical**.
+> New in v0.2: the "Exam Details at a Glance" table above (60 Q / 120 min / $125 / delivery / 12-month
+> validity), and the answering policy (the platform now forces an answer per question — v0.1 said
+> "unanswered = incorrect, no guessing penalty"). Dropped in v0.2: the explicit "Complete the Practice
+> Exam" prep recommendation (though sample questions are still described as drawn from the practice test).
+> **No study-content changes — our prep material remains fully current.**
 
 **Distractors are designed to look right to someone with incomplete knowledge.** The test
 rewards *practical judgment about tradeoffs*, not memorized definitions. Almost every
@@ -317,7 +329,9 @@ If an answer option leans on one of these as the "fix," it's almost certainly a 
 3. After each project, re-read that domain's digest (§5) and the relevant heuristics (§4).
 4. Re-derive every sample question (12 in the PDF) from first principles — explain *why each
    distractor is wrong*, not just the right letter. That skill is the whole exam.
-5. Take the official **Practice Exam** (link provided separately by Anthropic) under timed conditions.
+5. Take the official **Practice Exam** under timed conditions if you can get access. (Guide v0.2
+   dropped the explicit recommendation/link, but the practice test still exists — the sample
+   questions are drawn from it. If no link is provided, use `CROSS-DOMAIN-MOCK.md` as the timed mock.)
 6. Night before: §4 (heuristics) + §6 (cheatsheet) + §7 (out-of-scope).
 
 ---

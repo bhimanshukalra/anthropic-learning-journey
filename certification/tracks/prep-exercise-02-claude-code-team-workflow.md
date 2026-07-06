@@ -1,6 +1,6 @@
 # Prep Exercise 2 — Configure Claude Code for a Team Development Workflow
 
-> **Source:** Official Claude Certified Architect – Foundations Exam Guide, *Preparation Exercises*, p. 34.
+> **Source:** Official Claude Certified Architect – Foundations Exam Guide (v0.2, Jun 30 2026), *Preparation Exercises*, p. 32. Content unchanged from v0.1.
 > This file records the exercise **verbatim**. Our deeper build guide is
 > [`overview.md`](02-claude-code-team-workflow/overview.md).
 > **Domains reinforced:** 3 (Claude Code Configuration & Workflows), 2 (Tool Design & MCP).

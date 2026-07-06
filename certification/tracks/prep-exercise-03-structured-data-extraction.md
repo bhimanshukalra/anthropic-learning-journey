@@ -1,6 +1,6 @@
 # Prep Exercise 3 — Build a Structured Data Extraction Pipeline
 
-> **Source:** Official Claude Certified Architect – Foundations Exam Guide, *Preparation Exercises*, pp. 34–35.
+> **Source:** Official Claude Certified Architect – Foundations Exam Guide (v0.2, Jun 30 2026), *Preparation Exercises*, pp. 32–33. Content unchanged from v0.1.
 > This file records the exercise **verbatim**. Our deeper build guide is
 > [`03-structured-data-extraction.md`](03-structured-data-extraction.md).
 > **Domains reinforced:** 4 (Prompt Engineering & Structured Output), 5 (Context & Reliability).

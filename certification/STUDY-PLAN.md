@@ -539,8 +539,9 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 
 #### Day 54 · Sat Aug 8 — Phase 3: Official Practice Exam (timed) ⭐
 **Focus:** The real dress rehearsal.
-- [ ] Take the **official Anthropic Practice Exam** (link provided separately) under exam conditions:
-      timed, no notes, no interruptions.
+- [ ] Take the **official Anthropic Practice Exam** under exam conditions: timed, no notes, no
+      interruptions. _(Guide v0.2 dropped the "link provided separately" recommendation — if you
+      can't get access, run `CROSS-DOMAIN-MOCK.md` timed at 60 Q / 120 min pace instead.)_
 - [ ] Record score and every missed topic. **This is your primary readiness signal.**
 
 🌙 **Evening log:** _Practice exam score: ____ · Weak domains: ____
@@ -585,7 +586,8 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 **Focus:** Execute.
 - [ ] 15-min warm-up: skim heuristics §4 only. No cramming.
 - [ ] Take the exam. Per question: name the heuristic, eliminate 2 distractors, pick the *most
-      effective/proportionate/root-cause* answer. **Answer everything — no penalty for guessing.**
+      effective/proportionate/root-cause* answer. **The platform forces an answer per question —
+      never agonize; guess and move on (60 Q / 120 min ≈ 2 min each).**
 - [ ] _(If not ready: use this as a buffer day and rebook within the week.)_
 
 🌙 **Evening log:** _Result: ___ · 🎉_

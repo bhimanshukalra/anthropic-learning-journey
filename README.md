@@ -90,7 +90,8 @@ Each project has a detailed build guide. Tick the box when its "Definition of do
 
 ### Official Preparation Exercises (source)
 
-The Exam Guide ships **4 official Preparation Exercises** (pp. 33–36). These files record each one
+The Exam Guide (v0.2, Jun 30 2026) ships **4 official Preparation Exercises** (pp. 31–34,
+unchanged from v0.1). These files record each one
 **verbatim** with a step→build mapping to the projects above. (The exam has only 4 exercises, so
 projects 05–06 are my own additions with no official source.)
 

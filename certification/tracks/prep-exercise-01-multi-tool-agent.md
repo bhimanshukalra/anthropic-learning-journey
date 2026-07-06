@@ -1,6 +1,6 @@
 # Prep Exercise 1 — Build a Multi-Tool Agent with Escalation Logic
 
-> **Source:** Official Claude Certified Architect – Foundations Exam Guide, *Preparation Exercises*, p. 33.
+> **Source:** Official Claude Certified Architect – Foundations Exam Guide (v0.2, Jun 30 2026), *Preparation Exercises*, pp. 31–32. Content unchanged from v0.1.
 > This file records the exercise **verbatim**. Our deeper build guide is
 > [`overview.md`](01-customer-support-agent/overview.md) (phased) with the Phase 1 walkthrough
 > in [`phase-1.md`](01-customer-support-agent/phase-1.md).

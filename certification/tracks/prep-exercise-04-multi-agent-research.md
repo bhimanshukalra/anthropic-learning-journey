@@ -1,6 +1,6 @@
 # Prep Exercise 4 — Design and Debug a Multi-Agent Research Pipeline
 
-> **Source:** Official Claude Certified Architect – Foundations Exam Guide, *Preparation Exercises*, pp. 35–36.
+> **Source:** Official Claude Certified Architect – Foundations Exam Guide (v0.2, Jun 30 2026), *Preparation Exercises*, pp. 33–34. Content unchanged from v0.1.
 > This file records the exercise **verbatim**. Our deeper build guide is
 > [`overview.md`](04-multi-agent-research/overview.md).
 > **Domains reinforced:** 1 (Agentic Architecture), 2 (Tool Design & MCP), 5 (Context & Reliability).
