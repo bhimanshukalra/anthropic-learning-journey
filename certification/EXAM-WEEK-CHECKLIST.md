@@ -141,31 +141,59 @@ fresh mock collapses (<14/20) — very unlikely given the 1 Jul result.
 
 ### A. Create/review each project from the exam guide
 
-The official guide (v0.2, "Preparation Exercises") defines 4 exercises:
+Full coverage audit against the official guide (v0.2): all **6 exam scenarios**, all **4
+Preparation Exercises**, and all **7 Exam Preparation Recommendations**.
 
-- [ ] **Exercise 1 — Multi-Tool Agent with Escalation Logic**
+**The 6 exam scenarios (exam draws 4 at random):**
+S1 Customer Support Resolution Agent · S2 Code Generation with Claude Code · S3 Multi-Agent
+Research System · S4 Developer Productivity with Claude · S5 Claude Code for Continuous
+Integration · S6 Structured Data Extraction.
+
+**Preparation Exercises (the guide defines 4 — they cover only scenarios S1/S2/S3/S6):**
+
+- [ ] **Exercise 1 — Multi-Tool Agent with Escalation Logic** · trains **S1**
       (`projects/cert-01-customer-support-agent` · ✅ built → **review**): re-open the code;
       trace the `stop_reason` loop, the structured errors (`errorCategory`/`isRetryable`),
       the >$500 interception hook, and the prerequisite gate. Answer
       `tracks/prep-exercise-01-multi-tool-agent.md` "Be able to answer" Qs cold.
-- [ ] **Exercise 2 — Claude Code for a Team Dev Workflow**
+- [ ] **Exercise 2 — Claude Code for a Team Dev Workflow** · trains **S2**
       (`projects/cert-02-*` · ❌ not started → **create**; config-only, ~60–90 min, no API key):
       project CLAUDE.md; `.claude/rules/` with `paths:` globs (verify a rule loads only on
       matching files); a skill with `context: fork` + `allowed-tools`; `.mcp.json` with
       `${ENV_VAR}` expansion + one user-scope server; try plan mode vs direct on 3 task sizes.
-- [ ] **Exercise 3 — Structured Data Extraction Pipeline**
+- [ ] **Exercise 3 — Structured Data Extraction Pipeline** · trains **S6**
       (`projects/cert-03-*` · ❌ not started → **create**; ~2h, needs API key): extraction tool
       schema (required/optional/nullable, enum+"other"); verify null-not-fabricated;
       validation-retry loop with error feedback; few-shot for varied layouts; batch strategy +
       `custom_id` resubmission; field-level confidence routing.
-- [ ] **Exercise 4 — Multi-Agent Research Pipeline**
+- [ ] **Exercise 4 — Multi-Agent Research Pipeline** · trains **S3**
       (`projects/cert-04-multi-agent-research` · ✅ built → **review**): trace coordinator
       `allowedTools: ["Task"]`, explicit context passing, parallel Task calls in one turn,
       structured error propagation, claim→source provenance. Answer
       `tracks/prep-exercise-04-multi-agent-research.md` self-quiz cold.
-- [ ] **Repo extras** (not in the guide — lower priority): finish partials `cert-05` (CI/CD:
-      `-p`, `--output-format json`, `--json-schema`) and `cert-06` (built-in tools, MCP
-      resources, sessions).
+- [ ] **Scenarios S4 & S5 have NO official exercise** — the repo extras are their only hands-on
+      coverage: finish `cert-05` → **S5** (CI/CD: `-p`, `--output-format json`, `--json-schema`)
+      and `cert-06` → **S4** (built-in tools, MCP resources, sessions). Minimum bar if time runs
+      out: answer both projects' "Be able to answer" Qs cold (S5 also hit 14/15 on the practice
+      exam — one of your two misses).
+
+**Exam Preparation Recommendations cross-check (guide appendix — 7 items):**
+
+- [x] 1. Build an agent with the Agent SDK (loop, tools, errors, sessions, subagents + context
+      passing) — ✅ cert-01 + cert-04 built and verified.
+- [ ] 2. Configure Claude Code for a real project (CLAUDE.md hierarchy, `.claude/rules/`,
+      skills frontmatter, MCP server) — ⏳ closes when **Exercise 2 / cert-02** is done. (This
+      repo's own `.claude/commands/` + skills setup already covers part of it.)
+- [x] 3. Design and test MCP tools (differentiated descriptions, structured errors, retryable
+      flags, selection reliability) — ✅ cert-01 tools + Domain 2 verification-tested.
+- [ ] 4. Build a structured data extraction pipeline (tool_use schemas, validation-retry,
+      nullable fields, Batch API) — ⏳ closes when **Exercise 3 / cert-03** is done.
+- [x] 5. Practice prompt engineering (few-shot for ambiguity, explicit criteria vs false
+      positives, multi-pass review) — ✅ Domain 4 theory verified; cert-05 partial adds hands-on.
+- [x] 6. Study context management patterns (structured facts from verbose output, scratchpads,
+      subagent delegation) — ✅ Domain 5 theory verified; practiced in cert-04.
+- [x] 7. Review escalation & human-in-the-loop patterns (valid triggers, confidence-based
+      routing) — ✅ cert-01 escalation build + Domain 5 theory verified.
 
 ### B. Go through all the courses again
 
