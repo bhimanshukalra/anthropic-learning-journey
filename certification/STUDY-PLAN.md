@@ -1,5 +1,8 @@
 # 60-Day Study Plan & Daily Tracker — Claude Certified Architect (Foundations)
 
+> ⚠️ **SUPERSEDED for exam week:** the exam was moved up to **Sat 11 Jul 2026**.
+> Follow **`EXAM-WEEK-CHECKLIST.md`** instead — it is the only source of truth until the exam.
+
 > **Goal:** walk into the exam able to score **≥ 720/1000** with margin — and *know* you're ready
 > before you book it.
 > **Window:** 60 days · **Start:** Tue 2026-06-16 · **Target exam:** ~Fri 2026-08-14
