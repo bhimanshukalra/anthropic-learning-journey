@@ -20,14 +20,45 @@ uv run mcp_client.py          # integration-tests the MCP server tool contracts
 
 ## Project structure
 
-| File | Role |
-|------|------|
-| `mcp_server.py` | Four MCP tools: `get_customer`, `lookup_order`, `process_refund`, `escalate_to_human` |
-| `mock_backend.py` | Fake CRM/OMS — no network, no DB |
-| `core/agent.py` | Agentic loop, all hooks, case-facts, system prompt |
-| `core/claude.py` | Thin Anthropic SDK wrapper |
-| `mcp_client.py` | MCP stdio client + integration tests |
-| `test_hooks.py` | Hook and case-facts unit tests |
+**`main.py`** — the entry point. Loads `.env`, launches the MCP server as a subprocess
+(`async with MCPClient` handles startup and cleanup), wires the Claude wrapper and the MCP client
+into a `SupportAgent`, then runs a terminal chat loop where each line you type becomes one
+`agent.run()` call.
+
+**`core/agent.py`** — the heart of the project. `SupportAgent.run()` drives the agentic loop purely
+on `stop_reason` (`tool_use` → execute tools and continue; `end_turn` → reply; `max_steps` is only a
+runaway guard that ends in a structured human handoff). Wraps every tool call in hooks: pre-hooks
+enforce the identity gate (block) and the $500 refund cap (redirect to escalation); post-hooks latch
+the verified customer and normalize dates/status codes before the model sees them. Also owns the
+system prompt (policies, escalation triggers, few-shot) and the `case_facts` block re-injected into
+every API call so IDs and amounts survive long conversations.
+
+**`core/claude.py`** — a thin Anthropic SDK wrapper. `chat()` assembles the `messages.create()`
+params (model, system, tools, temperature, optional extended thinking) and returns the raw
+`Message`; `text_from_message()` joins the text blocks of a response. No agent logic lives here —
+it's the transport layer.
+
+**`mcp_server.py`** — a FastMCP server exposing the four support tools: `get_customer`,
+`lookup_order`, `process_refund`, `escalate_to_human`. The tool docstrings are the exam lesson:
+deliberately detailed descriptions (input formats, example queries, edge cases, "use X instead"
+boundaries) are what let the model route between two similar-looking lookup tools. Failures return
+the structured envelope `{isError, errorCategory, isRetryable, message}`; the magic order id
+`TIMEOUT` simulates a transient backend outage.
+
+**`mock_backend.py`** — a fake CRM/OMS: three customers and two orders in plain dicts, no network,
+no DB. The data is deliberately awkward — two customers share a phone number (forces the
+multiple-matches disambiguation path) and the two orders use different date formats and status
+encodings (gives the normalization hook something real to fix). Also provides `err()`, the shared
+error-envelope builder.
+
+**`mcp_client.py`** — the stdio MCP client: spawns the server process, holds the `ClientSession`
+via an `AsyncExitStack`, and exposes `list_tools` / `call_tool` (plus prompt/resource helpers).
+Run directly, its `main()` doubles as an integration test that asserts the tool error contracts
+(business vs transient vs valid-empty) and the handoff shape — no model or API key involved.
+
+**`test_hooks.py`** — unit tests for the guardrail layer. Calls the hook functions and case-facts
+methods directly against a stub agent — no API, no server, no model — proving the gate blocks,
+the cap redirects, the latch latches, and facts are captured, deterministically.
 
 ---
 

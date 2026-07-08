@@ -64,7 +64,7 @@ class MCPClient:
         result = await self.session().read_resource(AnyUrl(uri))
         resource = result.contents[0]
         if isinstance(resource, types.TextResourceContents):
-            if resource.mime_type == "application/json":
+            if resource.mimeType == "application/json":
                 return json.loads(resource.text)
 
             return resource.text

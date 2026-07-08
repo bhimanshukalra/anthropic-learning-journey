@@ -1,3 +1,10 @@
+"""The support agent: the agentic loop plus its guardrails.
+
+Two enforcement layers work together here:
+  - SYSTEM prompt -> probabilistic guidance (the model usually follows it)
+  - hooks         -> deterministic guarantees (code the model cannot override)
+"""
+
 from __future__ import annotations
 
 import json
@@ -7,6 +14,14 @@ from mcp_client import MCPClient
 from datetime import datetime, timezone
 
 SYSTEM = """You are a customer-support resolution agent. Use the tools to look up customers and orders and resolve the request. Pick the single most appropriate tool for each step.
+
+POLICIES (also enforced in code — violations are blocked — but follow them proactively so the
+customer gets a graceful answer instead of a blocked call):
+1. VERIFY IDENTITY FIRST: confirm a SINGLE matching customer via get_customer before calling
+   lookup_order or process_refund. If identity isn't verified yet, verify it first.
+2. REFUND LIMIT $500: refunds over $500 are NEVER auto-issued. Tell the customer amounts over
+   $500 require manual review, and hand off via escalate_to_human with a self-contained summary
+   instead of attempting process_refund.
 
 ESCALATE TO A HUMAN only when one of these is true:
 1. The customer EXPLICITLY asks for a human - escalate immediately, do NOT investigate first.
@@ -34,8 +49,9 @@ When a message contains MULTIPLE concerns, address EACH one (use the right tool 
 combine the outcomes into a SINGLE clear reply. Do not drop a concern or answer only the first.
 """
 
-GATED_TOOLS = {"lookup_order", "process_refund"}
-REFUND_LIMIT = 500.0
+GATED_TOOLS = {"lookup_order", "process_refund"}  # blocked until identity is verified
+REFUND_LIMIT = 500.0  # refunds above this always go to a human
+# The backend reports order status as ints; the model reasons better over words.
 STATUS_LABELS = {
     0: "pending",
     1: "processing",
@@ -113,7 +129,10 @@ def hook_latch_verification(tool_name: str, result: dict, agent) -> dict:
     return result
 
 
+# Pre-hooks run BEFORE a tool call and can block or redirect it. Order matters:
+# the verify gate rules first, so the refund cap can assume a verified customer.
 PRE_HOOKS = [hook_verify_gate, hook_refund_cap]
+# Post-hooks rewrite a result AFTER the call, before the model ever sees it.
 POST_HOOKS = [hook_latch_verification, hook_normalize_order]
 
 
@@ -121,7 +140,7 @@ class SupportAgent:
     def __init__(self, claude: Claude, client: MCPClient):
         self.claude = claude
         self.client = client
-        self.messages: list = []
+        self.messages: list = []  # full conversation history, resent on every API call
         self.verified_customer_id: str | None = None  # latched one, in code
         self.case_facts: dict = {}  # durable numbers/IDs/dates
 
@@ -184,6 +203,7 @@ class SupportAgent:
 
             decision = self._run_pre_hooks(name, args)  # PreToolUse
             if decision and "block" in decision:
+                # Blocked: the tool never runs; the model gets a structured error.
                 print(f"⛔ blocked: {name}")
                 results.append(
                     {
@@ -205,7 +225,14 @@ class SupportAgent:
             try:
                 result = json.loads(text)
             except (ValueError, TypeError):
-                result = {}
+                # Malformed output becomes a structured error — a bare {} would be
+                # indistinguishable from a valid empty result.
+                result = {
+                    "isError": True,
+                    "errorCategory": "transient",
+                    "isRetryable": True,
+                    "message": f"Tool '{name}' returned unparseable output: {text[:200]!r}",
+                }
 
             result = self._run_post_hooks(name, result)
             self._capture_facts(name, result)
@@ -223,7 +250,8 @@ class SupportAgent:
 
     async def _escalate_exhausted(self) -> str:
         """Runaway guard hit: hand off to a human with a structured handoff, and leave
-        self.messages ending on an assistant turn so a reused agent stays well-formed."""
+        self.messages ending on an assistant turn so a reused agent stays well-formed.
+        """
         await self.client.call_tool(
             "escalate_to_human",
             {
@@ -249,6 +277,7 @@ class SupportAgent:
         for _ in range(max_steps):  # runaway guard, NOT the stop condition
             response = self.claude.chat(
                 messages=self.messages,
+                # Case facts ride along on every call so IDs/amounts survive long chats.
                 system=SYSTEM + self._case_facts_block(),
                 tools=tools,
                 temperature=0,  # consistent tool routing / escalation decisions
