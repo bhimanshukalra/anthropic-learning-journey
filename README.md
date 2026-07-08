@@ -18,6 +18,13 @@ The goal is to keep a clear record of:
 **5 domains:** Agentic Architecture (27%) · Tool Design & MCP (18%) · Claude Code Config (20%) ·
 Prompt Engineering & Structured Output (20%) · Context & Reliability (15%).
 
+> 🏆 **Official practice exam (1 Jul 2026): 969 / 1000 — 58/60 correct (96.7%).**
+> Per scenario: Customer Support 14/15 · Multi-Agent Research 15/15 · Code Gen with Claude Code
+> 15/15 · Claude Code CI 14/15. Real exam: **Sat 11 Jul 2026** — prep driven by
+> [`certification/EXAM-WEEK-CHECKLIST.md`](certification/EXAM-WEEK-CHECKLIST.md).
+
+![Official practice exam result — 969/1000, passed](certification/practice-exam-2026-07-01-969.png)
+
 📖 **Start here:** [`certification/EXAM-PREP.md`](certification/EXAM-PREP.md) — the single
 "everything you need to pass" file (domain digests, answer-selection heuristics, fact cheatsheet,
 sample-question analysis, out-of-scope list). Read it before and after building the projects.

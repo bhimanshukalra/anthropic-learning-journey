@@ -141,30 +141,29 @@ fresh mock collapses (<14/20) — very unlikely given the 1 Jul result.
 
 ### A. Create/review each project from the exam guide
 
-The official guide (v0.2, "Preparation Exercises") defines 4 exercises. Repo mapping + status:
+The official guide (v0.2, "Preparation Exercises") defines 4 exercises:
 
-| # | Guide exercise | Repo project | Status → action |
-|---|---------------|--------------|-----------------|
-| 1 | Multi-Tool Agent with Escalation Logic | `projects/cert-01-customer-support-agent` | ✅ Built → **review** |
-| 2 | Claude Code for a Team Dev Workflow | `projects/cert-02-*` | ❌ Not started → **create (minimal)** |
-| 3 | Structured Data Extraction Pipeline | `projects/cert-03-*` | ❌ Not started → **create (minimal)** |
-| 4 | Multi-Agent Research Pipeline | `projects/cert-04-multi-agent-research` | ✅ Built → **review** |
-
-- [ ] **Review cert-01:** re-open the code; trace the `stop_reason` loop, the structured errors
-      (`errorCategory`/`isRetryable`), the >$500 interception hook, and the prerequisite gate.
-      Answer `tracks/prep-exercise-01-multi-tool-agent.md` "Be able to answer" Qs cold.
-- [ ] **Review cert-04:** trace coordinator `allowedTools: ["Task"]`, explicit context passing,
-      parallel Task calls in one turn, structured error propagation, claim→source provenance.
-      Answer `tracks/prep-exercise-04-multi-agent-research.md` self-quiz cold.
-- [ ] **Create cert-02 (Exercise 2) — config-only, ~60–90 min, no API key needed:** project
-      CLAUDE.md; `.claude/rules/` with `paths:` globs (verify a rule loads only on matching
-      files); a skill with `context: fork` + `allowed-tools`; `.mcp.json` with `${ENV_VAR}`
-      expansion + one user-scope server; try plan mode vs direct on 3 task sizes.
-- [ ] **Create cert-03 (Exercise 3) — needs API key, ~2h:** extraction tool schema
-      (required/optional/nullable, enum+"other"); verify null-not-fabricated; validation-retry
-      loop with error feedback; few-shot for varied layouts; batch strategy + `custom_id`
-      resubmission; field-level confidence routing.
-- [ ] _(Repo extras, not in the guide — lower priority)_ finish partials: `cert-05` (CI/CD:
+- [ ] **Exercise 1 — Multi-Tool Agent with Escalation Logic**
+      (`projects/cert-01-customer-support-agent` · ✅ built → **review**): re-open the code;
+      trace the `stop_reason` loop, the structured errors (`errorCategory`/`isRetryable`),
+      the >$500 interception hook, and the prerequisite gate. Answer
+      `tracks/prep-exercise-01-multi-tool-agent.md` "Be able to answer" Qs cold.
+- [ ] **Exercise 2 — Claude Code for a Team Dev Workflow**
+      (`projects/cert-02-*` · ❌ not started → **create**; config-only, ~60–90 min, no API key):
+      project CLAUDE.md; `.claude/rules/` with `paths:` globs (verify a rule loads only on
+      matching files); a skill with `context: fork` + `allowed-tools`; `.mcp.json` with
+      `${ENV_VAR}` expansion + one user-scope server; try plan mode vs direct on 3 task sizes.
+- [ ] **Exercise 3 — Structured Data Extraction Pipeline**
+      (`projects/cert-03-*` · ❌ not started → **create**; ~2h, needs API key): extraction tool
+      schema (required/optional/nullable, enum+"other"); verify null-not-fabricated;
+      validation-retry loop with error feedback; few-shot for varied layouts; batch strategy +
+      `custom_id` resubmission; field-level confidence routing.
+- [ ] **Exercise 4 — Multi-Agent Research Pipeline**
+      (`projects/cert-04-multi-agent-research` · ✅ built → **review**): trace coordinator
+      `allowedTools: ["Task"]`, explicit context passing, parallel Task calls in one turn,
+      structured error propagation, claim→source provenance. Answer
+      `tracks/prep-exercise-04-multi-agent-research.md` self-quiz cold.
+- [ ] **Repo extras** (not in the guide — lower priority): finish partials `cert-05` (CI/CD:
       `-p`, `--output-format json`, `--json-schema`) and `cert-06` (built-in tools, MCP
       resources, sessions).
 
