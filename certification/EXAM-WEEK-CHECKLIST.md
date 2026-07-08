@@ -129,6 +129,56 @@ If the fresh mock lands <14/20, consider rebooking a few days out; a delayed pas
 
 ---
 
+## 📌 Additional todos (added 8 Jul)
+
+> ⚠️ **Scheduling honesty:** these do NOT fit inside the 3-day core plan above without
+> sacrificing the taper. Work them **only after the day's core boxes are done**, in the order
+> below (highest exam-relevance first). Anything unfinished by Friday 6pm rolls to after the
+> exam — do not trade sleep or the mock for these.
+
+### A. Create/review each project from the exam guide
+
+The official guide (v0.2, "Preparation Exercises") defines 4 exercises. Repo mapping + status:
+
+| # | Guide exercise | Repo project | Status → action |
+|---|---------------|--------------|-----------------|
+| 1 | Multi-Tool Agent with Escalation Logic | `projects/cert-01-customer-support-agent` | ✅ Built → **review** |
+| 2 | Claude Code for a Team Dev Workflow | `projects/cert-02-*` | ❌ Not started → **create (minimal)** |
+| 3 | Structured Data Extraction Pipeline | `projects/cert-03-*` | ❌ Not started → **create (minimal)** |
+| 4 | Multi-Agent Research Pipeline | `projects/cert-04-multi-agent-research` | ✅ Built → **review** |
+
+- [ ] **Review cert-01:** re-open the code; trace the `stop_reason` loop, the structured errors
+      (`errorCategory`/`isRetryable`), the >$500 interception hook, and the prerequisite gate.
+      Answer `tracks/prep-exercise-01-multi-tool-agent.md` "Be able to answer" Qs cold.
+- [ ] **Review cert-04:** trace coordinator `allowedTools: ["Task"]`, explicit context passing,
+      parallel Task calls in one turn, structured error propagation, claim→source provenance.
+      Answer `tracks/prep-exercise-04-multi-agent-research.md` self-quiz cold.
+- [ ] **Create cert-02 (Exercise 2) — config-only, ~60–90 min, no API key needed:** project
+      CLAUDE.md; `.claude/rules/` with `paths:` globs (verify a rule loads only on matching
+      files); a skill with `context: fork` + `allowed-tools`; `.mcp.json` with `${ENV_VAR}`
+      expansion + one user-scope server; try plan mode vs direct on 3 task sizes.
+- [ ] **Create cert-03 (Exercise 3) — needs API key, ~2h:** extraction tool schema
+      (required/optional/nullable, enum+"other"); verify null-not-fabricated; validation-retry
+      loop with error feedback; few-shot for varied layouts; batch strategy + `custom_id`
+      resubmission; field-level confidence routing.
+- [ ] _(Repo extras, not in the guide — lower priority)_ finish partials: `cert-05` (CI/CD:
+      `-p`, `--output-format json`, `--json-schema`) and `cert-06` (built-in tools, MCP
+      resources, sessions).
+
+### B. Go through all the courses again
+
+> Realistic form before Saturday: **skim your notes/projects per course, not full re-watches**
+> (a full re-run of 7–8 courses is a 20+ hour job). Full re-watch = post-exam, as part of the
+> AI-Engineer roadmap.
+
+- [ ] Claude with the Anthropic API (Anthropic Academy)
+- [ ] Introduction to Model Context Protocol (→ `projects/01-introduction-to-model-context-protocol`)
+- [ ] Model Context Protocol: Advanced Topics (→ `projects/02-model-context-protocol-advanced-topic`)
+- [ ] Claude Code in Action
+- [ ] _Fill in the remaining courses you completed: ________________________________________
+
+---
+
 ## 📋 Weak List (living — add every miss, strike when re-tested ≥4/5)
 
 - _(empty — populate from Thursday's mock)_
