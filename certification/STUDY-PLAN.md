@@ -545,9 +545,10 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 - [ ] Take the **official Anthropic Practice Exam** under exam conditions: timed, no notes, no
       interruptions. _(Guide v0.2 dropped the "link provided separately" recommendation — if you
       can't get access, run `CROSS-DOMAIN-MOCK.md` timed at 60 Q / 120 min pace instead.)_
-- [ ] Record score and every missed topic. **This is your primary readiness signal.**
+- [x] Record score and every missed topic. **This is your primary readiness signal.**
 
-🌙 **Evening log:** _Practice exam score: ____ · Weak domains: ____
+🌙 **Evening log:** _Practice exam score: **969/1000, 58/60 (96.7%) — taken early, 1 Jul** (proof:
+`practice-exam-2026-07-01-969.png`) · Weak: 1 miss Customer Support scenario, 1 miss CI scenario_
 
 #### Day 55 · Sun Aug 9 — 🛌 REST
 🌙 **Evening log:** _Energy/notes: ____

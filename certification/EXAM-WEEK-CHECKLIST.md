@@ -4,10 +4,10 @@
 > the exam is now **Saturday 11 July**. This is your only source of truth from now until
 > then — work the boxes top-to-bottom each day and you're covered.
 >
-> **The strategy in one line:** your theory is proven (mock 1 = 19/20, mock 2 = 20/20 on
-> 27 Jun) — so these 3 days are NOT for learning new material. They are for (1) closing the
-> one standing gap (EXAM-PREP §4 heuristics + the 12 sample questions), (2) re-proving
-> retention with a **fresh timed mock**, and (3) arriving rested.
+> **The strategy in one line:** your theory is proven (mocks 19/20 and 20/20 on 27 Jun;
+> **official practice exam 969/1000 on 1 Jul**) — so these 3 days are NOT for learning new
+> material. They are for (1) closing the one standing gap (EXAM-PREP §4 heuristics + the 12
+> sample questions), (2) re-proving retention with a **fresh timed mock**, and (3) arriving rested.
 
 ---
 
@@ -16,6 +16,7 @@
 | Area | Status |
 |------|--------|
 | Theory — all 119 topics, NOTES §1–§6 | ✅ Complete, every domain verification-tested |
+| **Official practice exam (Skilljar, 1 Jul)** | ✅ **969/1000 — 58/60 (96.7%)**, pass = 720. Per scenario: Customer Support 14/15 · Multi-Agent Research 15/15 · Code Gen with Claude Code 15/15 · Claude Code CI 14/15. Proof: `practice-exam-2026-07-01-969.png` |
 | Cross-domain mocks | ✅ 19/20 and 20/20 (27 Jun) — but 11 days ago → needs a fresh retention check |
 | EXAM-PREP §4 heuristics formal pass | ❌ **The standing gap since Day 1 — do first** |
 | 12 official sample questions re-derived | ❌ Not done |
@@ -117,6 +118,7 @@
 
 ## ✅ Go/No-Go gate (tick Friday evening)
 
+- [x] **Official practice exam ≥ ~80%** — ✅ done 1 Jul: **969/1000, 58/60 (96.7%)**.
 - [ ] Can reproduce all 12 sample questions cold (answer + why each distractor fails + heuristic).
 - [ ] Can recite all 12 §4 heuristics and the §6 cheatsheet from memory.
 - [ ] Fresh mock (9 Jul) ≥ 16/20, all misses remediated.
@@ -124,8 +126,9 @@
 - [ ] Weak List empty (every item re-tested).
 - [ ] Rested, not crammed.
 
-**If ≥5 of 6 are green, sit the exam — your two 95%+ mocks say you're well past the 72% bar.**
-If the fresh mock lands <14/20, consider rebooking a few days out; a delayed pass beats a rushed fail.
+**If ≥6 of 7 are green, sit the exam — three independent signals ≥95% (two mocks + the official
+practice exam) put you far past the 72% bar.** Rebooking should only enter the picture if the
+fresh mock collapses (<14/20) — very unlikely given the 1 Jul result.
 
 ---
 
@@ -181,7 +184,10 @@ The official guide (v0.2, "Preparation Exercises") defines 4 exercises. Repo map
 
 ## 📋 Weak List (living — add every miss, strike when re-tested ≥4/5)
 
-- _(empty — populate from Thursday's mock)_
+- [ ] Practice-exam miss #1 (1 Jul): **Customer Support Resolution Agent** scenario, 14/15 —
+      recall the question if you can; likely D1/D2/D5 (escalation, gates, or tool errors).
+- [ ] Practice-exam miss #2 (1 Jul): **Claude Code for Continuous Integration** scenario,
+      14/15 — likely D3/D4 (`-p`, output schemas, review criteria, sync-vs-batch).
 
 ---
 
