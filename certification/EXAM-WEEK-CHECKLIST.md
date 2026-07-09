@@ -59,6 +59,10 @@
       You should now be able to do **all 12 cold** — if any wobble, redo it immediately.
 - [ ] **📝 FRESH CROSS-DOMAIN MOCK** — open a *new chat*, run `certification/CROSS-DOMAIN-MOCK.md`.
       **Timed (~30–40 min), closed-book, all 20 as one batch.** Readiness bar: **≥16/20**.
+      _Option: have the examiner draw the questions from `community-practice-exam-77q.md`
+      (77 third-party Qs, mapped to the official task statements) instead of generating its
+      own — genuinely unseen questions beat self-generated ones. **Don't read that file
+      yourself first** (answers are inline)._
 - [ ] **Remediate every miss same-day:** for each, write why the right answer wins, why you fell
       for the distractor, and which heuristic decides it. Re-test the concept phrased differently.
 - [ ] **Unbuilt-project coverage (reading, not building):**
