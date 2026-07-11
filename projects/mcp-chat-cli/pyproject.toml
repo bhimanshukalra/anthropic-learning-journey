@@ -1,0 +1,12 @@
+[project]
+name = "mcp-chat-cli"
+version = "0.1.0"
+description = "Command-line chat client for Claude with MCP tool, document, and prompt integrations"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.51.0",
+    "mcp[cli]>=1.8.0",
+    "prompt-toolkit>=3.0.51",
+    "python-dotenv>=1.1.0",
+]
