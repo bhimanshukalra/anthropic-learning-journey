@@ -219,6 +219,10 @@ Integration · S6 Structured Data Extraction.
       recall the question if you can; likely D1/D2/D5 (escalation, gates, or tool errors).
 - [ ] Practice-exam miss #2 (1 Jul): **Claude Code for Continuous Integration** scenario,
       14/15 — likely D3/D4 (`-p`, output schemas, review criteria, sync-vs-batch).
+- [ ] TRICKY-QUESTIONS Q20 miss (10 Jul): **Batch API failed-request handling** — resubmit
+      only failed `custom_id`s **as a new batch** (not synchronously one-by-one: 2× cost,
+      no latency need). Second D4/batch signal alongside miss #2 — re-test EXAM-PREP §4.9 + D4.5.
+      _Re-test 1/1 ✓ (10 Jul, rephrased) — strike after one clean hit in Saturday's 15-min warm-up._
 
 ---
 
