@@ -1,7 +1,15 @@
+# secrets — never commit
 .env
+
+# generated / machine-specific
 __pycache__
 .venv
 .DS_Store
 
-PYTHON-FLUENCY.md
+# Claude Code local overrides (commands/ stay tracked)
+.claude/settings.local.json
+
+# personal planning docs — keep off the public repo
 AI-ENGINEER-ROADMAP.md
+docs/TODAY.md
+docs/DAILY-LOG.md
