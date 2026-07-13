@@ -9,7 +9,5 @@ __pycache__
 # Claude Code local overrides (commands/ stay tracked)
 .claude/settings.local.json
 
-# personal planning docs — keep off the public repo
-AI-ENGINEER-ROADMAP.md
-docs/TODAY.md
-docs/DAILY-LOG.md
+# personal planning workspace — keep the entire folder off the public repo
+planning/

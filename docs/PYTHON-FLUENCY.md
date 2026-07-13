@@ -1,6 +1,6 @@
 # Python Working Fluency — Study Plan
 
-**Goal:** Idiomatic, working Python fluency for AI engineering — the Phase 0 prerequisite of `AI-ENGINEER-ROADMAP.md`. Calibrated for an experienced software engineer: we skip programming fundamentals entirely and focus on (a) what's *different* about Python, (b) what's *idiomatic* (the fluency gap), and (c) what P1–P4 will actually use.
+**Goal:** Idiomatic, working Python fluency for AI engineering — the Phase 0 prerequisite of `../planning/AI-ENGINEER-ROADMAP.md`. Calibrated for an experienced software engineer: we skip programming fundamentals entirely and focus on (a) what's *different* about Python, (b) what's *idiomatic* (the fluency gap), and (c) what P1–P4 will actually use.
 
 **Method:** tutor-then-quiz per batch (same format as `../certification/TOPIC-DEFINITIONS.md`). Ask to be taught a batch, get quizzed, tick it. Every batch ends with a tiny hands-on drill to run locally — fluency comes from fingers, not eyes.
 
@@ -10,11 +10,11 @@
 
 ## Batch P-1 — Setup & Tooling *(get productive in one sitting)*
 
-- [ ] **uv + virtual environments** — why Python isolates deps per project; `uv init`, `uv add`, `uv run`; what `pyproject.toml` is
-- [ ] **Running code** — scripts vs. modules (`python file.py` vs `python -m pkg`), the REPL, `if __name__ == "__main__":` and why it exists
-- [ ] **Project layout** — the standard shape of a small Python project (src layout, tests/, pyproject.toml) so P1 looks professional from day one
-- [ ] **Ruff + formatting** — one linter/formatter, zero config debates
-- [ ] **How imports actually work** — modules, packages, `__init__.py`, absolute vs relative imports, the "why can't Python find my module" class of errors
+- [x] **uv + virtual environments** — why Python isolates deps per project; `uv init`, `uv add`, `uv run`; what `pyproject.toml` is
+- [x] **Running code** — scripts vs. modules (`python file.py` vs `python -m pkg`), the REPL, `if __name__ == "__main__":` and why it exists
+- [x] **Project layout** — the standard shape of a small Python project (src layout, tests/, pyproject.toml) so P1 looks professional from day one
+- [x] **Ruff + formatting** — one linter/formatter, zero config debates
+- [x] **How imports actually work** — modules, packages, `__init__.py`, absolute vs relative imports, the "why can't Python find my module" class of errors
 
 ## Batch P-2 — Core Language Differences *(where other-language habits break)*
 

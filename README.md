@@ -67,11 +67,11 @@ Two project-scoped slash commands (in `.claude/commands/`, so they sync via git)
 ritual — originally built for exam prep (itself Domain 3 practice), now repointed at the
 post-cert roadmap:
 
-- **`/today`** — writes the day's brief to `docs/TODAY.md` with all referenced material **inlined**
+- **`/today`** — writes the day's brief to `planning/TODAY.md` with all referenced material **inlined**
   (current Python batch topics, the drill, the next project step), so the source files never need
   opening. Boxes get ticked in that file during the day.
 - **`/log`** *(e.g. `/log finished batch 2, confidence 4, revisit decorators)`* — reads the ticks
-  from `TODAY.md`, propagates them to the study-plan files, and appends a dated line to a daily
+  from `planning/TODAY.md`, propagates them to the study-plan files, and appends a dated line to a daily
   ledger. Run it each night.
 
 > The checkboxes are Claude's memory between sessions — keep them current via `/log` or the daily
@@ -168,7 +168,7 @@ following along.
 ```text
 .claude/
   commands/
-    today.md                   # /today — daily roadmap brief, written to docs/TODAY.md
+    today.md                   # /today — daily roadmap brief, written to planning/TODAY.md
     log.md                     # /log   — evening ritual: tick boxes + append daily ledger
 docs/
   PYTHON-FLUENCY.md            # post-cert Python fluency study plan (12 batches + drills)
