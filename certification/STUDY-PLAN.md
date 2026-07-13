@@ -78,7 +78,7 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 - [ ] **Week 6 (Jul 20–26):** Projects 5–6 done. Weakest: ____
 - [ ] **Week 7 (Jul 27–Aug 2):** All projects done; sample-Q deep dive done. Mock score: 19/20 (mock 1) → 20/20 (mock 2), both 27 Jun
 - [ ] **Week 8 (Aug 3–9):** Weak areas remediated; practice exam taken. Score: ____
-- [ ] **Week 9 (Aug 10–14):** Go/No-Go passed → exam booked/sat. Result: ____
+- [x] **Week 9 (Aug 10–14):** Go/No-Go passed → exam booked/sat. Result: **PASSED — 781/1000 (pass 720), sat early Mon 13 Jul 2026** 🎉
 
 ---
 
@@ -588,13 +588,13 @@ Rest days (Sundays): Jun 21, 28 · Jul 5, 12, 19, 26 · Aug 2, 9.
 
 #### Day 60 · Fri Aug 14 — 🎯 EXAM DAY (or buffer)
 **Focus:** Execute.
-- [ ] 15-min warm-up: skim heuristics §4 only. No cramming.
-- [ ] Take the exam. Per question: name the heuristic, eliminate 2 distractors, pick the *most
+- [x] 15-min warm-up: skim heuristics §4 only. No cramming.
+- [x] Take the exam. Per question: name the heuristic, eliminate 2 distractors, pick the *most
       effective/proportionate/root-cause* answer. **The platform forces an answer per question —
       never agonize; guess and move on (60 Q / 120 min ≈ 2 min each).**
-- [ ] _(If not ready: use this as a buffer day and rebook within the week.)_
+- [x] _(Not needed — exam sat early on Mon 13 Jul 2026.)_
 
-🌙 **Evening log:** _Result: ___ · 🎉_
+🌙 **Evening log:** _Result: **PASSED — 781/1000** (pass mark 720), sat early Mon 13 Jul 2026 · Confidence: 5 · Credly badge issued; badge + link committed to README · 🎉_
 
 ---
 
