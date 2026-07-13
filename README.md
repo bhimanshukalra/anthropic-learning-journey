@@ -1,7 +1,7 @@
 # Anthropic Learning Journey
 
-This repository tracks my practical learning work while completing Anthropic courses and preparing
-for the **Claude Certified Architect – Foundations** certification.
+This repository tracks my practical learning work while completing Anthropic courses and earning
+the **Claude Certified Architect – Foundations** certification (passed 13 Jul 2026).
 
 The goal is to keep a clear record of:
 
@@ -14,13 +14,20 @@ The goal is to keep a clear record of:
 
 ## 🎓 Certification: Claude Certified Architect – Foundations
 
-**Target:** scaled score ≥ **720 / 1000** (pass/fail). Multiple-choice, scenario-based.
+<a href="https://www.credly.com/badges/da535870-7752-4593-85ef-0e0feeca3207/public_url">
+  <img src="claude-certified-architect-foundations.png" alt="Claude Certified Architect – Foundations badge" width="180">
+</a>
+
+> ✅ **PASSED — Mon 13 Jul 2026: 781 / 1000** (pass mark 720) ·
+> [**Verify on Credly**](https://www.credly.com/badges/da535870-7752-4593-85ef-0e0feeca3207/public_url)
+
+Multiple-choice, scenario-based, scaled score out of 1000.
 **5 domains:** Agentic Architecture (27%) · Tool Design & MCP (18%) · Claude Code Config (20%) ·
 Prompt Engineering & Structured Output (20%) · Context & Reliability (15%).
 
 > 🏆 **Official practice exam (1 Jul 2026): 969 / 1000 — 58/60 correct (96.7%).**
 > Per scenario: Customer Support 14/15 · Multi-Agent Research 15/15 · Code Gen with Claude Code
-> 15/15 · Claude Code CI 14/15. Real exam: **Sat 11 Jul 2026** — prep driven by
+> 15/15 · Claude Code CI 14/15. Exam-week prep was driven by
 > [`certification/EXAM-WEEK-CHECKLIST.md`](certification/EXAM-WEEK-CHECKLIST.md).
 
 ![Official practice exam result — 969/1000, passed](certification/practice-exam-2026-07-01-969.png)
