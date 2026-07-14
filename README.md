@@ -70,9 +70,9 @@ post-cert roadmap:
 - **`/today`** — writes the day's brief to `planning/TODAY.md` with all referenced material **inlined**
   (current Python batch topics, the drill, the next project step), so the source files never need
   opening. Boxes get ticked in that file during the day.
-- **`/log`** *(e.g. `/log finished batch 2, confidence 4, revisit decorators)`* — reads the ticks
-  from `planning/TODAY.md`, propagates them to the study-plan files, and appends a dated line to a daily
-  ledger. Run it each night.
+- **`/log`** — reads the ticks and Notes from `planning/TODAY.md`, infers the concise daily entry,
+  propagates eligible completions to the study-plan files, and appends the entry to the daily
+  ledger. No arguments or follow-up metadata are required; run it each night.
 
 > The checkboxes are Claude's memory between sessions — keep them current via `/log` or the daily
 > brief will drift.
