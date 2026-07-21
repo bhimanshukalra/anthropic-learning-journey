@@ -10,4 +10,4 @@ __pycache__
 .claude/settings.local.json
 
 # personal planning workspace — keep the entire folder off the public repo
-# planning/
+planning/
