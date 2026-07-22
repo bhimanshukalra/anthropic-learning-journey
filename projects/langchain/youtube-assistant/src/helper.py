@@ -35,23 +35,15 @@ def create_vector_db_from_youtube_url(video_url: str):
         text_splitter = RecursiveCharacterTextSplitter()
         docs = text_splitter.split_documents(transcript)
 
-        # print("docs", docs)
-
         db = FAISS.from_documents(docs, embeddings)
-        # print("db", db)
         return db
     except Exception as e:
         print(f"Error: {str(e)}")
 
 
-# create_vector_db_from_youtube_url("https://www.youtube.com/watch?v=0QzopZ78w9M")
-
-
 def get_response_from_query(db: FAISS, query: str, k: int = 4):
     docs = db.similarity_search(query, k)
     docs_page_content = " ".join([doc.page_content for doc in docs])
-
-    # print("docs_page_content", docs_page_content)
 
     model = ChatGoogleGenerativeAI(model="gemini-3.6-flash", thinking_level="medium")
 
@@ -63,12 +55,4 @@ def get_response_from_query(db: FAISS, query: str, k: int = 4):
     chain = prompt | model | StrOutputParser()
 
     response = chain.invoke({"question": query, "docs": docs_page_content})
-    # response.replace("\n", "")
-    # print("response", response)
     return response
-
-
-# db = create_vector_db_from_youtube_url("https://www.youtube.com/watch?v=j5-yKhDd64s")
-# response = get_response_from_query(db, "What is the singer saying about road?")
-
-# print("response", response)
