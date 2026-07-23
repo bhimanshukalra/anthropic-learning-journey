@@ -1,6 +1,6 @@
 import uuid
-from chatbot_workflow import chatbot, config
-from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
+from chatbot_workflow import chatbot
+from langchain_core.messages import AIMessage, HumanMessage
 import streamlit as st
 
 
@@ -9,7 +9,7 @@ def generate_thread_id():
 
 
 def add_thread(thread_id):
-    if thread_id in st.session_state["chat_threads"]:
+    if thread_id not in st.session_state["chat_threads"]:
         st.session_state["chat_threads"].append(thread_id)
 
 
@@ -59,10 +59,10 @@ for thread_id in st.session_state["chat_threads"][::-1]:
             else:
                 continue
 
-        temp_messages.append({"role": role, "content": message.content})
+            temp_messages.append({"role": role, "content": message.content})
 
-    st.session_state["message_history"] = temp_messages
-    st.rerun()
+        st.session_state["message_history"] = temp_messages
+        st.rerun()
 
 for message in st.session_state["message_history"]:
     with st.chat_message(message["role"]):
@@ -82,7 +82,7 @@ if user_input:
         ai_message = st.write_stream(
             message_chunk.content
             for message_chunk, metadata in chatbot.stream(
-                {"messages": [HumanMessage(user_input)]},
+                {"messages": [HumanMessage(content=user_input)]},
                 config=CONFIG,
                 stream_mode="messages",
             )
@@ -90,5 +90,5 @@ if user_input:
         )
 
     st.session_state["message_history"].append(
-        {"role": "assistant", "cotent": ai_message}
+        {"role": "assistant", "content": ai_message}
     )
