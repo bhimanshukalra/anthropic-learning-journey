@@ -1,17 +1,6 @@
-# Topic Definitions
+# AI Foundations
 
 **Goal:** Define every AI topic from the absolute basics — skipping nothing — so this file becomes a strong foundation that can be referenced time and again. Quick, to-the-point definitions, ordered from basics upward.
-
-## Study Batches (temporary — remove when all covered)
-
-- [x] **Batch 1 — Absolute basics:** what is a model, parameters/weights, training loop, training vs. inference, tokens, next-token prediction
-- [x] **Batch 1a — Network building blocks:** neuron, bias, activation function, layer, neural network
-- [x] **Batch 1b — Training vocabulary:** loss function, gradient, learning rate, backpropagation, batch/epoch
-- [x] **Batch 1c — Generation mechanics:** logits, softmax, greedy vs. sampling, autoregressive loop, stop tokens
-- [x] **Batch 2 — Generation controls:** context window, temperature, sampling (top-p), max tokens (hallucination ✅ + vocabulary ✅ already covered)
-- [x] **Batch 3 — Inside the model:** attention, multi-head attention, positional encoding, transformer (embeddings ✅ + forward pass ✅ + softmax ✅ already covered)
-- [ ] **Batch 4 — How Claude-like models are made:** pre-training vs. fine-tuning vs. RLHF, system prompts, instruction-following
-- [ ] **Batch 5 — Building on top:** prompts vs. API parameters, RAG, tool use / function calling
 
 ## Recommended Resources
 
@@ -158,6 +147,202 @@ Truncates the table instead of reshaping it: keep the smallest top set of tokens
 ### Max Tokens
 
 Hard cap on output length: generation stops at the model's stop token or this cap, whichever first — cap = truncation mid-sentence (check the API's stop/finish reason; handle truncation in code). Not a target (the model doesn't know it exists — control length via the prompt) and not quality control — a cost/latency guardrail, since output tokens are the slow, expensive ones.
+
+## How Claude-Like Models Are Made
+
+### Pre-Training
+
+The giant first training stage where the model learns language, facts, patterns, reasoning shapes, code, style, and world structure from massive text/data. The training task is still simple: predict the next token. Given "The capital of France is", the model learns to assign high probability to "Paris".
+
+Pre-training is not just memorizing facts. By doing next-token prediction across enormous data, the model learns grammar, syntax, programming conventions, math forms, question-answer patterns, and relationships between concepts. It gives the model raw capability, but not necessarily assistant behavior. A pre-trained-only model may continue text in a plausible style without reliably following instructions.
+
+One line: pre-training teaches the model how language/world patterns work.
+
+### Fine-Tuning
+
+Additional training after pre-training, usually on a smaller curated dataset. The model already knows language; fine-tuning nudges it toward a desired behavior.
+
+For assistant models, an important kind is instruction fine-tuning: examples shaped like "User asks for X; assistant gives the desired response." This teaches the model to answer the user, follow instructions, use an assistant tone, produce requested formats, refuse certain unsafe requests, and prefer helpful completions over random continuations.
+
+Fine-tuning usually should not be the first choice for adding private knowledge. If the model needs a company handbook, RAG is usually better. Fine-tuning is better for behavior, style, format, repeated task pattern, or latency/cost trade-offs.
+
+One line: fine-tuning teaches the model how you want it to behave.
+
+### RLHF (Reinforcement Learning from Human Feedback)
+
+A preference-training method that teaches a model which responses humans tend to prefer. Rough flow: the model produces multiple answers to the same prompt; humans rank them; a reward model learns those preferences; the assistant model is further trained to produce answers that score well under that reward model.
+
+RLHF helps make models more helpful, harmless, honest-ish, conversational, and aligned with human preferences. But it has trade-offs: it can make models overly agreeable, verbose, refusal-prone, or optimized for "sounds good to humans" rather than "is objectively correct." This is why evals, grounding, and external verification still matter.
+
+One line: RLHF teaches the model which behaviors humans prefer.
+
+### Pre-Training vs Fine-Tuning vs RLHF
+
+Think of making a professional engineer. Pre-training is years of reading the internet, books, code, documentation, and examples. Fine-tuning is job-specific examples: "when a user asks this, respond like this." RLHF is managers/users comparing outputs and saying which answer is better.
+
+| Stage | Teaches | Dataset size | Main effect |
+|---|---|---:|---|
+| Pre-training | Language/world/code patterns | Huge | Raw capability |
+| Fine-tuning | Desired task/assistant behavior | Smaller | Instruction-following |
+| RLHF | Human preference | Smaller but curated | Helpfulness/alignment |
+
+### System Prompt
+
+A high-priority instruction given to the model before the user message. It can define role, tone, boundaries, output format, safety constraints, tool-use rules, and domain-specific behavior. Example: "You are a concise technical tutor. Explain concepts with examples. Do not skip prerequisites."
+
+A system prompt does not change the model's weights. It is runtime steering, not learning. Fine-tuning changes the model; system prompting steers the model during a request.
+
+One line: a system prompt is inference-time steering, not training.
+
+### Instruction-Following
+
+The model's learned ability to treat user text as a task to perform, not just text to continue. A raw language model may see "Translate this to French: good morning" as text to continue. An instruction-following assistant understands the task and replies "Bonjour."
+
+This behavior comes from instruction fine-tuning and preference training. It includes obeying constraints like "answer in JSON," "use exactly three bullets," "ask one clarifying question first," or "do not mention implementation details."
+
+Instruction-following is imperfect. Models can ignore constraints, over-follow irrelevant instructions, or get confused when documents contain malicious instructions. AI engineering compensates with structured outputs, validation, evals, tool permissions, and prompt-injection defenses.
+
+### Training-Time vs Inference-Time
+
+A Claude-like assistant is roughly: base model from pre-training + instruction fine-tuning + preference/alignment training + system prompt at runtime + user/developer messages + tools/RAG/context = assistant behavior.
+
+Training-time things change or shape the weights: pre-training, fine-tuning, RLHF, and related alignment methods. Inference-time things steer a frozen model during use: system prompts, user prompts, API parameters, tools, RAG documents, and context-window management.
+
+As an AI engineer, you mostly work at inference time. You usually do not train Claude. You build systems around it: prompts, APIs, tools, retrieval, evals, monitoring, and product workflows.
+
+## Building on Top of LLMs
+
+### Prompt
+
+The natural-language/task instruction you send to the model at inference time. A prompt can include the user's request, background context, examples, constraints, output format, and any documents the model should use.
+
+A prompt does not change the model's weights. It is steering for this one request or conversation. Good prompting is not magic wording; it is clear task design: tell the model what role it is playing, what information matters, what output shape is required, what constraints apply, and what to do when the answer is unknown.
+
+One line: a prompt is the task/context you give a frozen model so it can produce the desired next tokens.
+
+### Prompt vs API Parameters
+
+Prompts control meaning and task behavior; API parameters control generation mechanics and request limits. They work together, but they are different kinds of control.
+
+Prompt examples: "answer in JSON," "cite sources," "be concise," "use only the provided document," "ask a clarifying question first." These instructions shape what the model tries to do.
+
+API parameter examples: `temperature`, `top_p`, `max_tokens`, `stop_sequences`, model name, streaming on/off, tool definitions, and sometimes response-format/schema options. These settings shape how the model generates or how the API wraps the generation.
+
+If the answer is too creative, adjust temperature/top-p. If the answer is the wrong format, improve the prompt and add structured-output validation. If the answer is cut off, increase `max_tokens` or ask for a shorter answer. If the answer invents facts, add grounding via RAG/tool use and evals; temperature alone does not solve truth.
+
+One line: prompts say what to do; API parameters say how generation should be sampled, bounded, structured, or connected to tools.
+
+### Context
+
+The information included in the request that the model can directly attend to: system prompt, user message, conversation history, documents, tool results, retrieved chunks, images, and the answer generated so far. The model only knows what is in its weights plus what is present in the current context window.
+
+Context is not memory in the human sense. If a fact is not in the model's weights and not in the current context, the model cannot reliably use it. Chat apps create the illusion of memory by resending prior turns; RAG creates task-specific context by fetching relevant external information.
+
+One line: context is the model's temporary working material for the current request.
+
+### Grounding
+
+Giving the model external evidence to base its answer on, instead of relying only on patterns stored in weights. Grounding can come from retrieved documents, database queries, API calls, search results, tool outputs, or user-provided files.
+
+Grounding reduces hallucination risk because the answer can be tied to specific evidence, but it does not guarantee correctness. The system can retrieve the wrong evidence, omit the right evidence, misread the evidence, or cite sources that do not actually support the answer. This is why grounded systems need evals that separate retrieval quality from answer quality.
+
+One line: grounding means forcing the model's answer to lean on external evidence.
+
+### RAG (Retrieval-Augmented Generation)
+
+A pattern where the system retrieves relevant information from an external corpus and places it into the model's context before asking the model to answer. It is "retrieval-augmented" because the model's generation is augmented by fetched evidence.
+
+Basic flow: user asks a question → system searches documents → top relevant chunks are inserted into the prompt/context → model answers using those chunks → system returns answer, often with citations.
+
+RAG is useful when the model needs fresh, private, large, or source-specific knowledge: company docs, product manuals, tickets, policies, research papers, PDFs, or databases. It is usually better than fine-tuning for knowledge injection because the source material can be updated without retraining and the answer can cite evidence.
+
+RAG has two different failure modes. Retrieval failure: the right evidence was not fetched. Generation failure: the right evidence was fetched but the model answered incorrectly, ignored it, or failed to cite it. A good AI engineer diagnoses these separately.
+
+One line: RAG fetches relevant external knowledge and gives it to the model at inference time.
+
+### Embeddings for Retrieval
+
+An embedding for retrieval is a vector representation of a text/document chunk/query, where semantic similarity becomes geometric closeness. If a user asks "refund window," a good embedding search may retrieve a policy chunk saying "returns accepted within 30 days," even though the exact words differ.
+
+In RAG, documents are split into chunks, each chunk is embedded, and those vectors are stored in a vector database. At query time, the user question is embedded too; the system finds nearby vectors and returns the matching chunks.
+
+Embeddings are powerful for semantic search, but they are not enough by themselves. Keyword search can outperform embeddings for exact names, IDs, error codes, and rare terms. This is why production RAG often uses hybrid search: vector similarity plus keyword/BM25.
+
+One line: embeddings turn text into searchable geometry.
+
+### Chunking
+
+Splitting documents into smaller pieces before indexing them for retrieval. Chunks must be small enough to search and fit into context, but large enough to preserve meaning.
+
+Naive chunking can destroy meaning. A chunk may separate a heading from its paragraph, a table from its explanation, or a policy condition from its exception. Better chunking respects structure: sections, headings, pages, tables, paragraphs, and source metadata.
+
+Chunking is a design trade-off. Smaller chunks can retrieve precise snippets but may lack context. Larger chunks preserve context but may retrieve irrelevant material and waste tokens. The right answer is empirical: test chunk sizes against retrieval and answer evals.
+
+One line: chunking decides what unit of knowledge the retrieval system can find.
+
+### Citation
+
+A pointer from the model's answer back to the source evidence it used: document, page, section, URL, row, or chunk. Citations make answers inspectable and help users decide whether to trust them.
+
+A citation is only useful if it actually supports the claim. "Has a citation" is weaker than "the citation proves the sentence." Good RAG evals check citation accuracy, not just citation presence.
+
+One line: citations make generated answers traceable to evidence.
+
+### Tool Use / Function Calling
+
+A pattern where the model can request that the application call a predefined tool/function, then use the result in its next response. The model does not directly execute arbitrary code; it emits a structured tool call, and your application decides whether and how to run it.
+
+Example: the user asks "What's the weather in Delhi tomorrow?" The model decides it needs a weather tool and returns a call like `get_weather(location="Delhi", date="tomorrow")`. Your code validates the arguments, calls the weather API, sends the result back to the model, and the model writes the final answer.
+
+Tools are useful when the model needs fresh data, private data, calculations, actions, or side effects: search, database lookup, ticket creation, calendar scheduling, file operations, payments, or code execution. They turn the model from a text generator into a reasoning-and-routing layer around real software capabilities.
+
+Tool use must be bounded. The application should define allowed tools, validate arguments, enforce permissions, handle errors/timeouts, log calls, and require human approval for consequential actions.
+
+One line: tool use lets the model ask your software to do specific, controlled things.
+
+### Tool Schema
+
+The machine-readable contract that tells the model what a tool does, what arguments it accepts, which fields are required, and what types/constraints apply. It is usually expressed as JSON Schema or a similar structured definition.
+
+Good tool schemas are narrow and explicit. A tool named `refund_order(order_id, reason)` is safer than a vague tool named `run_admin_action(action)`. The model is better at choosing and filling tools when names, descriptions, and parameters are concrete.
+
+One line: a tool schema is the API contract between the model and your application.
+
+### Tool-Call Loop
+
+The control loop around tool use. Typical flow: user asks → model responds with a tool call → application validates and executes the tool → application sends the tool result back to the model → model either answers or requests another tool → loop stops at a final answer, error, escalation, or budget limit.
+
+The loop belongs to your application, not the model. Your code owns stopping conditions, retries, permissions, idempotency, traces, and error handling. This is where many agent systems succeed or fail.
+
+One line: the tool-call loop is the application harness that turns model tool requests into controlled execution.
+
+### Function Calling vs Tool Use
+
+Function calling is the older/common term for the same basic idea: the model emits a structured request to call a function. Tool use is the broader term: tools may be functions, APIs, database queries, MCP tools, file actions, browser actions, or other controlled capabilities.
+
+The model is not "calling" the function by itself. It is selecting a tool and proposing arguments; the host application performs the actual call.
+
+One line: function calling is structured tool selection; tool use is the broader product pattern.
+
+### Prompting vs RAG vs Tool Use
+
+These are three different ways to improve a model-backed product.
+
+Prompting is best when the model already has enough knowledge/capability and needs clearer instructions, examples, constraints, or output format.
+
+RAG is best when the model needs external knowledge: private docs, changing facts, large corpora, policies, PDFs, or answers that need citations.
+
+Tool use is best when the model needs to take an action, fetch live structured data, calculate reliably, query a system of record, or interact with software.
+
+One line: prompt for behavior, RAG for knowledge, tools for actions/live systems.
+
+### Building on Top vs Training the Model
+
+Most AI engineering work happens around a frozen model. You design prompts, schemas, retrieval, tools, evals, logging, permissions, and product flows. You are not usually changing the model's weights.
+
+This is why app-layer AI engineering looks like software engineering plus probabilistic-system discipline: APIs, data modeling, tests, evals, observability, UX, security, cost, and latency.
+
+One line: building on top means turning a general model into a reliable product through surrounding software.
 
 ## Agentic Patterns
 
