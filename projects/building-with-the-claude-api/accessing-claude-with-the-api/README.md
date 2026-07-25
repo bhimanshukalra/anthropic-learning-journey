@@ -35,6 +35,9 @@ ANTHROPIC_API_KEY=your_api_key_here
 | `structured_data.py` | Assistant prefill and stop sequences for JSON-shaped output. | Course demo |
 | `structured_data_exercise.py` | Stop sequences with a fenced bash response. | Course demo |
 | `streaming.py` | Streaming text chunks as they arrive, then reading the final message for stop reason and token usage metadata. | Upgraded learning artifact |
+| `streaming_server.py` | FastAPI endpoint that keeps the Anthropic API key on the backend and forwards Claude chunks as Server-Sent Events. | Upgraded learning artifact |
+| `streaming_client.py` | HTTP client that consumes the local streaming endpoint and prints chunks as they arrive. | Upgraded learning artifact |
+| `STREAMING-END-TO-END.md` | Step-by-step guide for completing server-to-client streaming. | Learning guide |
 | `main.py` | Placeholder script created by the project scaffold. | Not part of the learning path |
 
 ## Run an Exercise
@@ -47,6 +50,20 @@ uv run python user_assistant_flow.py
 uv run python math_tutor.py
 uv run python structured_data.py
 uv run python streaming.py
+```
+
+Run the end-to-end streaming example with two terminals.
+
+Terminal 1:
+
+```bash
+uv run uvicorn streaming_server:app --reload
+```
+
+Terminal 2:
+
+```bash
+uv run python streaming_client.py
 ```
 
 If `uv` is not available in the current shell, activate the virtual environment
@@ -78,6 +95,9 @@ points from memory:
 - Streaming returns text incrementally, which is useful for responsive apps.
 - `stream.text_stream` is for live text chunks; `stream.get_final_message()` is
   for the completed message object and metadata after the stream finishes.
+- End-to-end streaming usually flows from Claude to your backend, then from your
+  backend to the client, so the API key and product controls stay server-side.
+- Server-Sent Events send `data:` lines over a long-lived HTTP response.
 
 ## Completion Notes
 
@@ -94,3 +114,5 @@ This folder is complete for the "Accessing Claude with the API" checkpoint when:
   response.
 - You can explain why streaming code prints chunks as they arrive but waits until
   the end to inspect stop reason and token usage.
+- You can run `streaming_server.py` and `streaming_client.py` together and
+  explain the Claude -> backend -> client streaming path.
