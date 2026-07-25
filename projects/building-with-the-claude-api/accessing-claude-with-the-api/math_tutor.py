@@ -1,4 +1,4 @@
-from claude_helpers import add_user_message, chat
+from claude_helpers import add_user_message, create_message, extract_text, print_message_metadata
 
 MATH_TUTOR_SYSTEM_PROMPT = """
 You are a patient math tutor.
@@ -14,8 +14,16 @@ def main():
     messages = []
 
     add_user_message(messages, "How do I solve 5x+3=2 for x?")
-    answer = chat(messages, system=MATH_TUTOR_SYSTEM_PROMPT)
-    print("Response: ", answer)
+    message = create_message(
+        messages,
+        system=MATH_TUTOR_SYSTEM_PROMPT,
+        max_tokens=500,
+        temperature=0.2,
+    )
+    answer = extract_text(message)
+    print("Response:")
+    print(answer)
+    print_message_metadata(message)
 
 
 if __name__ == "__main__":
