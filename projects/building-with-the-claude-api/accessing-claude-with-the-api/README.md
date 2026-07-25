@@ -32,7 +32,7 @@ ANTHROPIC_API_KEY=your_api_key_here
 | `math_tutor.py` | Using a `system` prompt to define Claude's role and behavior, plus `max_tokens`, `temperature`, and response metadata. | Upgraded learning artifact |
 | `user_assistant_flow.py` | Preserving conversation history by sending prior `user` and `assistant` turns back to the API. | Upgraded learning artifact |
 | `prompt_input_provide_response.py` | Manual chat loop, repeated API calls, growing message history, clean exits, and per-turn metadata. | Upgraded learning artifact |
-| `structured_data.py` | Assistant prefill and stop sequences for JSON-shaped output. | Course demo |
+| `structured_data.py` | Schema-enforced JSON output with `output_config`, Pydantic validation, retry-on-invalid, deliberate failure repair, and response metadata. | Upgraded learning artifact |
 | `structured_data_exercise.py` | Stop sequences with a fenced bash response. | Course demo |
 | `streaming.py` | Streaming text chunks as they arrive, then reading the final message for stop reason and token usage metadata. | Upgraded learning artifact |
 | `streaming_server.py` | FastAPI endpoint that keeps the Anthropic API key on the backend and forwards Claude chunks as Server-Sent Events. | Upgraded learning artifact |
@@ -92,6 +92,14 @@ points from memory:
   prompt size.
 - Stop sequences can end generation at a delimiter, which is useful for shaped
   output experiments.
+- Structured outputs use `output_config.format` with a JSON schema so Claude is
+  constrained toward a machine-readable shape.
+- Pydantic validates the parsed JSON locally, which catches missing fields,
+  wrong types, invalid enum values, and unexpected extra fields.
+- Retry-on-invalid gives the model the validation error and asks for corrected
+  JSON, capped by a small retry limit.
+- Message prefilling is an older JSON-shaping technique and should not be mixed
+  with structured-output JSON mode.
 - Streaming returns text incrementally, which is useful for responsive apps.
 - `stream.text_stream` is for live text chunks; `stream.get_final_message()` is
   for the completed message object and metadata after the stream finishes.
@@ -109,7 +117,10 @@ This folder is complete for the "Accessing Claude with the API" checkpoint when:
 - You understand why `user_assistant_flow.py` manually appends the assistant's
   previous answer before asking the next question.
 - You understand why `structured_data.py` uses assistant prefill and a stop
-  sequence even though it is still a course demo.
+  sequence as an older course-demo pattern, and why the upgraded path uses
+  schema-enforced JSON plus Pydantic validation instead.
+- You can explain the parse -> validate -> retry-on-invalid loop in
+  `structured_data.py`.
 - You can explain the difference between a normal response and a streamed
   response.
 - You can explain why streaming code prints chunks as they arrive but waits until

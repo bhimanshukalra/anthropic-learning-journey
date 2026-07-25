@@ -60,6 +60,7 @@ dependencies = [
     { name = "anthropic" },
     { name = "fastapi" },
     { name = "httpx" },
+    { name = "pydantic" },
     { name = "python-dotenv" },
     { name = "uvicorn" },
 ]
@@ -69,6 +70,7 @@ requires-dist = [
     { name = "anthropic", specifier = ">=0.120.0" },
     { name = "fastapi", specifier = ">=0.140.0" },
     { name = "httpx", specifier = ">=0.28.1" },
+    { name = "pydantic", specifier = ">=2.13.4" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "uvicorn", specifier = ">=0.51.0" },
 ]
