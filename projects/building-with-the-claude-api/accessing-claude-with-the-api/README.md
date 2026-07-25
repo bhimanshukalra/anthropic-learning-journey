@@ -34,7 +34,7 @@ ANTHROPIC_API_KEY=your_api_key_here
 | `prompt_input_provide_response.py` | Manual chat loop, repeated API calls, growing message history, clean exits, and per-turn metadata. | Upgraded learning artifact |
 | `structured_data.py` | Assistant prefill and stop sequences for JSON-shaped output. | Course demo |
 | `structured_data_exercise.py` | Stop sequences with a fenced bash response. | Course demo |
-| `streaming.py` | Streaming response text from Claude. | Course demo |
+| `streaming.py` | Streaming text chunks as they arrive, then reading the final message for stop reason and token usage metadata. | Upgraded learning artifact |
 | `main.py` | Placeholder script created by the project scaffold. | Not part of the learning path |
 
 ## Run an Exercise
@@ -76,6 +76,8 @@ points from memory:
 - Stop sequences can end generation at a delimiter, which is useful for shaped
   output experiments.
 - Streaming returns text incrementally, which is useful for responsive apps.
+- `stream.text_stream` is for live text chunks; `stream.get_final_message()` is
+  for the completed message object and metadata after the stream finishes.
 
 ## Completion Notes
 
@@ -90,3 +92,5 @@ This folder is complete for the "Accessing Claude with the API" checkpoint when:
   sequence even though it is still a course demo.
 - You can explain the difference between a normal response and a streamed
   response.
+- You can explain why streaming code prints chunks as they arrive but waits until
+  the end to inspect stop reason and token usage.
