@@ -20,11 +20,15 @@ class EventBridgeRule(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     name: str = Field(description="Short kebab-case rule name.")
-    description: str = Field(description="One sentence explaining what the rule catches.")
+    description: str = Field(
+        description="One sentence explaining what the rule catches."
+    )
     event_source: Literal["aws.ec2", "aws.s3", "aws.iam", "custom.app"]
     detail_type: str
     enabled: bool
-    targets: list[str] = Field(description="Target names that should receive the event.")
+    targets: list[str] = Field(
+        description="Target names that should receive the event."
+    )
     risk_level: Literal["low", "medium", "high"]
 
 
@@ -51,10 +55,12 @@ BAD_RULE_FOR_REPAIR = """
 
 
 def event_bridge_schema() -> dict[str, Any]:
+    """Turning Pydantic Into Claude JSON Schema"""
     return transform_schema(EventBridgeRule)
 
 
 def request_event_rule(prompt: str) -> Any:
+    """Calling Claude With Structured Output"""
     messages = []
     add_user_message(messages, prompt)
 
@@ -92,34 +98,47 @@ Return corrected JSON only.
 """
 
 
-def generate_valid_rule(prompt: str, *, max_attempts: int = MAX_ATTEMPTS) -> tuple[EventBridgeRule, Any, int]:
+def generate_valid_rule(
+    prompt: str, *, max_attempts: int = MAX_ATTEMPTS
+) -> tuple[EventBridgeRule, Any, int]:
     current_prompt = prompt
 
     for attempt in range(1, max_attempts + 1):
+        # ask Claude
         message = request_event_rule(current_prompt)
+        # extract JSON text
         raw_json = extract_text(message).strip()
 
         try:
+            # try to parse + validate, if valid: return it
             return parse_and_validate(raw_json), message, attempt
         except (json.JSONDecodeError, ValidationError) as error:
             if attempt == max_attempts:
                 raise
+            # if invalid: send repair prompt
             current_prompt = build_repair_prompt(raw_json, error)
 
     raise RuntimeError("Structured output retry loop ended unexpectedly.")
 
 
-def repair_invalid_rule(raw_json: str, *, max_attempts: int = 2) -> tuple[EventBridgeRule, Any, int]:
+def repair_invalid_rule(
+    raw_json: str, *, max_attempts: int = 2
+) -> tuple[EventBridgeRule, Any, int]:
+    """Repair Known Bad JSON"""
     current_json = raw_json
 
     for attempt in range(1, max_attempts + 1):
         try:
+            # try to parse + validate, if valid: return it
             return parse_and_validate(current_json), None, attempt
         except (json.JSONDecodeError, ValidationError) as error:
+            # ask Claude to repair
             message = request_event_rule(build_repair_prompt(current_json, error))
+            # extract JSON text
             current_json = extract_text(message).strip()
 
             try:
+                # try to parse + validate, if valid: return it
                 return parse_and_validate(current_json), message, attempt
             except (json.JSONDecodeError, ValidationError):
                 if attempt == max_attempts:
@@ -135,13 +154,23 @@ def print_validated_rule(label: str, rule: EventBridgeRule, attempts: int) -> No
 
 
 def main():
-    generated_rule, generated_message, generated_attempts = generate_valid_rule(USER_PROMPT)
-    print_validated_rule("Validated generated rule:", generated_rule, generated_attempts)
+    """
+    Define schema -> ask Claude for JSON -> parse JSON ->
+    validate with Pydantic -> retry if invalid
+    """
+    generated_rule, generated_message, generated_attempts = generate_valid_rule(
+        USER_PROMPT
+    )
+    print_validated_rule(
+        "Validated generated rule:", generated_rule, generated_attempts
+    )
     print_message_metadata(generated_message)
 
     print()
     print("Deliberate failure case:")
-    repaired_rule, repair_message, repair_attempts = repair_invalid_rule(BAD_RULE_FOR_REPAIR)
+    repaired_rule, repair_message, repair_attempts = repair_invalid_rule(
+        BAD_RULE_FOR_REPAIR
+    )
     print_validated_rule("Validated repaired rule:", repaired_rule, repair_attempts)
     if repair_message:
         print_message_metadata(repair_message)
