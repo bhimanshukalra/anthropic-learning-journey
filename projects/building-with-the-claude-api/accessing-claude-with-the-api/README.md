@@ -37,6 +37,8 @@ ANTHROPIC_API_KEY=your_api_key_here
 | `tool_use.py` | Tool schemas, `tool_use` block handling, local Python function execution, batched `tool_result` responses, loop limits, and tool-call metadata. | Upgraded learning artifact |
 | `multimodal_input.py` | Image and PDF input blocks from URLs/local files, visual-token estimation, and Files API upload for reusable media. | Upgraded learning artifact |
 | `prompt_caching.py` | Automatic prompt caching, explicit `cache_control` breakpoints, cache prewarming, TTL selection, and cache usage metadata. | Upgraded learning artifact |
+| `token_counting.py` | Token counting for text, system prompts, tools, image inputs, context-budget warnings, and simple cost estimates. | Upgraded learning artifact |
+| `batch_processing.py` | Message Batch lifecycle: create batch, retrieve status, poll until ended, and read succeeded/errored results by `custom_id`. | Upgraded learning artifact |
 | `streaming.py` | Streaming text chunks as they arrive, then reading the final message for stop reason and token usage metadata. | Upgraded learning artifact |
 | `streaming_server.py` | FastAPI endpoint that keeps the Anthropic API key on the backend and forwards Claude chunks as Server-Sent Events. | Upgraded learning artifact |
 | `streaming_client.py` | HTTP client that consumes the local streaming endpoint and prints chunks as they arrive. | Upgraded learning artifact |
@@ -58,6 +60,8 @@ uv run python multimodal_input.py pdf-url
 uv run python prompt_caching.py automatic
 uv run python prompt_caching.py explicit --ttl 5m
 uv run python prompt_caching.py prewarm --ttl 1h
+uv run python token_counting.py all
+uv run python batch_processing.py create
 uv run python streaming.py
 ```
 
@@ -128,6 +132,14 @@ points from memory:
   `cache_control` is useful when you know which block should be reused.
 - Cache write/read metadata tells you whether a request created cache entries or
   reused existing cached tokens.
+- Token counting estimates request size before generation, which helps with
+  context limits, routing, rate limits, and cost planning.
+- Cost estimates need explicit pricing constants and should be treated as
+  approximate until checked against current model pricing.
+- Message Batches are for offline workloads where latency is less important
+  than throughput and cost, such as evals or bulk classification.
+- Batch results must be reconciled by `custom_id`, because individual requests
+  can succeed, error, expire, or be canceled independently.
 - Streaming returns text incrementally, which is useful for responsive apps.
 - `stream.text_stream` is for live text chunks; `stream.get_final_message()` is
   for the completed message object and metadata after the stream finishes.
@@ -155,6 +167,9 @@ This folder is complete for the "Accessing Claude with the API" checkpoint when:
   and when to prefer URL, base64, or Files API input.
 - You can explain cache writes vs. cache reads in `prompt_caching.py`, and why
   stable prompt prefixes matter.
+- You can explain token counting and cost estimation in `token_counting.py`.
+- You can explain the batch lifecycle in `batch_processing.py`: create, poll,
+  retrieve results, and handle per-request outcomes.
 - You can explain the difference between a normal response and a streamed
   response.
 - You can explain why streaming code prints chunks as they arrive but waits until
