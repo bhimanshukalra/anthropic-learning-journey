@@ -153,7 +153,13 @@ you can take a fuzzy product ask, turn it into a working LLM feature, *prove* it
 - [ ] **Agent evals** — scenario tasks, multiple trials, complete traces/trajectories, tool-behavior graders, and final environment-state grading (not self-reported success)
 - *Done means: "how do you know it works?" always has a quantified answer. Most candidates fail here; this is your edge.*
 
-📚 **Sources:** the essay that defines the discipline = Hamel Husain's **"Your AI Product Needs Evals"** (hamel.dev), then his **LLM-as-judge** follow-up ("Creating a LLM-as-a-Judge That Drives Business Results"). Anthropic docs: **"Define success criteria"** + **"Create strong empirical evaluations"**; Anthropic engineering: **"Demystifying evals for AI agents"**. Tooling = **promptfoo docs** (open-source, config-driven, CI-friendly) — wire it into P2.
+📚 **Sources:**
+
+- **Evaluation discipline:** Hamel Husain — [Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/index.html). Treat this as the main essay for building task-specific eval systems, looking at traces, debugging failures, and avoiding vibe-based iteration.
+- **LLM-as-judge:** Hamel Husain — [Creating a LLM-as-a-Judge That Drives Business Results](https://hamel.dev/llm-judge/). Use this for rubric design, human alignment, critique shadowing, and judge error analysis.
+- **Claude eval basics:** Anthropic docs — [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests). Use this for measurable success criteria, exact/programmatic checks, LLM-based grading, and eval design principles.
+- **Agent evals:** Anthropic engineering — [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents). Use this for multi-turn trajectories, environment-state grading, tool-behavior grading, and agent-specific failure modes.
+- **Eval tooling:** promptfoo docs — [Intro](https://www.promptfoo.dev/docs/intro/). Use this for config-driven prompt/model regression tests that can run locally and in CI.
 
 ### 2.6 Production concerns
 
@@ -166,7 +172,13 @@ you can take a fuzzy product ask, turn it into a working LLM feature, *prove* it
 - [ ] Rate limits & quotas at scale
 - *Done means: your capstone survives a hostile demo — malicious input, API outage, cost audit — and you can explain how you would detect regressions after release.*
 
-📚 **Sources:** observability = **Langfuse docs** quickstart (self-host the free tier into P3/P4). Cost = Anthropic docs on **prompt caching** + **models overview** (do the routing math yourself). Security = **Simon Willison's prompt-injection series** (simonwillison.net/tags/prompt-injection — the canonical writing on it, start with "You can't solve prompt injection with more AI") + **OWASP Top 10 for LLM Applications** (one afternoon, interview-citable).
+📚 **Sources:**
+
+- **Observability:** Langfuse docs — [Get started with tracing](https://langfuse.com/docs/observability/get-started). Use this to instrument LLM calls, inspect traces, and track latency, tokens, cost, inputs, outputs, and metadata.
+- **Self-hosting:** Langfuse docs — [Self-hosting](https://langfuse.com/self-hosting). Use this if you want a free/local-ish observability setup for P3/P4 instead of relying only on a hosted dashboard.
+- **Cost engineering:** Anthropic docs — [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) and [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview). Use these for caching breakpoints, model routing, context-window choices, latency/cost trade-offs, and your own routing math.
+- **Security baseline:** Simon Willison — [Prompt injection writing](https://simonwillison.net/tags/prompt-injection/), especially [You can't solve AI security problems with more AI](https://simonwillison.net/2022/Sep/17/prompt-injection-more-ai/). Use this to understand direct and indirect prompt injection as a structural product risk.
+- **Security checklist:** OWASP — [Top 10 for LLMs and Gen AI Apps](https://genai.owasp.org/llm-top-10/). Use this for interview-citable risk categories: prompt injection, sensitive information disclosure, supply chain, improper output handling, excessive agency, vector/embedding weaknesses, and unbounded consumption.
 
 **Boundary:** learn LLMOps for shipped AI products. Do not detour into full training-centric MLOps unless a target job explicitly requires it; model registries, feature stores, distributed training pipelines, and data-labeling platforms are awareness topics for this track, not build requirements.
 
@@ -176,7 +188,11 @@ you can take a fuzzy product ask, turn it into a working LLM feature, *prove* it
 - [ ] What LoRA is conceptually; what an open-weights model is; run one locally once (Ollama)
 - *Done means: you can kill a bad "let's fine-tune" proposal in a meeting with reasons.*
 
-📚 **Sources:** the fine-tuning/RLHF section of **Karpathy's "Deep Dive into LLMs"** (you'll watch it in Phase 1 — rewatch that chapter here). Local model = **Ollama quickstart** (30 minutes: pull a small model, chat, hit its local API). That's genuinely enough for awareness level.
+📚 **Sources:**
+
+- **Fine-tuning/RLHF intuition:** Andrej Karpathy — [Deep Dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI). Rewatch the fine-tuning, supervised fine-tuning, preference tuning, and RLHF sections for awareness-level understanding.
+- **Fine-tuning judgment:** Hamel Husain — [Is Fine-Tuning Still Valuable?](https://hamel.dev/blog/posts/fine-tuning/index.html). Use this to understand when fine-tuning is worth considering and why data/evals matter more than the training button.
+- **Local model hands-on:** Ollama docs — [Quickstart](https://docs.ollama.com/quickstart). Spend ~30 minutes pulling a small model, chatting locally, and hitting the local API once.
 
 ---
 
@@ -188,27 +204,46 @@ you can take a fuzzy product ask, turn it into a working LLM feature, *prove* it
   A CLI-first document-intelligence system that accepts text, scanned images, and PDFs (including tables/charts) and returns validated Pydantic models. Nullable fields + explicit abstention, targeted retry-on-invalid, streaming progress, token/latency/cost logging, and an optional thin FastAPI endpoint.
   **Eval bar:** golden set of 30–50 representative documents; schema-valid rate, per-field accuracy/precision/recall, missing-field hallucination rate, table/chart extraction accuracy, cost + latency per document; regression tests in CI.
   *Proves: multimodal API fundamentals, structured output, validation, measurement, engineering hygiene.*
-  📚 Anthropic vision/PDF + structured-output docs; anthropic-cookbook tool-use and multimodal notebooks.
+  📚 **Sources:**
+
+  - **Multimodal input:** Anthropic docs — [Vision](https://platform.claude.com/docs/en/build-with-claude/vision) and [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support). Use these for image/PDF inputs, page limits, visual-token cost, and document blocks.
+  - **Structured extraction:** Anthropic docs — [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs). Use this for schema-enforced responses, JSON outputs, and validation-oriented extraction.
+  - **Tooling patterns:** Anthropic docs — [Tool use overview](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) and [Anthropic Cookbook](https://github.com/anthropics/claude-cookbooks). Use these for tool-call loops, local function execution, and multimodal examples you can compare against your own implementation.
 
 - [ ] **Project 2 (P2) — Production multimodal RAG with a real eval harness** *(~2–3 weeks)*
   Q&A over a real, messy corpus containing text plus PDFs with tables/images. Preserve page/section/layout metadata; structure-aware + contextual chunking; pgvector, metadata filters, BM25 + vector hybrid retrieval, reranking, page-level citations, ingestion versioning, and caching.
   **Agentic-RAG ablation:** compare fixed retrieve→answer against classify/rewrite/decompose→retrieve→inspect evidence→retrieve again. Keep the agentic path only for query classes where measured quality gain justifies cost/latency.
   **Eval bar:** golden set ≥50–100 questions including unanswerables; retrieval recall@k (plus MRR/nDCG where useful), answer correctness, groundedness, citation accuracy, abstention, cost + latency. Publish chunk-size/contextualization, reranking, top-k, and agentic-vs-fixed experiments.
   *Proves: RAG depth + eval discipline — the highest-signal combination.*
-  📚 Anthropic Contextual Retrieval; pgvector README; promptfoo; Hamel's eval essays as the report model.
+  📚 **Sources:**
+
+  - **Contextual retrieval:** Anthropic engineering — [Introducing Contextual Retrieval](https://www.anthropic.com/engineering/contextual-retrieval). Use this for contextual embeddings, contextual BM25, and the case against naive chunking.
+  - **Vector DB:** pgvector — [README](https://github.com/pgvector/pgvector/blob/master/README.md). Use this for Postgres-native vector storage, indexing, similarity search, and filters.
+  - **Eval harness:** promptfoo docs — [Intro](https://www.promptfoo.dev/docs/intro/). Use this for repeatable RAG regression tests and CI-friendly prompt/model comparison.
+  - **Report model:** Hamel Husain — [Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/index.html) and [AI Evals notes](https://hamel.dev/notes/llm/evals/). Use these as the writing model for your eval report and failure-analysis workflow.
 
 - [ ] **Project 3 (P3) — Bounded tool-using agent + loop-engineering system** *(~2–3 weeks)*
   An agent that performs real recurring multi-step work (support resolution, evidence-backed research, data-quality investigation, issue triage/maintenance). Build the bare loop first; ≥3 scoped tools, one MCP server, retrieval as an optional tool, explicit durable state, idempotent actions, context compaction/memory, full tracing, structured failure recovery, injection defences, and only then one framework held loosely.
   **Loop contract:** trigger → load goal/state → plan/select action → call tool → observe real environment → verify progress → retry/re-plan/escalate → named terminal state → persist trace/memory. Enforce time/step/cost budgets, sandbox/permissions, and human approval for consequential actions; use an independent verifier where it earns its cost.
   **Eval bar:** ≥30–50 scenario tasks with multiple trials; final environment-state/task success, tool selection + argument correctness, policy-violation rate, injected-failure recovery, escalation precision/recall, cost/latency/steps, and comparison with a single call or fixed workflow. CI regression suite.
   *Proves: agents, MCP, context/harness engineering, bounded autonomy, agent evals, production judgment.*
-  📚 "Building Effective Agents"; Anthropic context/harness + agent-evals essays; modelcontextprotocol.io; Langfuse quickstart.
+  📚 **Sources:**
+
+  - **Agent/workflow canon:** Anthropic engineering — [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents). Use this to decide when a fixed workflow is enough and when agentic control flow is justified.
+  - **Harness and context engineering:** Anthropic engineering — [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents), [Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps), and [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents). Use these for durable state, compaction, traces, verification, and long-horizon reliability.
+  - **Agent evals:** Anthropic engineering — [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents). Use this for trajectory grading, final-state grading, and repeated scenario trials.
+  - **MCP:** Model Context Protocol docs — [Build an MCP server](https://modelcontextprotocol.io/docs/develop/build-server). Build one scoped MCP server for the project.
+  - **Observability:** Langfuse docs — [Get started with tracing](https://langfuse.com/docs/observability/get-started). Use this for full traces of agent steps, tool calls, costs, and failures.
 
 - [ ] **Project 4 (P4) — Capstone: deployed AI product with real users** *(~3–4 weeks)*
   Solve one narrow, valuable problem for ≥5 users. FastAPI backend + usable minimal frontend, auth/per-user isolation, streaming UX, and at least one justified multimodal capability. Compose RAG/tools/agents only where the product needs them — this is a judgment test, not a feature checklist.
   **Production bar:** offline evals in CI; traces + quality monitoring; user feedback becomes eval cases; cost/latency budgets, rate-limit handling, routing/fallback, injection tests, PII/audit handling, approval gates for consequential actions, deployment + rollback procedure, and one real incident postmortem. Show a measured improvement driven by users.
   *Proves: end-to-end product ownership — this is the interview centrepiece.*
-  📚 **FastAPI docs** for the API layer; deploy on Railway/Render/Fly (pick one); everything else is Phase 2 skills composed.
+  📚 **Sources:**
+
+  - **API layer:** FastAPI docs — [FastAPI](https://fastapi.tiangolo.com/). Use this for backend routes, request/response models, auth integration points, streaming endpoints, and deployment shape.
+  - **Deployment options:** [Railway FastAPI guide](https://docs.railway.com/guides/fastapi), [Render FastAPI guide](https://render.com/docs/deploy-fastapi), and [Fly.io FastAPI guide](https://fly.io/docs/python/frameworks/fastapi/). Pick one deploy target and go deep enough to handle env vars, logs, rollbacks, and production settings.
+  - **Production AI stack:** Reuse Phase 2 sources for RAG, agents, evals, observability, security, cost routing, prompt caching, and multimodal inputs. P4 is about composing the pieces into a product, not adding new theory.
 
 ### Eval progression across the four projects
 
@@ -261,7 +296,12 @@ you can take a fuzzy product ask, turn it into a working LLM feature, *prove* it
 - [ ] **Pipeline discipline** — target list of companies, 5+ applications/week once P3 is live, don't wait for "ready"
 - [ ] **Role targeting** — collect 20 target job posts, extract repeated requirements, and tune Project 2-Project 4 choices toward the roles you actually want. *Done means: your portfolio bullets map directly to recurring job-description language.*
 
-📚 **Sources:** the one book worth buying = **Chip Huyen, "AI Engineering"** (O'Reilly, 2025) — read it during Phase 3/4; it *is* the LLM system-design interview in book form. Field context = swyx's **"The Rise of the AI Engineer"** essay + the **Latent Space** podcast/newsletter for staying current. Writing model = study how **simonwillison.net** and **hamel.dev** write about projects — that's the register your posts should hit.
+📚 **Sources:**
+
+- **System-design depth:** Chip Huyen — [AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/). This is the one paid book worth using during Phase 3/4; read it alongside the portfolio projects, not before them.
+- **Field context:** swyx / Latent Space — [The Rise of the AI Engineer](https://www.latent.space/p/ai-engineer). Use this to understand the role boundary: application-layer AI engineering, product evals, and shipping with models you did not train.
+- **Staying current:** Latent Space — [About](https://www.latent.space/about) and [Podcast](https://www.latent.space/podcast). Use this lightly for field awareness, not as a reason to delay building.
+- **Writing model:** Simon Willison — [simonwillison.net](https://simonwillison.net/) and Hamel Husain — [hamel.dev](https://hamel.dev/). Study how they write concrete posts from real engineering work: problem, evidence, trade-offs, failures, and reproducible details.
 
 ---
 
