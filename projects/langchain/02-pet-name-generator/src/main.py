@@ -1,5 +1,5 @@
 import streamlit as st
-import helper
+import src.helper as helper
 
 
 def main():
