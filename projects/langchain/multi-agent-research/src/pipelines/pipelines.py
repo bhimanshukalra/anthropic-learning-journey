@@ -1,3 +1,5 @@
+import os
+
 from src.agents.agents import (
     build_search_agent,
     build_reader_agent,
@@ -7,7 +9,34 @@ from src.agents.agents import (
 from rich import print
 
 
+def _validate_environment() -> None:
+    missing = [
+        name for name in ("GROQ_API_KEY", "TAVILY_API_KEY") if not os.getenv(name)
+    ]
+
+    if missing:
+        names = ", ".join(missing)
+        raise RuntimeError(f"Missing required environment variable(s): {names}")
+
+
+def _latest_message_content(result: dict) -> str:
+    messages = result.get("messages", [])
+    if not messages:
+        return ""
+
+    return getattr(messages[-1], "content", "")
+
+
+def _latest_tool_content(result: dict) -> str:
+    for message in reversed(result.get("messages", [])):
+        if message.__class__.__name__ == "ToolMessage":
+            return getattr(message, "content", "")
+
+    return ""
+
+
 def run_research_pipeline(topic: str) -> dict:
+    _validate_environment()
     state = {}
 
     # Search agent
@@ -23,7 +52,9 @@ def run_research_pipeline(topic: str) -> dict:
         }
     )
 
-    state["search_results"] = search_result["messages"][-1].content
+    state["search_results"] = _latest_tool_content(
+        search_result
+    ) or _latest_message_content(search_result)
     print("Search result: \n", state["search_results"])
 
     # Reader agent
@@ -34,13 +65,15 @@ def run_research_pipeline(topic: str) -> dict:
             "messages": [
                 (
                     "user",
-                    f"Based on the following search results about '{topic}', pick the most relevant URL and scrape it for deeper content.\n\nSearch results:\n{state['search_results'][:800]}",
+                    f"Based on the following search results about '{topic}', pick the most relevant URL and scrape it for deeper content.\n\nSearch results:\n{state['search_results'][:4000]}",
                 )
             ]
         }
     )
 
-    state["scraped_content"] = reader_result["messages"][-1].content
+    state["scraped_content"] = _latest_tool_content(
+        reader_result
+    ) or _latest_message_content(reader_result)
 
     print("\n\nScraped content: \n", state["scraped_content"])
 
@@ -52,12 +85,12 @@ def run_research_pipeline(topic: str) -> dict:
         {"topic": topic, "research": research_combined}
     )
 
-    print("Final report", state["report"])
+    print("\n\nFinal report", state["report"])
 
     # Critic report
 
     state["feedback"] = critic_chain.invoke({"report": state["report"]})
 
-    print("Critic report", state["feedback"])
+    print("\n\nCritic report", state["feedback"])
 
     return state

@@ -12,21 +12,35 @@ import re
 
 load_dotenv()
 
-tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
-
 
 @tool
 def web_search(query: str) -> str:
     """Search the web for recent and reliable information on a topic. Returns title, url and snippet for each"""
-    results = tavily.search(query=query, max_results=5)
+    api_key = os.getenv("TAVILY_API_KEY")
 
-    output = []
+    if not api_key:
+        return "Web search failed: missing TAVILY_API_KEY environment variable."
 
-    for current_result in results["results"]:
-        item = f"Title: {current_result['title']}\,URL: {current_result['url']}\nSnippet: {current_result['content'][:300]}\n"
-        output.append(item)
+    try:
+        tavily = TavilyClient(api_key=api_key)
+        results = tavily.search(query=query, max_results=5)
 
-    return "\n-----\n".join(output)
+        output = []
+
+        for current_result in results.get("results", []):
+            item = (
+                f"Title: {current_result.get('title', 'Untitled')}\n"
+                f"URL: {current_result.get('url', 'No URL returned')}\n"
+                f"Snippet: {current_result.get('content', '')[:300]}\n"
+            )
+            output.append(item)
+
+        if not output:
+            return "Web search returned no results."
+
+        return "\n-----\n".join(output)
+    except Exception as e:
+        return f"Web search failed: {e}"
 
 
 @tool

@@ -2,14 +2,13 @@ from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_groq import ChatGroq
 
 from src.tools.tools import web_search, scrape_url
 
 load_dotenv()
 
-llm = ChatGoogleGenerativeAI(model="gemini-3.5-flash")
+llm = ChatGroq(model="qwen/qwen3.6-27b")
 
 
 def build_search_agent():
@@ -24,12 +23,12 @@ writer_prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You are an expert research writer. Write clear, structured and insighful reports.",
+            "You are an expert research writer. Write clear, structured and insightful reports.",
         ),
         (
             "human",
             """
-Wrie a detailed research report on the topic below.
+Write a detailed research report on the topic below.
 Topic: {topic}
 
 Research Gathered:

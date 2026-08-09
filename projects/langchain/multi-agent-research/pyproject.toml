@@ -16,6 +16,7 @@ dependencies = [
     "readability-lxml>=0.8.4.1",
     "requests>=2.34.2",
     "rich>=15.0.0",
+    "streamlit>=1.61.1",
     "tavily-python>=0.7.27",
     "trafilatura>=2.2.0",
 ]
