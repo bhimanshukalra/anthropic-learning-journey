@@ -2,15 +2,14 @@ from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_google_genai import GoogleGenerativeAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_groq import ChatGroq
 
 from src.tools.tools import web_search, scrape_url
 
 load_dotenv()
 
-llm = ChatGroq()
-# model="qwen/qwen3.6-27b"
+llm = ChatGoogleGenerativeAI(model="gemini-3.5-flash")
 
 
 def build_search_agent():
