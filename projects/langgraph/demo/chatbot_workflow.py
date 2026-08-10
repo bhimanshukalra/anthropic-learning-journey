@@ -33,10 +33,12 @@ graph.add_edge("chat_node", END)
 
 chatbot = graph.compile()
 
-initial_state = {
-    "messages": [HumanMessage(content="What is Object oriented programming?")]
-}
+while True:
+    user_message = input("User: ")
 
-response = chatbot.invoke(initial_state)
+    if user_message.strip().lower() in ["exit", "quit", "bye"]:
+        break
 
-print(response["messages"][-1].content)
+    response = chatbot.invoke({"messages": [HumanMessage(user_message)]})
+
+    print("AI: ", response["messages"][-1].content)
