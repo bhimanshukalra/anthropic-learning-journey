@@ -37,24 +37,3 @@ chatbot = graph.compile(checkpointer=checkpoint)
 
 thread_id = "1"
 config = {"configurable": {"thread_id": thread_id}}
-
-#     user_message = input("User: ")
-
-#     if user_message.strip().lower() in ["exit", "quit", "bye"]:
-#         break
-
-#     response = chatbot.invoke({"messages": [HumanMessage(user_message)]}, config=config)
-
-#     print("AI: ", response["messages"][-1].content)
-
-
-# initial_state = {
-#     "messages": [HumanMessage(content="What is Object oriented programming?")]
-# }
-
-# response = chatbot.invoke(initial_state)
-
-# print(response["messages"][-1].content)
-
-
-# print("chatbot state", chatbot.get_state(config))
