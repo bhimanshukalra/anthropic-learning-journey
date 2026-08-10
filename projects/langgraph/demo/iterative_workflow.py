@@ -63,7 +63,10 @@ def evaluate_post(state: PostState):
 
     messages = [
         SystemMessage(
-            content="You are a ruthless, no-laugh-given Facebook critic. You evaluate posts based on humor, originality, virality, and post format."
+            content=(
+                "You are a ruthless, no-laugh-given Facebook critic. You evaluate "
+                "posts based on humor, originality, virality, and post format."
+            )
         ),
         HumanMessage(content=f"""
 Evaluate the following Facebook post:
@@ -89,8 +92,6 @@ Auto-reject if:
 - feedback: One paragraph explaining the strengths and weaknesses 
 """),
     ]
-
-    print("evaluate_post1: ", messages[1])
 
     response = structured_evaluator_llm.invoke(messages)
 
@@ -124,8 +125,6 @@ Re-write it as a short, viral-worthy Facebook post. Avoid Q&A style and stay und
     response = optimiser_llm.invoke(messages).content
     iteration = state["iteration"] + 1
 
-    print("\n\n\n\optimise_post: ", response)
-
     return {"post": response, "iteration": iteration, "post_history": [response]}
 
 
@@ -155,8 +154,12 @@ graph.add_edge("optimise", "evaluate")
 
 workflow = graph.compile()
 
-initial_state = {"topic": "agentic AI", "iteration": 1, "max_iteration": 5}
 
-result = workflow.invoke(initial_state)
+def main():
+    initial_state = {"topic": "agentic AI", "iteration": 1, "max_iteration": 2}
+    result = workflow.invoke(initial_state)
+    print(result)
 
-print(result)
+
+if __name__ == "__main__":
+    main()
