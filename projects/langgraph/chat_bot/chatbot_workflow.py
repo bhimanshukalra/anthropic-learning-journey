@@ -37,3 +37,4 @@ chatbot = graph.compile(checkpointer=checkpoint)
 
 thread_id = "1"
 config = {"configurable": {"thread_id": thread_id}}
+CONFIG = {"configurable": {"thread_id": thread_id}}
