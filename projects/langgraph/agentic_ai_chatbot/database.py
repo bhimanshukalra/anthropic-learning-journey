@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from sqlalchemy import Column, DateTime, Integer, String, Text, create_engine
@@ -10,8 +10,12 @@ DATABASE_URL = "sqlite:///data/chatbot_memory.db"
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 
-SessionLocal = sessionmaker()
+SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
+
+
+def utc_now():
+    return datetime.now(timezone.utc)
 
 
 class Conversation(Base):
@@ -20,8 +24,8 @@ class Conversation(Base):
     id = Column(Integer, primary_key=True, index=True)
     thread_id = Column(String, primary_key=True, index=True)
     title = Column(String, default="New Chat")
-    created_at = Column(DateTime, default=datetime.now(datetime.timezone.utc))
-    updated_at = Column(DateTime, default=datetime.now(datetime.timezone.utc))
+    created_at = Column(DateTime, default=utc_now)
+    updated_at = Column(DateTime, default=utc_now)
 
 
 class ChatMessage(Base):
@@ -31,7 +35,7 @@ class ChatMessage(Base):
     thread_id = Column(String, index=True)
     role = Column(String)
     content = Column(Text)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=utc_now)
 
 
 class LongTermMemory(Base):
@@ -40,7 +44,7 @@ class LongTermMemory(Base):
     id = Column(Integer, primary_key=True, index=True)
     thread_id = Column(String, index=True)
     memory = Column(Text)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=utc_now)
 
 
 def init_db():
@@ -66,14 +70,14 @@ def create_or_update_conversation(thread_id: str, first_message: str | None = No
             conversation = Conversation(
                 thread_id=thread_id,
                 title=title,
-                created_at=datetime.now(datetime.timezone.utc),
-                updated_at=datetime.now(datetime.timezone.utc),
+                created_at=utc_now(),
+                updated_at=utc_now(),
             )
 
             db.add(conversation)
 
         else:
-            conversation.updated_at = datetime.now(datetime.timezone.utc)
+            conversation.updated_at = utc_now()
 
         db.commit()
 
@@ -99,7 +103,7 @@ def save_chat_message(thread_id: str, role: str, content: str):
             thread_id=thread_id,
             role=role,
             content=content,
-            created_at=datetime.now(datetime.timezone.utc),
+            created_at=utc_now(),
         )
 
         db.add(msg)
@@ -109,7 +113,7 @@ def save_chat_message(thread_id: str, role: str, content: str):
         )
 
         if conversation:
-            conversation.updated_at = datetime.now(datetime.timezone.utc)
+            conversation.updated_at = utc_now()
 
         db.commit()
 
@@ -139,7 +143,7 @@ def save_memory(thread_id: str, memory: str):
         item = LongTermMemory(
             thread_id=thread_id,
             memory=memory,
-            created_at=datetime.now(datetime.timezone.utc),
+            created_at=utc_now(),
         )
 
         db.add(item)
