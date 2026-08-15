@@ -567,10 +567,27 @@
       const noticeText = document.getElementById("noticeText");
       const micBtn = document.getElementById("micBtn");
 
+      function createThreadId() {
+        if (window.crypto && typeof window.crypto.randomUUID === "function") {
+          return window.crypto.randomUUID();
+        }
+
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (char) => {
+          const randomValue =
+            window.crypto && typeof window.crypto.getRandomValues === "function"
+              ? window.crypto.getRandomValues(new Uint8Array(1))[0] & 15
+              : Math.floor(Math.random() * 16);
+
+          const value = char === "x" ? randomValue : (randomValue & 3) | 8;
+
+          return value.toString(16);
+        });
+      }
+
       let threadId = localStorage.getItem("thread_id");
 
       if (!threadId) {
-        threadId = crypto.randomUUID();
+        threadId = createThreadId();
         localStorage.setItem("thread_id", threadId);
       }
 
@@ -590,8 +607,8 @@
         });
       }
 
-      let recognition = null;
-      let isDictating = false;
+      var recognition = null;
+      var isDictating = false;
 
       function setupSpeechRecognition() {
         const SpeechRecognition =
@@ -1169,7 +1186,7 @@
       }
 
       async function newChat() {
-        threadId = crypto.randomUUID();
+        threadId = createThreadId();
         localStorage.setItem("thread_id", threadId);
 
         if (isDictating) {

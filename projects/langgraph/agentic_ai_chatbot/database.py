@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from pathlib import Path
 
-from sqlalchemy import Column, DateTime, Integer, String, Text, create_engine
+from sqlalchemy import Column, DateTime, Integer, String, Text, create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 Path("data").mkdir(exist_ok=True)
@@ -22,7 +22,7 @@ class Conversation(Base):
     __tablename__ = "conversations"
 
     id = Column(Integer, primary_key=True, index=True)
-    thread_id = Column(String, primary_key=True, index=True)
+    thread_id = Column(String, nullable=False, unique=True, index=True)
     title = Column(String, default="New Chat")
     created_at = Column(DateTime, default=utc_now)
     updated_at = Column(DateTime, default=utc_now)
@@ -47,7 +47,45 @@ class LongTermMemory(Base):
     created_at = Column(DateTime, default=utc_now)
 
 
+def migrate_conversations_table():
+    with engine.begin() as conn:
+        columns = conn.execute(text("PRAGMA table_info(conversations)")).mappings().all()
+
+        if not columns:
+            return
+
+        primary_key_columns = [column["name"] for column in columns if column["pk"]]
+
+        if primary_key_columns == ["id"]:
+            return
+
+        conn.execute(text("DROP INDEX IF EXISTS ix_conversations_id"))
+        conn.execute(text("DROP INDEX IF EXISTS ix_conversations_thread_id"))
+        conn.execute(text("ALTER TABLE conversations RENAME TO conversations_old"))
+
+        Conversation.__table__.create(bind=conn)
+
+        conn.execute(
+            text(
+                """
+                INSERT INTO conversations (thread_id, title, created_at, updated_at)
+                SELECT
+                    thread_id,
+                    COALESCE(title, 'New Chat'),
+                    created_at,
+                    updated_at
+                FROM conversations_old
+                WHERE thread_id IS NOT NULL AND thread_id != ''
+                GROUP BY thread_id
+                """
+            )
+        )
+
+        conn.execute(text("DROP TABLE conversations_old"))
+
+
 def init_db():
+    migrate_conversations_table()
     Base.metadata.create_all(bind=engine)
 
 

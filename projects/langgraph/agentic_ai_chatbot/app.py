@@ -188,7 +188,7 @@ async def chat_stream(request: Request):
         return JSONResponse({"error": "Invalid JSON body."}, status_code=400)
 
     user_message = data.get("message", "")
-    thread_id = data.get("thread_id", "default")
+    thread_id = data.get("thread_id") or str(uuid.uuid4())
     selected_model = data.get("model", "gemini-2.5-flash")
 
     if not user_message.strip():
