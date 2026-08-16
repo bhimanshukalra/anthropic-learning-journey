@@ -1,9 +1,11 @@
-from langchain_mcp_adapters.client import MultiServerMCPClient
+import asyncio
+
+from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_groq import ChatGroq
-from dotenv import load_dotenv
-import asyncio
-import os
+from langchain_mcp_adapters.client import MultiServerMCPClient
+
+load_dotenv()
 
 
 async def main():
@@ -22,10 +24,10 @@ async def main():
     )
 
     tools = await client.get_tools()
-    model = ChatGroq(model="qwen-qwq-32b")
+    model = ChatGroq(model="qwen/qwen3.6-27b", reasoning_format="hidden")
     agent = create_agent(model, tools)
 
-    math_response = await agent.invoke(
+    math_response = await agent.ainvoke(
         {"messages": [{"role": "user", "content": "What's (3+5) x 12?"}]}
     )
 
