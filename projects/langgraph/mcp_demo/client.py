@@ -41,7 +41,7 @@ async def main():
         }
     )
 
-    print("weather_response: ", weather_response["message"][-1].content)
+    print("weather_response: ", weather_response["messages"][-1].content)
 
 
 asyncio.run(main())
