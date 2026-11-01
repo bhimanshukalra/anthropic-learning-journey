@@ -37,3 +37,9 @@ Sample from minimum set of tokens whose cumulative probability is greater or equ
 
 (If all three are set, this is how they'll be used)
 top K > top P > temperature
+
+## Vector indexing
+
+- HNSW (Hierarchical Navigable Small World) is a graph-based algorithm for approximate nearest neighbor (ANN) search in high-dimensional vector spaces.
+
+- An Inverted File Index (IVF) is an Approximate Nearest Neighbor (ANN) algorithm that speeds up high-dimensional vector searches by grouping similar vectors into distinct clusters.
