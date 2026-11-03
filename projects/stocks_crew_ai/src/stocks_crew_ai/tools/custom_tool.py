@@ -1,18 +1,35 @@
 from crewai.tools import BaseTool
-from typing import Type
-from pydantic import BaseModel, Field
+import yfinance as yf
 
 
-class MyCustomToolInput(BaseModel):
-    """Input schema for MyCustomTool."""
-    argument: str = Field(..., description="Description of the argument.")
+def get_stock_data(ticker_sybmol: str) -> str:
+    """Get current price and recent news for a given stock ticker symbol."""
+    stock = yf.Ticker(ticker_sybmol)
 
-class MyCustomTool(BaseTool):
-    name: str = "Name of my tool"
-    description: str = (
-        "Clear description for what this tool is useful for, your agent will need this information to use it."
-    )
-    args_schema: Type[BaseModel] = MyCustomToolInput
+    info = stock.info
 
-    def _run(self, argument: str) -> str:
-        return "this is an example of a tool output, ignore it and move along."
+    current_price = info.get('currentPrice', 'N/A')
+    previous_close = info.get('previousClose', 'N/A')
+
+    if current_price != 'N/A' and previous_close != 'N/A':
+        percentage_change = ((current_price - previous_close) / previous_close) * 100
+        price_info = f'Price {current_price:.2f} ({percentage_change:+.2f})'
+    else:
+        price_info = "No price info available"
+
+    news = stock.news
+
+    headlines= []
+
+    for news_item in news[:8]:
+        title = news_item['content'].get('title', '').strip()
+
+        if title:
+            headlines.append(f'- {title}')
+
+    if not headlines:
+        headlines = [- No headlines available.]
+
+    news_text = '\n'.join(headlines)
+
+    return f'{price_info}\n\nRecent News:\n{news_text}'
